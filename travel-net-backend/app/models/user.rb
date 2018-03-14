@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_friendship
-  belongs_to :location
+  belongs_to :city
+
 
 end

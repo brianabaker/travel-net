@@ -5,11 +5,16 @@
   "dependencies": {
     "googlemaps": "^1.12.0",
     "react": "^16.2.0",
+    "react-country-region-selector": "^1.2.3",
     "react-dom": "^16.2.0",
+    "react-geocode": "^0.0.7",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
-    "redux": "^3.7.2"
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

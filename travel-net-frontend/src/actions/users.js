@@ -1,0 +1,10 @@
+// have an add user action?
+
+export const ADD_USER = "ADD_USER"
+
+export function addUser(user) {
+  return {
+    type: ADD_USER,
+    payload: user
+  }
+}
