@@ -10,7 +10,7 @@ import thunk from "redux-thunk"
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux"
 
@@ -21,7 +21,7 @@ import AppRoutes from "./appRoutes";
 import usersReducer from "./reducers/usersReducer"
 
 // react-router-redux
-import { routerReducer, routerMiddleware, ConnectedRouter, push } from 'react-router-redux'
+import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 const router = routerMiddleware(history)

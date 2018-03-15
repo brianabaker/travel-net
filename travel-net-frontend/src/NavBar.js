@@ -12,9 +12,9 @@ const NavBar = (props) => {
       <a className="item">
         Home
       </a>
-      <a className="item">
+      <Link to='/friends' className="item">
         Your Friends
-      </a>
+      </Link>
       <div className="right menu">
         <a className="item">
           SignIn
