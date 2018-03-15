@@ -1,4 +1,0 @@
-class RegionsController < ApplicationController
-
-
-end

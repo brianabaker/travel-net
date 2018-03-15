@@ -6,7 +6,7 @@ import { compose, withProps, withStateHandlers } from "recompose"
 import {  withScriptjs, withGoogleMap, GoogleMap, Marker, Polyline } from "react-google-maps"
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
 
-var blueIcon = require('./blue-icon.png');
+var blueIcon = require('./images/blue-icon.png');
 
 const AllFriendsMap = compose(
   withProps({

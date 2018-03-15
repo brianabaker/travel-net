@@ -10,26 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313170652) do
+ActiveRecord::Schema.define(version: 20180312194409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "cities", force: :cascade do |t|
-    t.string "name"
-    t.decimal "lat", precision: 10, scale: 6
-    t.decimal "lng", precision: 10, scale: 6
-    t.bigint "region_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["region_id"], name: "index_cities_on_region_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "friendships", id: :serial, force: :cascade do |t|
     t.string "friendable_type"
@@ -41,20 +25,11 @@ ActiveRecord::Schema.define(version: 20180313170652) do
     t.integer "status"
   end
 
-  create_table "regions", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_regions_on_country_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.bigint "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["city_id"], name: "index_users_on_city_id"
+    t.string "bio"
+    t.decimal "lat", precision: 10, scale: 6
+    t.decimal "lng", precision: 10, scale: 6
   end
 
 end

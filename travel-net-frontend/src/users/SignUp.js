@@ -3,6 +3,12 @@
 import React from "react";
 import Geocode from "react-geocode";
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { connect } from "react-redux"
+
+// actions
+import { createUser } from "../actions/users"
+
+
 
 class SignUp extends React.Component {
   state = {
@@ -31,58 +37,22 @@ class SignUp extends React.Component {
     Geocode.setApiKey("AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0");
     Geocode.enableDebug();
     let fullLocation = `${this.state.city} ${this.state.region} ${this.state.country}`
-    console.log(fullLocation)
+    // console.log(fullLocation)
     Geocode.fromAddress(fullLocation).then(
       response => {
+        console.log('response', response)
         const { lat, lng } = response.results[0].geometry.location;
-        fetch(`http://localhost:3000/cities/`, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            city: this.state.city,
-            country: this.state.country,
-            region: this.state.region,
-            lat: lat,
-            lng: lng
-          })
-        })
-        .then(res => res.json())
-        .then(json => console.log(json))
-        // .then(cityJSON => {
-        //   this.postUser(this.state.username, cityJSON.id)
-        // })
+        this.props.createUser(this.state.username, lat, lng)
       },
       error =>
-        if error is Error: Server returned status code ZERO_RESULTS
        {
         console.error(error);
       }
     );
   };
 
-  postUser = (username, city_id) => {
-    console.log('postuser', username)
-    console.log('postuser', city_id)
-    fetch(`http://localhost:3000/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        makeUser: {
-          username: username,
-          city_id: city_id
-        }
-      })
-    })
-      .then(res => res.json())
-      .then(json => console.log(json));
-  };
-
-
   render() {
+    // console.log(this.props)
     return (
       <div>
         <form onSubmit={this.addUser}>
@@ -126,5 +96,4 @@ class SignUp extends React.Component {
     );
   }
 }
-
-export default SignUp
+export default connect(null, { createUser })(SignUp)

@@ -1,23 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
 // style
 import './index.css';
 import 'semantic-ui-css/semantic.min.css'
 
-//react-redux
-import { createStore, combineReducers } from "redux";
+// devtools
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+//thunk
+import thunk from "redux-thunk"
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 import { Provider } from "react-redux";
+import { createStore, combineReducers, applyMiddleware } from "redux"
+
+//react-redux
+import AppRoutes from "./appRoutes";
 
 // reducers
-import rootReducer from "./reducers/rootReducer";
+import usersReducer from "./reducers/usersReducer"
 
-const store = createStore(rootReducer)
+// react-router-redux
+import { routerReducer, routerMiddleware, ConnectedRouter, push } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+const history = createHistory()
+const router = routerMiddleware(history)
+
+const reducers= combineReducers({users: usersReducer, router: routerReducer});
+
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
 console.log(store.getState())
-
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
- , document.getElementById('root'));
+ <Provider store={store}>
+   <ConnectedRouter history={history}>
+     <AppRoutes />
+   </ConnectedRouter>
+ </Provider>,
+ document.getElementById('root')
+)
