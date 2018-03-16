@@ -2,9 +2,15 @@
 // info box is yellow
 
 import React from "react"
+
+// map packages
 import { compose, withProps, withStateHandlers } from "recompose"
 import {  withScriptjs, withGoogleMap, GoogleMap, Marker, Polyline } from "react-google-maps"
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
+
+// react-redux
+import { connect } from 'react-redux'
+
 
 var blueIcon = require('./images/blue-icon.png');
 
@@ -26,30 +32,18 @@ const AllFriendsMap = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-
   <GoogleMap
     defaultZoom={5}
     defaultCenter={props.center}
   >
-  <Polyline
-  path={[{ lat: 40.712775, lng: -74.005973 },
-    {lat: 39.9521740263203, lng: -75.1661518986459},
-    ]}
-  options={{
-  strokeColor: '#ff0000',
-  strokeOpacity: 1,
-  strokeWeight: 3,
-  icons: [{
-    icon: "safe",
-    offset: '0',
-    repeat: '10px'
-  }],
-}}
-/>
-    <Marker
+  {props.friends.map((friend, i) => {
+    let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
+    let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
+      return (<Marker
+      key={i}
       icon={blueIcon}
-      cityName={"hi"}
-      position={{lat: 34.052234, lng: -118.243685}}
+      cityName={console.log(i)}
+      position={{ lat: lat, lng: lng }}
       onClick={props.onToggleOpen}
     >
       {props.isOpen && <InfoBox
@@ -57,13 +51,34 @@ const AllFriendsMap = compose(
         options={{ closeBoxURL: ``, enableEventPropagation: true }}
       >
         <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
-          <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>{this.cityName}
+          <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>"Hey"
           </div>
         </div>
       </InfoBox>}
-    </Marker>
+    </Marker>)
+  })}
+
   </GoogleMap>
 )
 
+const mapStateToProps = (state) => {
+  return {friends: state.users.friends}
+}
 
-export default AllFriendsMap
+// <Polyline
+// path={[{ lat: 40.712775, lng: -74.005973 },
+//   {lat: 39.9521740263203, lng: -75.1661518986459},
+//   ]}
+// options={{
+// strokeColor: '#ff0000',
+// strokeOpacity: 1,
+// strokeWeight: 3,
+// icons: [{
+//   icon: "safe",
+//   offset: '0',
+//   repeat: '10px'
+// }],
+// }}
+// />
+
+export default connect(mapStateToProps)(AllFriendsMap)

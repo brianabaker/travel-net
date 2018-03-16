@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show,:update,:destroy]
 
   def show
+    @current_user = User.find(params[:currentUser][:id])
+    @user = User.find(params[:id])
+    # @are_friends = @current_user.friends(@user)
     render json: @user, status: 200
   end
 

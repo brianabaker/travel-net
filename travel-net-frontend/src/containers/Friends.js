@@ -5,48 +5,62 @@ import { connect } from 'react-redux'
 
 // components
 import AllFriendsMap from '../allFriendsMap'
-import FindFriends from '../friends/FindFriends'
+import FindFriends from '../friends/FindFriends'// this is the search component
 import ListFriends from '../friends/ListFriends'
 import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
-import {viewFriendRequests} from '../actions/users'
+import {viewFriendRequests, fetchFriends} from '../actions/users'
 
 // const handleClick = (e) => {
 //   e.preventDefault()
 //   props.viewFriendRequests(props.currentUser)
 // }
 
-const Friends = (props) => {
-  const handleClick = (e) => {
+// import FilterFriends  from '../FilterFriends'
+class Friends extends React.Component {
+
+  handleClick = (e) => {
     e.preventDefault()
-    props.viewFriendRequests(props.currentUser)
+    this.props.viewFriendRequests(this.props.currentUser)
   }
 
-  return(
-    <div className="ui stackable grid container">
-      <div className="two column row">
-        <div className="column"><FindFriends/></div>
-        <div className="column"><button onClick={handleClick} className="ui green button">See Friend Requests</button></div>
-      </div>
-      <div className="ten wide column">
-        <AllFriendsMap/>
-      </div>
-      {props.friendRequests ?
+  componentDidMount(){
+    this.props.fetchFriends(this.props.currentUser)
+  }
+
+  render(){
+    return(
+      <div className="ui stackable grid container">
+        {this.props.friends ?
+        <React.Fragment>
+        <div className="two column row">
+          <div className="column"><FindFriends/></div>
+          <div className="column"><button onClick={this.handleClick} className="ui green button">See Friend Requests</button></div>
+        </div>
+        <div className="ten wide column">
+          <AllFriendsMap/>
+        </div>
+        {this.props.friendRequests ?
+          <div className="four wide column">
+            <FriendRequests/>
+          </div> :
         <div className="four wide column">
-          <FriendRequests/>
-        </div> :
-      <div className="four wide column">
-        {props.searchedUsers.length > 0 ? <SearchedUsers data={props.searchedUsers}/> : <ListFriends/>}
+          {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends/>}
+        </div>
+        }
+        </React.Fragment>
+        :
+        "Loading"}
       </div>
-      }
-    </div>
-  )
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
-        friendRequests: state.users.friendRequests,
+          friends: state.users.friends,
+          friendRequests: state.users.friendRequests,
           searchedUsers: state.users.searchedUsers}
 }
 
-export default connect(mapStateToProps, {viewFriendRequests})(Friends)
+export default connect(mapStateToProps, {viewFriendRequests, fetchFriends})(Friends)

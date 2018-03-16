@@ -1,6 +1,6 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS, SEARCHED_USERS, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS } from '../actions/users'
+import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS, SEARCHED_USERS, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE } from '../actions/users'
 
 
 // {id: 6, username: "Mimi", bio: null, lat: "25.76168", lng: "-80.19179"}
@@ -11,8 +11,8 @@ const defaultState = {
   searchedUsers: '',
   isLoading: false,
   alert: '',
-  selectedUser: '',
-  friends: ''
+  friends: '',
+  selectedUser: ''
 }
 
 // loader on 45:00
@@ -52,6 +52,10 @@ function rootReducer(state = defaultState, action) {
       return {...state, isLoading: true}
     case FETCHED_FRIENDS:
       return {...state, isLoading: false, friends: action.payload}
+    case FETCHING_PROFILE:
+      return {...state, isLoading: true}
+    case FETCHED_PROFILE:
+      return {...state, isLoading: false, selectedUser: action.payload}
     default:
       return state;
     }

@@ -2,17 +2,9 @@
 // packages
 import React, { Component } from 'react';
 import './App.css';
-// import { BrowserRouter } from 'react-router-dom'
 
-//components
-// import NavBar from './NavBar'
-// import SignUp from './users/SignUp'
-// import AllFriendsMap from './allFriendsMap'
 import FrontPage from './containers/FrontPage'
-// import FindAddress from './findAddress'
 
-// <SignUp/>
-// <AllFriendsMap/>
 
 class App extends Component {
   render() {

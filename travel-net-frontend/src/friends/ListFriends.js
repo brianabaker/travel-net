@@ -12,9 +12,9 @@ class ListFriends extends React.Component {
   componentDidMount(){
     this.props.fetchFriends(this.props.currentUser)
   }
+
   render() {
     // const friends = this.props.friends.map(friend => <li>friend.username</li>)
-    console.log(this.props)
     return(
       <div>
         <h4>Friends List</h4>

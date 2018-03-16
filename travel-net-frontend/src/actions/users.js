@@ -21,6 +21,9 @@ export const POSTIVE_RESPONSE_FRIEND_REQUEST = "POSTIVE_RESPONSE_FRIEND_REQUEST"
 export const COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST = "COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST"
 export const FETCHING_FRIENDS = "FETCHING_FRIENDS"
 export const FETCHED_FRIENDS = "FETCHED_FRIENDS"
+export const FETCHING_PROFILE = "FETCHING_PROFILE"
+export const FETCHED_PROFILE = "FETCHED_PROFILE"
+
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
 
@@ -39,7 +42,16 @@ export function selectUser(user) {
   }
 }
 
-// THESE ARE ALL FETCHES AND NEED THUNK 
+// THESE ARE ALL FETCHES AND NEED THUNK
+
+export function fetchProfile(currentUser, id){
+  return function(dispatch){
+    dispatch({type: "FETCHING_PROFILE"})
+    UserApi.fetchProfile(currentUser, id).then(profileJSON => {
+      dispatch({type: "FETCHED_PROFILE", payload: profileJSON})
+    })
+  }
+}
 
 export function fetchFriends(currentUser) {
   return function(dispatch){
@@ -74,7 +86,7 @@ export function findUser(username) {
     dispatch({type: "FINDING_USER"})
     UserApi.findUser(username).then(userJSON => {
       dispatch({type: "FOUND_USER", payload: userJSON})
-      // dispatch(push('/welcome'))
+      dispatch(push('/welcome'))
     })
   }
 }

@@ -83,6 +83,19 @@ class UserApi {
     return fetch(`http://localhost:3000/users/${currentUser.id}/friends`)
     .then(res => res.json())
   }
+
+  static fetchProfile(currentUser, id){
+    return fetch(`http://localhost:3000/users/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentUser: currentUser
+      })
+    })
+    .then(res => res.json())
+  }
 }
 
 export default UserApi;

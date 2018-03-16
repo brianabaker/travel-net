@@ -3,7 +3,6 @@
 // packages
 import React from "react";
 import { Route, Switch} from "react-router-dom";
-import { push } from 'react-router-redux'
 
 //components and containers
 import App from "./App";
@@ -17,7 +16,7 @@ import Profile from './users/Profile'
 
 // this is in charge of all the routes
 const AppRoutes = (props) => {
- return (
+   return (
      <React.Fragment>
        <NavBar/>
        <Switch>
@@ -26,9 +25,10 @@ const AppRoutes = (props) => {
          <Route exact path="/signin" component={SignIn}/>
          <Route exact path="/welcome" component={Welcome}/>
          <Route exact path="/friends" component={Friends}/>
-         <Route path="/profile/:userId" component={Profile}/>
+         <Route path="/users/:userId" component={Profile}/>
       </Switch>
     </React.Fragment>
- )
+   )
 }
+
 export default AppRoutes;
