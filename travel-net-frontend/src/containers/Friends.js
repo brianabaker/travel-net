@@ -20,6 +20,9 @@ import WorkingMap from '../maps/Hybrid'
 
 // import FilterFriends  from '../FilterFriends'
 class Friends extends React.Component {
+  state = {
+    filterFriends: ''
+  }
 
   handleClick = (e) => {
     e.preventDefault()
@@ -29,6 +32,24 @@ class Friends extends React.Component {
   componentDidMount(){
     this.props.fetchFriends(this.props.currentUser)
   }
+
+  friendsByLocation = (lat, lng) => {
+    let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
+    this.setState({
+      filterFriends: friendsArray
+    })
+  }
+
+  undoFriendsByLocation = () => {
+    this.setState({
+      filterFriends: this.state.friends
+    })
+  }
+
+  // countByLocation = (lat, lng) => {
+  //   let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
+  //   console.log(friendsArray)
+  // }
 
   render(){
     return(
@@ -40,14 +61,14 @@ class Friends extends React.Component {
           <div className="column"><button onClick={this.handleClick} className="ui green button">See Friend Requests</button></div>
         </div>
         <div className="ten wide column">
-          <WorkingMap friends={this.props.friends}/>
+          <WorkingMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
         </div>
         {this.props.friendRequests ?
           <div className="four wide column">
             <FriendRequests/>
           </div> :
         <div className="four wide column">
-          {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends/>}
+          {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends data={this.state.filterFriends}/>}
         </div>
         }
         </React.Fragment>

@@ -14,11 +14,18 @@ class ListFriends extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     // const friends = this.props.friends.map(friend => <li>friend.username</li>)
     return(
       <div>
         <h4>Friends List</h4>
-          {this.props.friends ? this.props.friends.map(friend => <UserItem key={friend.id} data={friend}/>) : null}
+          {this.props.friends ?
+          <React.Fragment>
+            {this.props.data ?
+            this.props.data.map(friend => <UserItem key={friend.id} data={friend}/>) :
+            this.props.friends.map(friend => <UserItem key={friend.id} data={friend}/>)}
+          </React.Fragment>
+          : "Loading" }
       </div>
     )
   }

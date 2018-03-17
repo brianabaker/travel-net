@@ -19,10 +19,11 @@ class WorkingMap extends React.Component {
     })
   }
 
-  handleToggleOpen = (markerId) => {
+  handleToggleOpen = (markerId, lat, lng) => {
     this.setState({
-        openInfoWindowMarkerId: markerId
+        openInfoWindowMarkerId: markerId,
     })
+    this.props.cb(lat, lng)
   }
 
   handleToggleClose = (id) => {
@@ -30,6 +31,7 @@ class WorkingMap extends React.Component {
       isOpen: false,
       openInfoWindowMarkerId: ''
     });
+    this.props.undo()
   }
 
   // this is not working
@@ -68,7 +70,7 @@ class WorkingMap extends React.Component {
           key={i}
           label={i.toString()}
           position={{ lat: lat, lng: lng }}
-          onClick={() => this.handleToggleOpen(i)}
+          onClick={() => this.handleToggleOpen(i, lat, lng)}
         >
           {this.state.openInfoWindowMarkerId === i && <InfoWindow
             onCloseClick={this.handleToggleClose}
