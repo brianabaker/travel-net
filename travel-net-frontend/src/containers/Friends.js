@@ -4,13 +4,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // components
-import AllFriendsMap from '../allFriendsMap'
+// import AllFriendsMap from '../allFriendsMap'
 import FindFriends from '../friends/FindFriends'// this is the search component
 import ListFriends from '../friends/ListFriends'
 import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
 import {viewFriendRequests, fetchFriends} from '../actions/users'
+import WorkingMap from '../maps/Hybrid'
 
+/// i'm not sure what this is for anymore
 // const handleClick = (e) => {
 //   e.preventDefault()
 //   props.viewFriendRequests(props.currentUser)
@@ -38,7 +40,7 @@ class Friends extends React.Component {
           <div className="column"><button onClick={this.handleClick} className="ui green button">See Friend Requests</button></div>
         </div>
         <div className="ten wide column">
-          <AllFriendsMap/>
+          <WorkingMap friends={this.props.friends}/>
         </div>
         {this.props.friendRequests ?
           <div className="four wide column">

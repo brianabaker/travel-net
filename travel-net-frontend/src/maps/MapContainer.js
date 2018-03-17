@@ -34,7 +34,8 @@ const AllFriendsMap = compose(
 )((props) =>
   <GoogleMap
     defaultZoom={5}
-    defaultCenter={props.center}
+    funny = {(console.log(props.currentUser))}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
   >
   {props.friends.map((friend, i) => {
     let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
@@ -44,7 +45,7 @@ const AllFriendsMap = compose(
       icon={blueIcon}
       cityName={console.log(i)}
       position={{ lat: lat, lng: lng }}
-      onClick={props.onToggleOpen}
+      onClick={() => props.onToggleOpen(i)}
     >
       {props.isOpen && <InfoBox
         onCloseClick={props.onToggleOpen}
@@ -62,9 +63,12 @@ const AllFriendsMap = compose(
 )
 
 const mapStateToProps = (state) => {
-  return {friends: state.users.friends}
+  return {friends: state.users.friends,
+          currentUser: state.users.currentUser}
 }
 
+// const userLat = {parseFloat(props.currentUser.lat.replace('"','').replace('"',''))}
+// const userLng = {parseFloat(props.currentUser.lng.replace('"','').replace('"',''))}
 // <Polyline
 // path={[{ lat: 40.712775, lng: -74.005973 },
 //   {lat: 39.9521740263203, lng: -75.1661518986459},
