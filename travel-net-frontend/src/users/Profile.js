@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {requestFriendship, fetchProfile} from '../actions/users'
 // import {fetchFriends} from '../actions/users'
 
-class Profile extends React.Component {  
+class Profile extends React.Component {
   componentDidMount(){
     let id = parseInt(this.props.match.params.userId, 10)
     this.props.fetchProfile(this.props.currentUser, id)
@@ -55,7 +55,6 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("STATE", state)
   return {currentUser: state.users.currentUser,
           alert: state.users.alert,
           isLoading: state.users.isLoading,

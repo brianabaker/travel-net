@@ -34,14 +34,14 @@ class WorkingMap extends React.Component {
     this.props.undo()
   }
 
-  // this is not working
   // geoLocateUsers = () => {
   //   Geocode.setApiKey("AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0");
   //   Geocode.enableDebug();
+  //   let address  =
   //   this.props.friends.forEach(user => {
   //     Geocode.fromLatLng(`${user.lat}`, `${user.lng}`).then(
   //       response => {
-  //        response.results.find(place =>
+  //        address = response.results.find(place =>
   //            place.types.includes("locality")
   //         ).formatted_address
   //       },
@@ -52,6 +52,10 @@ class WorkingMap extends React.Component {
   //   })
   // }
 
+  numberOfPeopleAtLocation = (lat, lng) => {
+    let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
+    return friendsArray.length.toString()
+  }
 
   render() {
     return (
@@ -68,7 +72,7 @@ class WorkingMap extends React.Component {
         let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
           return (<Marker
           key={i}
-          label={i.toString()}
+          label={this.numberOfPeopleAtLocation(lat, lng)}
           position={{ lat: lat, lng: lng }}
           onClick={() => this.handleToggleOpen(i, lat, lng)}
         >

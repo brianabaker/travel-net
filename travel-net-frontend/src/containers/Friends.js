@@ -11,7 +11,10 @@ import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
 import {viewFriendRequests, fetchFriends} from '../actions/users'
 import WorkingMap from '../maps/Hybrid'
+import Geocode from "react-geocode";
 
+
+import FindAddress from '../findAddress'
 /// i'm not sure what this is for anymore
 // const handleClick = (e) => {
 //   e.preventDefault()
@@ -21,7 +24,8 @@ import WorkingMap from '../maps/Hybrid'
 // import FilterFriends  from '../FilterFriends'
 class Friends extends React.Component {
   state = {
-    filterFriends: ''
+    filterFriends: '',
+    cityName: ''
   }
 
   handleClick = (e) => {
@@ -38,22 +42,41 @@ class Friends extends React.Component {
     this.setState({
       filterFriends: friendsArray
     })
-  }
+    Geocode.setApiKey("AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0");
+    Geocode.enableDebug();
+    let address = ''
+      Geocode.fromLatLng(lat, lng).then(
+        response => {
+         address = response.results.find(place =>
+             place.types.includes("locality")
+          ).formatted_address
+          this.setState({
+            cityName: address
+          })
+        },
+        error => {
+          console.error(error);
+        }
+      )
+    }
+
 
   undoFriendsByLocation = () => {
     this.setState({
-      filterFriends: this.state.friends
+      filterFriends: this.state.friends,
+      cityName: ''
     })
   }
 
-  // countByLocation = (lat, lng) => {
-  //   let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
-  //   console.log(friendsArray)
-  // }
+  countByLocation = (lat, lng) => {
+    let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
+    console.log(friendsArray)
+  }
 
   render(){
     return(
       <div className="ui stackable grid container">
+        <FindAddress/>
         {this.props.friends ?
         <React.Fragment>
         <div className="two column row">
@@ -68,7 +91,7 @@ class Friends extends React.Component {
             <FriendRequests/>
           </div> :
         <div className="four wide column">
-          {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends data={this.state.filterFriends}/>}
+          {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends data={this.state.filterFriends} city={this.state.cityName}/>}
         </div>
         }
         </React.Fragment>

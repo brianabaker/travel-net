@@ -19,6 +19,7 @@ class ListFriends extends React.Component {
     return(
       <div>
         <h4>Friends List</h4>
+          {this.props.city ? <h4>{this.props.city}</h4> : null } 
           {this.props.friends ?
           <React.Fragment>
             {this.props.data ?

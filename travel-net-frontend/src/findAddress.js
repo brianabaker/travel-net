@@ -18,10 +18,11 @@ componentDidMount(){
   Geocode.enableDebug();
   Geocode.fromLatLng("34.052234", "-118.243685").then(
     response => {
-      const address = response.results[0].formatted_address;
-      console.log('find address', response.results.find(place => {
+      // const address = response.results[0].formatted_address;
+      const address = response.results.find(place => {
         return place.types.includes("locality")
-      }).formatted_address );
+      }).formatted_address
+      return address
     },
     error => {
       console.error(error);
