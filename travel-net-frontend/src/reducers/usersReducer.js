@@ -5,8 +5,8 @@ import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS,
 
 // {id: 6, username: "Mimi", bio: null, lat: "25.76168", lng: "-80.19179"}
 
-export const defaultState = {
-  currentUser: {id: 7, username: "Richie", bio: null, lat: "-34.603684", lng: "-58.381559"},
+export const usersState = {
+  currentUser: {id: 7, username: "Richie", bio: null, lat: "-34.603684", lng: "-58.381559", on_trip: true},
   friendRequests: '',
   searchedUsers: '',
   isLoading: false,
@@ -17,7 +17,7 @@ export const defaultState = {
 
 // loader on 45:00
 
-function rootReducer(state = defaultState, action) {
+function usersReducer(state = usersState, action) {
   switch(action.type){
     case CREATING_USER:
       return {...state, isLoading: true}
@@ -61,7 +61,7 @@ function rootReducer(state = defaultState, action) {
     }
 }
 
-export default rootReducer;
+export default usersReducer;
 
 
 // minute 12:14 how to set this up but i want to see the combined

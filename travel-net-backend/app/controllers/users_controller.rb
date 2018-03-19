@@ -2,6 +2,11 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show,:update,:destroy]
 
+  def current_user
+    @user = User.find(params[:id])
+    render json: @user, status: 200
+  end
+
   def show
     @current_user = User.find(params[:currentUser][:id])
     @user = User.find(params[:id])

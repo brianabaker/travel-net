@@ -1,10 +1,20 @@
 
 class TripApi {
 
-  static createTrip(currentUser, tripName, lat, lng) {
-    console.log(lat)
-    console.log(lng)
-    console.log('in the trip api')
+  static addToTrip(tripId, res){
+    return fetch(`http://localhost:3000/trips/${tripId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        location: res
+      })
+    })
+    .then(res => res.json())
+  }
+
+  static createTrip(currentUser, tripName, res) {
     return fetch('http://localhost:3000/trips', {
       method: "POST",
       headers: {
@@ -13,12 +23,30 @@ class TripApi {
       body: JSON.stringify({
         currentUser: currentUser,
         tripName: tripName,
-        location: [lat, lng]
+        location: res
       })
     })
-    .then(res => res.json)
-    .then(json => console.log(json))
+    .then(res => res.json())
   }
+
+  static fetchTrip(currentUser){
+    return fetch('http://localhost:3000/trips/findtrip', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentUser: currentUser
+      })
+    })
+    .then(res => res.json())
+  }
+
+  static fetchLocations(tripId) {
+    return fetch(`http://localhost:3000/trips/${tripId}`)
+    .then(res => res.json())
+  }
+
 
 }
 

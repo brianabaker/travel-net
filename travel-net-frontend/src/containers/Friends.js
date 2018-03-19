@@ -10,7 +10,7 @@ import ListFriends from '../friends/ListFriends'
 import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
 import {viewFriendRequests, fetchFriends} from '../actions/users'
-import WorkingMap from '../maps/Hybrid'
+import WorkingMap from '../maps/FriendsMap'
 
 import {findAddress} from '../helpers'
 
