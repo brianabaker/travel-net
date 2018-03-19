@@ -1,9 +1,10 @@
 import React from "react";
-import GoogleMapsWrapper from "./GoogleMapsWrapper.js";
+import GoogleMapsWrapper from "../maps/GoogleMapsWrapper.js";
 import { Marker, InfoWindow } from "react-google-maps";
 import Geocode from "react-geocode";
 
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
+var blueIcon = require('../images/blue-icon.png');
 
 class WorkingMap extends React.Component {
   state = {
@@ -49,7 +50,7 @@ class WorkingMap extends React.Component {
         defaultZoom={3}
         defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
       >
-      {this.props.friends.map((friend, i) => {
+      {this.props.friends.filter(friend => friend.on_trip == false).map((friend, i) => {
         let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
         let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
           return (<Marker
@@ -58,20 +59,47 @@ class WorkingMap extends React.Component {
           position={{ lat: lat, lng: lng }}
           onClick={() => this.handleToggleOpen(i, lat, lng)}
         >
-          {this.state.openInfoWindowMarkerId === i && <InfoWindow
-            onCloseClick={this.handleToggleClose}
-            options={{ closeBoxURL: ``, enableEventPropagation: true }}
-          >
-            <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
-              <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>'Hey'
-              </div>
-            </div>
-          </InfoWindow>}
+        </Marker>)
+      })}
+      {this.props.friends.filter(friend => friend.on_trip == true).map((friend, i) => {
+        let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
+        let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
+          return (<Marker
+          key={i}
+          icon={blueIcon}
+          label={' '}
+          position={{ lat: lat, lng: lng }}
+          onClick={() => this.handleToggleOpen(i, lat, lng)}
+        >
         </Marker>)
       })}
       </GoogleMapsWrapper>
     );
   }
 }
+
+// {this.props.friends.map((friend, i) => {
+//   let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
+//   let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
+//     return (<Marker
+//     key={i}
+//     label={this.numberOfPeopleAtLocation(lat, lng)}
+//     position={{ lat: lat, lng: lng }}
+//     onClick={() => this.handleToggleOpen(i, lat, lng)}
+//   >
+//   </Marker>)
+// })}
+
+//
+// {this.state.openInfoWindowMarkerId === i && <InfoWindow
+//   onCloseClick={this.handleToggleClose}
+//   options={{ closeBoxURL: ``, enableEventPropagation: true }}
+// >
+//   <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
+//     <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>'Hey'
+//     </div>
+//   </div>
+// </InfoWindow>}
+
 
 export default WorkingMap

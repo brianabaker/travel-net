@@ -18,7 +18,7 @@ import {
   Marker,
 } from "react-google-maps";
 
-// var blueIcon = require('./images/blue-icon.png');
+
 class MapTroubles extends React.Component {
 
   state = {

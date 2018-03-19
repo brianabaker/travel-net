@@ -11,16 +11,12 @@ import LocationList from './LocationList'
 
 class Trip extends React.Component {
   state = {
-    trip: '',
     newLocation: ''
   }
 
   componentDidMount () {
-    console.log(this.props)
-    this.props.fetchTrip(this.props.currentUser)
-    this.setState({
-      trip: this.props.currentTrip
-    })
+    let tripId = parseInt(this.props.match.params.tripId, 10)
+    this.props.fetchTrip(tripId)
   }
 
   handleOnChange = (e) => {
@@ -48,7 +44,7 @@ class Trip extends React.Component {
             </div>
           </div>
           <div className="ten wide column">
-            {this.props.tripLocations ? <TripMap locations={this.props.tripLocations} />: "loading"}
+            {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
         </div>
           <div className="four wide column">
             <form onSubmit={this.handleAddLocation}>

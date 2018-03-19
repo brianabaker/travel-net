@@ -29,21 +29,27 @@ class TripApi {
     .then(res => res.json())
   }
 
-  static fetchTrip(currentUser){
-    return fetch('http://localhost:3000/trips/findtrip', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        currentUser: currentUser
-      })
-    })
+  static fetchTrip(tripId){
+    console.log(tripId)
+    return fetch(`http://localhost:3000/trips/${tripId}`)
     .then(res => res.json())
   }
 
+  // static fetchTrip(currentUser){
+  //   return fetch('http://localhost:3000/trips/findtrip', {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       currentUser: currentUser
+  //     })
+  //   })
+  //   .then(res => res.json())
+  // }
+
   static fetchLocations(tripId) {
-    return fetch(`http://localhost:3000/trips/${tripId}`)
+    return fetch(`http://localhost:3000/trips/${tripId}/locations`)
     .then(res => res.json())
   }
 

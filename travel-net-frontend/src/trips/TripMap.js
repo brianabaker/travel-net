@@ -13,7 +13,7 @@ class TripMap extends React.Component {
   handleToggleOpen = (markerId, lat, lng) => {
     this.setState({
         openInfoWindowMarkerId: markerId,
-    }, () => console.log(this.state.openInfoWindowMarkerId))
+    })
   }
 
   handleToggleClose = (id) => {

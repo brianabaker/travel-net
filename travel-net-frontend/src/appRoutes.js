@@ -13,6 +13,7 @@ import Welcome from './users/Welcome'
 import Friends from './containers/Friends'
 import Profile from './users/Profile'
 import TripsContainer from './containers/Trips'
+import Trip from './trips/Trip'
 
 
 // this is in charge of all the routes
@@ -26,6 +27,7 @@ const AppRoutes = (props) => {
          <Route exact path="/signin" component={SignIn}/>
          <Route exact path="/welcome" component={Welcome}/>
          <Route exact path="/friends" component={Friends}/>
+         <Route path="/trips/:tripId" component={Trip}/>
          <Route exact path="/trips" component={TripsContainer}/>
          <Route path="/users/:userId" component={Profile}/>
       </Switch>
