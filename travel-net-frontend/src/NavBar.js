@@ -15,6 +15,9 @@ const NavBar = (props) => {
       <Link to='/friends' className="item">
         Your Friends
       </Link>
+      <Link to='/trips' className="item">
+        Your Trips
+      </Link>
       <div className="right menu">
         <a className="item">
           SignIn

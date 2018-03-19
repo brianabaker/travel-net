@@ -11,10 +11,11 @@ import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
 import {viewFriendRequests, fetchFriends} from '../actions/users'
 import WorkingMap from '../maps/Hybrid'
-import Geocode from "react-geocode";
+
+import {findAddress} from '../helpers'
 
 
-import FindAddress from '../findAddress'
+// import FindAddress from '../findAddress'
 /// i'm not sure what this is for anymore
 // const handleClick = (e) => {
 //   e.preventDefault()
@@ -28,7 +29,7 @@ class Friends extends React.Component {
     cityName: ''
   }
 
-  handleClick = (e) => {
+  seeFriendRequests = (e) => {
     e.preventDefault()
     this.props.viewFriendRequests(this.props.currentUser)
   }
@@ -42,23 +43,12 @@ class Friends extends React.Component {
     this.setState({
       filterFriends: friendsArray
     })
-    Geocode.setApiKey("AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0");
-    Geocode.enableDebug();
-    let address = ''
-      Geocode.fromLatLng(lat, lng).then(
-        response => {
-         address = response.results.find(place =>
-             place.types.includes("locality")
-          ).formatted_address
-          this.setState({
-            cityName: address
-          })
-        },
-        error => {
-          console.error(error);
-        }
-      )
-    }
+    findAddress(lat, lng).then(res =>
+      this.setState({
+        cityName: res
+      })
+    )
+  }
 
 
   undoFriendsByLocation = () => {
@@ -68,20 +58,14 @@ class Friends extends React.Component {
     })
   }
 
-  countByLocation = (lat, lng) => {
-    let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
-    console.log(friendsArray)
-  }
-
   render(){
     return(
       <div className="ui stackable grid container">
-        <FindAddress/>
         {this.props.friends ?
         <React.Fragment>
         <div className="two column row">
           <div className="column"><FindFriends/></div>
-          <div className="column"><button onClick={this.handleClick} className="ui green button">See Friend Requests</button></div>
+          <div className="column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
         </div>
         <div className="ten wide column">
           <WorkingMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>

@@ -19,6 +19,7 @@ import AppRoutes from "./appRoutes";
 
 // reducers
 import usersReducer from "./reducers/usersReducer"
+import tripsReducer from './reducers/tripsReducer'
 
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
@@ -26,7 +27,7 @@ import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 const router = routerMiddleware(history)
 
-const reducers= combineReducers({users: usersReducer, router: routerReducer});
+const reducers= combineReducers({users: usersReducer, trips: tripsReducer, router: routerReducer});
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
 

@@ -5,7 +5,7 @@ import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS,
 
 // {id: 6, username: "Mimi", bio: null, lat: "25.76168", lng: "-80.19179"}
 
-const defaultState = {
+export const defaultState = {
   currentUser: {id: 7, username: "Richie", bio: null, lat: "-34.603684", lng: "-58.381559"},
   friendRequests: '',
   searchedUsers: '',
