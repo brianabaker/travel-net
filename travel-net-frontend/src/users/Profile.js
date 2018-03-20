@@ -6,7 +6,6 @@ import {fetchTrip} from '../actions/trips'
 // import {fetchFriends} from '../actions/users'
 import TripMap from '../trips/TripMap'
 
-import Chatroom from '../friends/Chatroom'
 import ChatroomContainer from '../friends/ChatroomContainer'
 
 class Profile extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Chatroom from './Chatroom'
-import ChatroomList from './ChatroomList'
+// import ChatroomList from './ChatroomList'
 import {connect} from 'react-redux'
 class ChatroomContainer extends React.Component {
 state = {

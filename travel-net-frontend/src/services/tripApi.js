@@ -30,7 +30,6 @@ class TripApi {
   }
 
   static fetchTrip(tripId){
-    console.log(tripId)
     return fetch(`http://localhost:3000/trips/${tripId}`)
     .then(res => res.json())
   }

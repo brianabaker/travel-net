@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import Geocode from "react-geocode";
+
 import {createTrip} from '../actions/trips'
 import {cancelCreateTrip} from '../actions/trips'
 import {getLatLng} from '../helpers'

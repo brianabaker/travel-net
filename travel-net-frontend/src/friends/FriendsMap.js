@@ -1,7 +1,7 @@
 import React from "react";
 import GoogleMapsWrapper from "../maps/GoogleMapsWrapper.js";
-import { Marker, InfoWindow } from "react-google-maps";
-import Geocode from "react-geocode";
+import { Marker } from "react-google-maps";
+// import Geocode from "react-geocode";
 
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 var blueIcon = require('../images/blue-icon.png');
