@@ -21,6 +21,9 @@ import AppRoutes from "./appRoutes";
 import usersReducer from "./reducers/usersReducer"
 import tripsReducer from './reducers/tripsReducer'
 
+//websockets
+import {ActionCableProvider} from 'react-actioncable-provider'
+
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
@@ -31,11 +34,15 @@ const reducers= combineReducers({users: usersReducer, trips: tripsReducer, route
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
 
+const API_WS_ROOT = `ws://localhost:3000/cable`
+
 ReactDOM.render(
  <Provider store={store}>
-   <ConnectedRouter history={history}>
-     <AppRoutes />
-   </ConnectedRouter>
+   <ActionCableProvider url={API_WS_ROOT}>
+     <ConnectedRouter history={history}>
+       <AppRoutes />
+     </ConnectedRouter>
+   </ActionCableProvider>
  </Provider>,
  document.getElementById('root')
 )

@@ -36,10 +36,8 @@ export function fetchTrip(tripId){
   return function(dispatch){
     dispatch({type: "FETCHING_TRIP"})
     TripApi.fetchTrip(tripId).then(tripJSON => {
-      console.log(tripJSON)
       dispatch({type: "FETCHED_TRIP", payload: tripJSON})
     TripApi.fetchLocations(tripId).then(locationsJSON => {
-      console.log(locationsJSON)
       dispatch({type: "FETCHED_LOCATIONS", payload: locationsJSON})
     })
     })

@@ -17,10 +17,9 @@ function tripsReducer(state = tripsState, action) {
     case CREATING_TRIP:
       return {...state, isLoading: true}
     case CREATED_TRIP:
-    console.log('create trip', action.payload)
       return {...state, isLoading: false, currentTrip: action.payload, renderForm: false}
     case FETCHING_TRIP:
-      return {...state, isLoading: true}
+      return {...state, isLoading: true, tripLocations: ''}
     case FETCHED_TRIP:
       return {...state, isLoading: false, currentTrip: action.payload}
     case FETCHED_LOCATIONS:

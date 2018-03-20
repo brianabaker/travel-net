@@ -17,7 +17,6 @@ class ListFriends extends React.Component {
   //   // if this.props.data
   // }
   render() {
-    console.log(this.props)
     // const friends = this.props.friends.map(friend => <li>friend.username</li>)
     return(
       <div>

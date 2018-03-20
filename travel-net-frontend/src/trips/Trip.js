@@ -15,8 +15,12 @@ class Trip extends React.Component {
   }
 
   componentDidMount () {
-    let tripId = parseInt(this.props.match.params.tripId, 10)
-    this.props.fetchTrip(tripId)
+    if (this.props.id) {
+      this.props.fetchTrip(this.props.id)
+    } else {
+      let tripId = parseInt(this.props.match.params.tripId, 10)
+      this.props.fetchTrip(tripId)
+    }
   }
 
   handleOnChange = (e) => {

@@ -7,13 +7,12 @@ import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS,
 
 export const usersState = {
   currentUser:
-{id: 7, username: "Richie", bio: null, lat: "-34.603684", lng: "-58.381559", on_trip: false},
+  {id: 7, username: "Richie", bio: null, lat: "46.55465", lng: "15.645881", current_trip_id: 3, on_trip: true},
   friendRequests: '',
   searchedUsers: '',
   isLoading: false,
   alert: '',
-  friends: '',
-  selectedUser: ''
+  friends: ''
 }
 
 // loader on 45:00

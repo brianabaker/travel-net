@@ -50,6 +50,7 @@ class TripMap extends React.Component {
           />
           <Polyline
             path={array}
+            key={`poly${i}`}
             options={{
             strokeColor: '#ff0000',
             strokeOpacity: 1,
