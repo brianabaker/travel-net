@@ -2,20 +2,16 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show,:update,:destroy]
 
-  def current_user
-    @user = User.find(params[:id])
-    render json: @user, status: 200
-  end
+  # def current_user
+  #
+  #   render json: @user, status: 200
+  # end
 
   def show
-    @current_user = User.find(params[:currentUser][:id])
+    # byebug
+    @current_user = User.find(params[:currentUser][:user][:id])
     @user = User.find(params[:id])
     # @are_friends = @current_user.friends(@user)
-    render json: @user, status: 200
-  end
-
-  def find
-    @user = User.find_by(username: params[:username])
     render json: @user, status: 200
   end
 
@@ -46,24 +42,26 @@ class UsersController < ApplicationController
   end
 
   def friends
-    @current_user = User.find(params[:user_id])
+    # byebug
+    @current_user = User.find_by(id: params[:id])
     @friends = @current_user.friends
     render json: @friends, status: 200
   end
 
-  def create
-    user = User.new(user_params)
-    if user.valid?
-      user.save
-      render json: user, status: 201
-    else
-      render json: { errors: user.errors.full_messages}, status: 422
-    end
-  end
+  # def create
+  #   byebug
+  #   user = User.new(user_params)
+  #   if user.valid?
+  #     user.save
+  #     render json: user, status: 201
+  #   else
+  #     render json: { errors: user.errors.full_messages}, status: 422
+  #   end
+  # end
 
   private
   def user_params
-    params.require(:user).permit(:username, :lat, :lng, :bio)
+    params.require(:user).permit(:username, :lat, :lng, :bio, :password, :passwordConfirmation, :email)
   end
 
   def set_user

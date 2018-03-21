@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
 
-  attributes :id, :username, :lat, :lng, :friends
+  attributes :id, :username, :lat, :lng
 
   has_many :trips
   has_friendship

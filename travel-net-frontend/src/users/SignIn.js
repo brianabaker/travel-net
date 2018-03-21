@@ -4,12 +4,13 @@ import React from 'react'
 import { connect } from "react-redux"
 
 // actions
-import { findUser } from "../actions/users"
+import { login } from "../actions/users"
 
 class SignIn extends React.Component {
   state = {
-    username: ''
-  }
+    username: '',
+    password: ''
+    }
 
   onInputChange = e => {
     this.setState({
@@ -19,7 +20,7 @@ class SignIn extends React.Component {
 
   findUser = (e) => {
     e.preventDefault()
-    this.props.findUser(this.state.username)
+    this.props.login(this.state.username, this.state.password)
   }
 
   render(){
@@ -32,12 +33,17 @@ class SignIn extends React.Component {
               onChange={this.onInputChange}/>
               </label>
             </div>
+            <div><label>Password
+              <input type="password" value={this.state.password} name="password" placeholder="password"
+              onChange={this.onInputChange}/>
+              </label>
+            </div>
             <input type="submit"/>
           </form>
-            <div>Or Sign Up<button>Sign Up</button></div>
+            <div>Or Sign Up<button>Here</button></div>
       </div>
     )
   }
 }
 
-export default connect(null, {findUser})(SignIn)
+export default connect(null, {login})(SignIn)

@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => {:registrations => "registrations"}, defaults: { format: :json }
+
   resources :messages
   resources :chatrooms
   resources :trips
-  resources :users do
-    get '/friends' => 'users#friends'
-  end
 
+  get 'home' => 'home#index'
+  get 'users/sign_out' => 'devise/sessions#destroy'
+
+  post 'auth_user' => 'authentication#authenticate_user'
+
+  get '/users/:id/friends' => 'users#friends'
+
+  post '/users/:id' => 'users#show'
   post '/users/search' => 'users#search'
-  post "/users/find" => "users#find"
+  # post "/users/find" => "authentication#authenticate_user"
   post "/users/request" => "users#request_friendship"
   post "/users/viewrequests" => "users#view_requests"
   post "/users/addfriend" => "users#add_friend"

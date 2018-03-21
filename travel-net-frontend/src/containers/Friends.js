@@ -10,10 +10,10 @@ import ListFriends from '../friends/ListFriends'
 import SearchedUsers from '../friends/SearchedUsers'
 import FriendRequests from '../friends/FriendRequests'
 import {viewFriendRequests, fetchFriends} from '../actions/users'
-import WorkingMap from '../friends/FriendsMap'
+import FriendsMap from '../friends/FriendsMap'
 
 import {findAddress} from '../helpers'
-
+import EmptyMap from '../friends/EmptyMap'
 
 // import FindAddress from '../findAddress'
 /// i'm not sure what this is for anymore
@@ -25,7 +25,7 @@ import {findAddress} from '../helpers'
 // import FilterFriends  from '../FilterFriends'
 class Friends extends React.Component {
   state = {
-    filterFriends: '',
+    filterFriends: [],
     cityName: ''
   }
 
@@ -35,6 +35,7 @@ class Friends extends React.Component {
   }
 
   componentDidMount(){
+    // console.log('in the component did mount', this.props.currentUser.id) 
     this.props.fetchFriends(this.props.currentUser)
   }
 
@@ -50,7 +51,6 @@ class Friends extends React.Component {
     )
   }
 
-
   undoFriendsByLocation = () => {
     this.setState({
       filterFriends: this.state.friends,
@@ -59,16 +59,21 @@ class Friends extends React.Component {
   }
 
   render(){
+    console.log(this.props.friends)
     return(
       <div className="ui stackable grid container">
         {this.props.friends ?
-        <React.Fragment>
+      <React.Fragment>
         <div className="two column row">
           <div className="column"><FindFriends/></div>
           <div className="column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
         </div>
         <div className="ten wide column">
-          <WorkingMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
+        {this.props.friends.length > 0 ?
+          <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
+          :
+          <EmptyMap/>
+        }
         </div>
         {this.props.friendRequests ?
           <div className="four wide column">
@@ -78,16 +83,37 @@ class Friends extends React.Component {
           {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends data={this.state.filterFriends} city={this.state.cityName}/>}
         </div>
         }
-        </React.Fragment>
-        :
-        "Loading"}
+      </React.Fragment>
+      :
+      "Loading"}
       </div>
     )
   }
 }
+//   {this.props.friends ?
+// <React.Fragment>
+// <div className="two column row">
+//   <div className="column"><FindFriends/></div>
+//   <div className="column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
+// </div>
+// <div className="ten wide column">
+//   <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
+// </div>
+// {this.props.friendRequests ?
+//   <div className="four wide column">
+//     <FriendRequests/>
+//   </div> :
+// <div className="four wide column">
+//   {this.props.searchedUsers.length > 0 ? <SearchedUsers data={this.props.searchedUsers}/> : <ListFriends data={this.state.filterFriends} city={this.state.cityName}/>}
+// </div>
+// }
+// </React.Fragment>
+// :
+// "Loading"}
+
 
 const mapStateToProps = (state) => {
-  return {currentUser: state.users.currentUser,
+  return {currentUser: state.users.currentUser.user,
           friends: state.users.friends,
           friendRequests: state.users.friendRequests,
           searchedUsers: state.users.searchedUsers}

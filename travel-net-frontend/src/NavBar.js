@@ -2,6 +2,7 @@
 import React from 'react'
 
 import { Link } from "react-router-dom"
+import UserApi from './services/userApi'
 
 const NavBar = (props) => {
   return(
@@ -19,8 +20,11 @@ const NavBar = (props) => {
         Your Trips
       </Link>
       <div className="right menu">
-        <a className="item">
+        <Link to='/signin' className="item">
           SignIn
+        </Link>
+        <a onClick={() => UserApi.signOut()} className="ui item">
+          SignOut
         </a>
       </div>
     </div>

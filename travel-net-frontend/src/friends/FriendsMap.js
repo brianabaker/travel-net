@@ -6,7 +6,7 @@ import { Marker } from "react-google-maps";
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 var blueIcon = require('../images/blue-icon.png');
 
-class WorkingMap extends React.Component {
+class FriendsMap extends React.Component {
   state = {
     markers: [],
     traveling: [],
@@ -41,6 +41,7 @@ class WorkingMap extends React.Component {
   }
 
   render() {
+    console.log(this.props.friends)
     return (
       <GoogleMapsWrapper
         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0&v=3.exp&libraries=geometry,drawing,places"
@@ -102,4 +103,4 @@ class WorkingMap extends React.Component {
 // </InfoWindow>}
 
 
-export default WorkingMap
+export default FriendsMap

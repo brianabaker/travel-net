@@ -2,20 +2,25 @@
 // packages
 import React from "react";
 import Geocode from "react-geocode";
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+// import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { connect } from "react-redux"
 
 // actions
 import { createUser } from "../actions/users"
 
+//helpers
+import {getLatLng} from '../helpers'
 
 
 class SignUp extends React.Component {
   state = {
     username: "",
-    city: "",
-    country: "",
-    region: ""
+    password: '',
+    passwordConfirmation: '',
+    location: ''
+    // city: "",
+    // country: "",
+    // region: ""
   };
 
   onInputChange = e => {
@@ -23,32 +28,21 @@ class SignUp extends React.Component {
       [e.target.name]: e.target.value
     });
   };
-  selectCountry = (val) => {
-     this.setState({ country: val });
-   }
-
-   selectRegion = (val) => {
-     this.setState({ region: val });
-   }
+  // selectCountry = (val) => {
+  //    this.setState({ country: val });
+  //  }
+  //
+  //  selectRegion = (val) => {
+  //    this.setState({ region: val });
+  //  }
 
 // this is really first geocoding and then making the user
   addUser = (e) => {
     e.preventDefault()
-    Geocode.setApiKey("AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0");
-    Geocode.enableDebug();
-    let fullLocation = `${this.state.city} ${this.state.region} ${this.state.country}`
-    // console.log(fullLocation)
-    Geocode.fromAddress(fullLocation).then(
-      response => {
-        console.log('response', response)
-        const { lat, lng } = response.results[0].geometry.location;
-        this.props.createUser(this.state.username, lat, lng)
-      },
-      error =>
-       {
-        console.error(error);
-      }
-    );
+    getLatLng(this.state.location)
+    .then(res => {
+      this.props.createUser(this.state.username, this.state.password, this.state.passwordConfirmation, res)
+    })
   };
 
   render() {
@@ -66,34 +60,64 @@ class SignUp extends React.Component {
               />
             </label>
           </div>
-          <div style={{paddingBottom: "20px"}}/>
-            <label>Location</label>
           <div>
-            <label>Country
-              <CountryDropdown
-                value={this.state.country}
-                blacklist = {["CG", "CD", "SH", "GS"]}
-                onChange={(val) => this.selectCountry(val)} />
-            </label>
-            <label>Region
-              <RegionDropdown
-                country={this.state.country}
-                value={this.state.region}
-
-                onChange={(val) => this.selectRegion(val)} />
+            <label>Password
+              <input
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.onInputChange}
+              />
             </label>
           </div>
-          <label>City
-            <input
-              name="city"
-              value={this.state.city}
-              onChange={this.onInputChange}
-            />
-          </label>
+          <div>
+            <label>Password Confirmation
+              <input
+                type="password"
+                name="passwordConfirmation"
+                value={this.state.passwordConfirmation}
+                onChange={this.onInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>Where Do You Live?
+              <input
+                type="text"
+                name="location"
+                value={this.state.location}
+                onChange={this.onInputChange}
+              />
+            </label>
+          </div>
           <input type="submit"/>
           </form>
       </div>
     );
   }
 }
+
+// <div>
+//   <label>Country
+//     <CountryDropdown
+//       value={this.state.country}
+//       blacklist = {["CG", "CD", "SH", "GS"]}
+//       onChange={(val) => this.selectCountry(val)} />
+//   </label>
+//   <label>Region
+//     <RegionDropdown
+//       country={this.state.country}
+//       value={this.state.region}
+//
+//       onChange={(val) => this.selectRegion(val)} />
+//   </label>
+// </div>
+// <label>City
+//   <input
+//     name="city"
+//     value={this.state.city}
+//     onChange={this.onInputChange}
+//   />
+// </label>
+
 export default connect(null, { createUser })(SignUp)

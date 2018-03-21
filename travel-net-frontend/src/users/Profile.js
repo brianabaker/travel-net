@@ -14,6 +14,19 @@ class Profile extends React.Component {
   }
 
   componentDidMount(){
+    this.functionWithCurrentUser()
+  //   let id = parseInt(this.props.match.params.userId, 10)
+  //   fetch(`http://localhost:3000/users/${id}`)
+  //   .then(res => res.json())
+  //   .then(profileJSON => {
+  //     this.setState({
+  //       selectedUser: profileJSON
+  //     })
+  //   })
+  //   .then(()=> this.checkTraveling())
+  }
+
+  functionWithCurrentUser = () => {
     let id = parseInt(this.props.match.params.userId, 10)
     fetch(`http://localhost:3000/users/${id}`, {
       method: "POST",
@@ -31,8 +44,8 @@ class Profile extends React.Component {
       })
     })
     .then(() => this.checkTraveling())
+    .then(() => this.checkFriendship())
   }
-
 
   checkTraveling = () => {
     if (this.state.selectedUser.on_trip) {
@@ -43,6 +56,7 @@ class Profile extends React.Component {
   // make it match as well
 
   checkFriendship = () => {
+    console.log('in the check friednship', this.props.friends)
     let result = ''
     if (this.props.friends && this.state.selectedUser) {
       return this.props.friends.find(friend => {

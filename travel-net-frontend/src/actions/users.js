@@ -71,27 +71,35 @@ export function positiveResponseFriendRequest(user, friend){
   }
 }
 
+// username: username,
+// email: email,
+// password: password,
+// password_confirmation: passwordConfirmation,
+// location: res
 
-export function createUser(username, lat, lng) {
+export function createUser(username, password, passwordConfirmation, location) {
   return function(dispatch){
      dispatch({type: "CREATING_USER"})
-     UserApi.createUser(username, lat, lng).then(userJSON => {
+     UserApi.createUser(username, password, passwordConfirmation, location).then(userJSON => {
        dispatch({type: "CREATED_USER", payload: userJSON})
+        dispatch(push('/welcome'))
      })
   }
 }
 
-export function findUser(username) {
+export function login(username, password) {
   return function(dispatch){
     dispatch({type: "FINDING_USER"})
-    UserApi.findUser(username).then(userJSON => {
+    UserApi.login(username, password).then(userJSON => {
       dispatch({type: "FOUND_USER", payload: userJSON})
+      localStorage.setItem("token", userJSON.auth_token);
       dispatch(push('/welcome'))
     })
   }
 }
 
 export function searchUsers(username) {
+  console.log('in the search user', username)
   return function(dispatch){
     dispatch({type: "SEARCHING_USERS"})
     UserApi.searchUsers(username).then(usersJSON => {

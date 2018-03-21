@@ -6,8 +6,7 @@ import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SEARCHING_USERS,
 // {id: 6, username: "Mimi", bio: null, lat: "25.76168", lng: "-80.19179"}
 
 export const usersState = {
-  currentUser:
-  {id: 7, username: "Richie", bio: null, lat: "46.55465", lng: "15.645881", current_trip_id: 3, on_trip: true},
+  currentUser: '',
   friendRequests: '',
   searchedUsers: '',
   isLoading: false,
@@ -51,6 +50,7 @@ function usersReducer(state = usersState, action) {
     case FETCHING_FRIENDS:
       return {...state, isLoading: true}
     case FETCHED_FRIENDS:
+    console.log('in the reducer', action.payload)
       return {...state, isLoading: false, friends: action.payload}
     case FETCHING_PROFILE:
       return {...state, isLoading: true}

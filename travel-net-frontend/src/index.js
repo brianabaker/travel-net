@@ -24,6 +24,9 @@ import tripsReducer from './reducers/tripsReducer'
 //websockets
 import {ActionCableProvider} from 'react-actioncable-provider'
 
+//local localStorage
+import {loadState, saveState} from './localStorage'
+
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
@@ -32,7 +35,13 @@ const router = routerMiddleware(history)
 
 const reducers= combineReducers({users: usersReducer, trips: tripsReducer, router: routerReducer});
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
+const persistedState = loadState()
+
+const store = createStore(reducers, persistedState, composeWithDevTools(applyMiddleware(thunk, router)));
+
+store.subscribe(() => {
+  saveState(store.getState())
+})
 
 const API_WS_ROOT = `ws://localhost:3000/cable`
 
