@@ -23,6 +23,7 @@ gem 'devise'
 # gem "responders"
 # gem "figaro"
 gem 'dotenv-rails'
+gem 'filestack-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

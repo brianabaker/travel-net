@@ -5,20 +5,32 @@ import {requestFriendship, fetchProfile} from '../actions/users'
 import {fetchTrip} from '../actions/trips'
 // import {fetchFriends} from '../actions/users'
 import TripMap from '../trips/TripMap'
-
+// import SameProfile from './SameProfile'
 import ChatroomContainer from '../friends/ChatroomContainer'
 
 class Profile extends React.Component {
   state = {
-    selectedUser: ''
+    selectedUser: '',
+    sameUser: false
   }
 
   componentDidMount(){
-    this.functionWithCurrentUser()
+    let id = parseInt(this.props.match.params.userId, 10)
+    if (id === this.props.currentUser.id) {
+      this.setState({
+        sameUser: true
+      })
+      this.fetchMyProfile(id)
+      console.log('in the did mount')
+    } else {
+      this.setState({
+        sameUser: false
+      })
+      this.fetchProfile(id)
+    }
   }
 
-  functionWithCurrentUser = () => {
-    let id = parseInt(this.props.match.params.userId, 10)
+  fetchProfile = (id) => {
     fetch(`http://localhost:3000/users/${id}`, {
       method: "POST",
       headers: {
@@ -30,12 +42,22 @@ class Profile extends React.Component {
     })
     .then(res => res.json())
     .then(profileJSON => {
+        this.setState({
+          selectedUser: profileJSON
+        })
+    })
+    .then(() => this.checkTraveling())
+    .then(() => this.checkFriendship())
+  }
+
+  fetchMyProfile = (id) => {
+    fetch(`http://localhost:3000/users/${id}`)
+    .then(res => res.json())
+    .then(profileJSON => {
       this.setState({
         selectedUser: profileJSON
       })
     })
-    .then(() => this.checkTraveling())
-    .then(() => this.checkFriendship())
   }
 
   checkTraveling = () => {
@@ -47,12 +69,10 @@ class Profile extends React.Component {
   // make it match as well
 
   checkFriendship = () => {
-    console.log('in the check friednship', this.props.friends)
     let result = ''
     if (this.props.friends.isArray && this.state.selectedUser) {
       return result = this.props.friends.find(friend => {
         return friend === this.props.selectedUser
-        // result = true
       })
     } else {
         result = ''
@@ -62,13 +82,14 @@ class Profile extends React.Component {
 
   requestFriendship = () => {
     let friendId = parseInt(this.props.match.params.userId, 10)
-    let userId = parseInt(this.props.currentUser.user.id, 10)
+    let userId = parseInt(this.props.currentUser.id, 10)
     this.props.requestFriendship(userId, friendId)
   }
 
   render() {
     return(
-      <div className="ui stackable grid container">
+      <div className="ui stackable grid container" id="add-padding">
+        <React.Fragment>
         {this.props.alert ? (
           <div className="ui positive message">
             {this.props.alert.message}
@@ -79,16 +100,27 @@ class Profile extends React.Component {
               <div className="two column row">
                 <div className="column">
                   <h4>{this.state.selectedUser.username}</h4>
-                  <h4>{this.state.selectedUser.on_trip ? "Traveling" : "Not Traveling"}</h4>
+                  <h4>{this.state.selectedUser.on_trip ?
+                    <React.Fragment>
+                      Traveling
+                      {this.state.sameUser ?
+                      <button className="mini ui blue basic button" onClick={() => this.props.history.push('/trips')}>Edit Trip</button>
+                      :null}
+                    </React.Fragment>
+                    : "Not Traveling"}</h4>
               </div>
               <div className="column">
+                {!this.state.sameUser ?
+                  <React.Fragment>
                 {this.checkFriendship === true ? "Button to remove friend here" :
                   <button onClick={() => this.requestFriendship()}>Add Friend</button>
-              }
+                }
+                </React.Fragment>
+               : <button className="ui green button" onClick={() => this.props.history.push('/edit')}>Edit Profile</button>}
               </div>
             </div>
             <div className="seven wide column">
-              <p>bio here</p>
+              {this.state.selectedUser.bio ? <p>{this.state.selectedUser.bio}</p> : "Add Bio Now!"}
             </div>
             <div className="eight wide column">
               {this.checkFriendship ?
@@ -98,9 +130,10 @@ class Profile extends React.Component {
                : null
               : null }
             </div>
-            {this.state.selectedUser ? <ChatroomContainer friend_id={this.state.selectedUser.id}/> : "Loading"}
+            {!this.state.sameUser ? <ChatroomContainer friend_id={this.state.selectedUser.id}/> : null}
             </React.Fragment>
           }
+          </React.Fragment>
         </div>
       )
   }

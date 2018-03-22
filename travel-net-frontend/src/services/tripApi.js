@@ -52,6 +52,19 @@ class TripApi {
     .then(res => res.json())
   }
 
+  static editTrip(tripId, locationId, res) {
+    return fetch(`http://localhost:3000/trips/${tripId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        locationId: locationId,
+        location: res
+      })
+    })
+  }
+
 
 }
 

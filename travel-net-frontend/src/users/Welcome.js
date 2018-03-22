@@ -3,10 +3,10 @@ import React from "react"
 import { connect } from "react-redux"
 
 const Welcome = (props) => {
-  console.log("welcome", props.currentUser.user.username)
+  // console.log("welcome", props.currentUser.username)
   return(
     <div id="add-padding">
-      Welcome {props.currentUser.user.username}
+      Welcome {props.currentUser.username}
     </div>
   )
 }

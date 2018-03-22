@@ -12,11 +12,12 @@ import Friends from './containers/Friends'
 import Profile from './users/Profile'
 import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
+import EditProfile from './users/EditProfile'
 
 class AppRoutes extends React.Component {
 
   componentDidMount(){
-    this.props.fetchFriends(this.props.currentUser.user)
+    this.props.fetchFriends(this.props.currentUser)
   }
 
   render() {
@@ -28,6 +29,7 @@ class AppRoutes extends React.Component {
           <Route path="/trips/:tripId" component={Trip}/>
           <Route exact path="/trips" component={TripsContainer}/>
           <Route path="/users/:userId" component={Profile}/>
+          <Route exact path="/edit" component={EditProfile}/>
        </Switch>
      </React.Fragment>
     )

@@ -39,6 +39,12 @@
   color: red;
 }
 
+#ui.button.create-new-menu-btn {
+  border-radius: 0;
+  background-color: transparent;
+
+}
+
 /* #background-video{
 
 height: 100%;

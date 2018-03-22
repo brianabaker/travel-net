@@ -49,7 +49,7 @@ class FriendsMap extends React.Component {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}
-        defaultZoom={3}
+        defaultZoom={2}
         onClick={() => this.handleToggleClose()}
         defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
       >

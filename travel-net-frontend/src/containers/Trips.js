@@ -15,10 +15,10 @@ class TripsContainer extends React.Component {
 
 
   render(){
-    console.log(this.props.currentUser.user)
+    console.log(this.props.currentUser)
     return(
       <div>
-        {this.props.currentUser.user.on_trip ? <Trip id={this.props.currentUser.user.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
+        {this.props.currentUser.on_trip ? <Trip id={this.props.currentUser.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
             <React.Fragment>
               <button onClick={this.props.renderForm} className="ui green button">Make a trip!</button>
               No past trips!

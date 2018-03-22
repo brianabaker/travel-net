@@ -1,6 +1,6 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS } from '../actions/users'
+import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER } from '../actions/users'
 
 
 export const usersState = {
@@ -47,8 +47,14 @@ function usersReducer(state = usersState, action) {
       return {...state, isLoading: true, alert: ''}
     case FETCHED_PROFILE:
       return {...state, isLoading: false, selectedUser: action.payload, alert: ''}
+    case EDITING_USER:
+      return {...state, isLoading: true}
+    case EDITED_USER:
+      return {...state, isLoading: false, currentUser: action.payload}
     case ERRORS:
       return {...state, alert: action.payload}
+    case SIGN_OUT:
+      return {state: usersState}
     default:
       return state;
     }

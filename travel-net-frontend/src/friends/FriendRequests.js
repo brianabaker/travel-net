@@ -6,7 +6,6 @@ import {positiveResponseFriendRequest, returnToFriendsMenu} from '../actions/use
 
 const FriendRequests = (props) => {
 
-
   let requestList = ''
   {props.friendRequests.length > 0 ?
      requestList = props.friendRequests.map(request => {

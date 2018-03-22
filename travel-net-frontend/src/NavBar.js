@@ -6,8 +6,10 @@ import {connect} from 'react-redux'
 import {signOut} from './actions/users'
 
 const NavBar = (props) => {
+  console.log(props)
   return(
     <div className="ui menu" style={{marginBottom: "0px"}}>
+        <React.Fragment>
       <div className="header item">
         TravelNet
       </div>
@@ -21,16 +23,32 @@ const NavBar = (props) => {
         Your Trips
       </Link>
       <div className="right menu">
+        {props.currentUser ?
+        <React.Fragment>
+          <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
+          <a onClick={() => props.signOut()} className="ui item">
+            SignOut
+          </a>
+        </React.Fragment>
+        :
         <Link to='/signin' className="item">
           SignIn
-        </Link>
-        <a onClick={() => props.signOut()} className="ui item">
-          SignOut
-        </a>
+        </Link>  }
       </div>
+      </React.Fragment>
     </div>
   )
 }
 
+//     <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
+// {this.props.currentUser ?
+// <Link to={`/profile/${currentUser.user.id}`}>{currentUser.user.username}</Link>
+// : null  }
 
-export default connect(null, {signOut})(NavBar)
+const mapStateToProps = (state) => {
+  return {currentUser: state.users.currentUser,
+          isLoading: state.users.isLoading}
+}
+
+
+export default connect(mapStateToProps, {signOut})(NavBar)

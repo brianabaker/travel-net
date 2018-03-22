@@ -25,6 +25,8 @@ export const FETCHING_PROFILE = "FETCHING_PROFILE"
 export const FETCHED_PROFILE = "FETCHED_PROFILE"
 export const ERRORS = "ERRORS"
 export const SIGN_OUT = "SIGN_OUT"
+export const EDITING_USER = "EDITING_USER"
+export const EDITED_USER = "EDITED_USER"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -79,12 +81,25 @@ export function createUser(username, password, passwordConfirmation, location) {
        if (userJSON.errors) {
          dispatch({type: "ERRORS", payload: userJSON.errors})
        } else {
-         dispatch({type: "CREATED_USER", payload: userJSON})
          localStorage.setItem("token", userJSON.auth_token)
-         console.log('hello')
+         dispatch({type: "CREATED_USER", payload: userJSON.user})
          dispatch(push('/welcome'))
        }
      })
+  }
+}
+
+export function editUser(currentUser, username, bio){
+  return function(dispatch){
+    dispatch({type: "EDITING_USER"})
+    UserApi.editProfile(currentUser, username, bio).then(userJSON => {
+      if (userJSON.error){
+        dispatch({type: "ERRORS", payload: userJSON.error})
+      } else {
+        dispatch({type: "EDITED_USER", payload: userJSON})
+        dispatch(push(`/users/${currentUser.id}`))
+      }
+    })
   }
 }
 
@@ -97,7 +112,7 @@ export function login(username, password) {
         dispatch({type: "ERRORS", payload: userJSON.errors})
       } else {
         localStorage.setItem("token", userJSON.auth_token);
-        dispatch({type: "FOUND_USER", payload: userJSON})
+        dispatch({type: "FOUND_USER", payload: userJSON.user})
         dispatch(push('/welcome'))
       }
     })

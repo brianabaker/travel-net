@@ -11,18 +11,17 @@ require "action_view/railtie"
 require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
-
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
-
 require 'dotenv'
 
 Dotenv.load("files.env")
 
 puts ENV['DEVISE_JWT_SECRET_KEY']
 puts ENV['DEVISE_SECRET_KEY']
+puts ENV['FILESTACK_SECRET_KEY']
 
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 module TravelNetBackend
   class Application < Rails::Application
@@ -32,7 +31,6 @@ module TravelNetBackend
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
-
 
     config.to_prepare do
       DeviseController.respond_to :html, :json

@@ -41,27 +41,27 @@ class TripMap extends React.Component {
           let lng = parseFloat(location.lng.replace('"','').replace('"',''));
           array.push({lat: lat, lng: lng})
           return (
-          <React.Fragment>
-          <Marker
-          key={i}
-          label={(i + 1).toString()}
-          position={{ lat: lat, lng: lng }}
-          onClick={() => this.handleToggleOpen(i)}
-          />
-          <Polyline
-            path={array}
-            key={`poly${i}`}
-            options={{
-            strokeColor: '#ff0000',
-            strokeOpacity: 1,
-            strokeWeight: 3,
-            icons: [{
-              icon: "safe",
-              offset: '0',
-              repeat: '10px'
-            }],
-            }}
+          <React.Fragment key={i}>
+            <Marker
+            key={i}
+            label={(i + 1).toString()}
+            position={{ lat: lat, lng: lng }}
+            onClick={() => this.handleToggleOpen(i)}
             />
+            <Polyline
+              path={array}
+              key={`poly${i}`}
+              options={{
+              strokeColor: '#ff0000',
+              strokeOpacity: 1,
+              strokeWeight: 3,
+              icons: [{
+                icon: "safe",
+                offset: '0',
+                repeat: '10px'
+              }],
+              }}
+              />
           </React.Fragment>
         )
       })}

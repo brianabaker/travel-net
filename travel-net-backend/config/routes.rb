@@ -22,8 +22,11 @@ Rails.application.routes.draw do
 
   get '/users/:id/friends' => 'users#friends'
   post "/users/:id" => "users#show"
+  get '/users/:id' => "users#show_own_profile"
+  patch '/users' => "users#update"
 
   get '/trips/:id/locations' => 'trips#show_locations'
+  patch '/triplocations/:id' => 'trips#edit_trip_location'
 
   post '/chatrooms/find' => 'chatrooms#find_or_create_by'
   post '/chatrooms/:chatroom_id/authorize', to: 'chatrooms#open'

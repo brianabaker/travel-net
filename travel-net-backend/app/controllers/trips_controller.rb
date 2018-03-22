@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
 
   def create
-     @current_user = User.find(params[:currentUser][:user][:id])
+     @current_user = User.find(params[:currentUser][:id])
      @trip = Trip.create(name: params[:tripName], user_id: @current_user.id)
      @location = TripLocation.create(trip_id: @trip.id, lat: params[:location][:lat], lng: params[:location][:lng])
      @current_user.on_trip = true
@@ -25,6 +25,14 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
     @locations = @trip.trip_locations
     render json: @trip, status: 200
+  end
+
+  def edit_trip_location
+    @trip_location = TripLocation.find(params[:id])
+    @trip_location.lat = params[:lat]
+    @trip_location.lng = params[:lng]
+    @trip_location.save
+    render json: @trip_location, status: 200
   end
 
   def update

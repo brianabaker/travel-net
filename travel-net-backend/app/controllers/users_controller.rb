@@ -9,10 +9,26 @@ class UsersController < ApplicationController
 
   def show
     # byebug
-    @current_user = User.find(params[:currentUser][:user][:id])
+    @current_user = User.find(params[:currentUser][:id])
     @user = User.find(params[:id])
     # @are_friends = @current_user.friends(@user)
     render json: @user, status: 200
+  end
+
+  def show_own_profile
+    @current_user = User.find(params[:id])
+    render json: @current_user, status: 200
+  end
+
+  def update
+    @current_user = User.find(params[:currentUser])
+    @current_user.username = params[:username]
+    @current_user.bio = params[:bio]
+    @current_user.save
+    response = { :user => @current_user }
+    respond_to do |format|
+      format.json  { render :json => response }
+    end
   end
 
   def search
@@ -41,7 +57,7 @@ class UsersController < ApplicationController
 
   def add_friend
     byebug
-    @current_user = User.find(params[:currentUser][:user][:id])
+    @current_user = User.find(params[:currentUser][:id])
     @friend = User.find(params[:friend][:id])
     @current_user.accept_request(@friend)
     @friends = @current_user.friends

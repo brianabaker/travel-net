@@ -10,6 +10,7 @@ class Chatroom extends React.Component {
 	}
 
 	sendMesssage = (event) => {
+		console.log(this.props.chatroom)
 		fetch(`http://localhost:3000/chatrooms/${this.props.chatroom.id}/add_message`, {
 			method: "POST",
 			headers: {
@@ -18,7 +19,7 @@ class Chatroom extends React.Component {
 			},
 			body: JSON.stringify({
 				content: this.state.content,
-				user_id: this.props.currentUser.user.id
+				user_id: this.props.currentUser.id
 			})
 		})
 		.then(res => {

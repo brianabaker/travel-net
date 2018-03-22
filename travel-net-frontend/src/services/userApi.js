@@ -91,19 +91,21 @@ class UserApi {
     return fetch(`http://localhost:3000/users/${currentUser.id}/friends`)
     .then(res => res.json())
   }
-  //
-  //   static fetchProfile(currentUser, id){
-  //     return fetch(`http://localhost:3000/users/${id}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({
-  //         currentUser: currentUser
-  //       })
-  //     })
-  //     .then(res => res.json())
-  //   }
+
+  static editProfile(currentUser, username, bio){
+    return fetch('http://localhost:3000/users/', {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentUser: currentUser.id,
+        username: username,
+        bio: bio
+      })
+    })
+    .then(res => res.json())
+  }
 
   static signOut(){
     localStorage.removeItem("state");

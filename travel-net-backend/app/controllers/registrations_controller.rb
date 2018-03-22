@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
  end
 
  def update
-   super
+    byebug
  end
 
  def payload(user)

@@ -112,7 +112,7 @@ class Friends extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  return {currentUser: state.users.currentUser.user,
+  return {currentUser: state.users.currentUser,
           isLoading: state.users.isLoading,
           friends: state.users.friends,
           friendRequests: state.users.friendRequests,
