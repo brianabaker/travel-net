@@ -16,8 +16,20 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'dotenv'
+
+Dotenv.load("files.env")
+
+puts ENV['DEVISE_JWT_SECRET_KEY']
+puts ENV['DEVISE_SECRET_KEY']
+
+
 module TravelNetBackend
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.autoload_paths += %W(#{config.root}/lib)
+    # config.app_generators.scaffold_controller :responders_controller
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 

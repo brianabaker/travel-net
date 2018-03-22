@@ -1,8 +1,6 @@
 
 
 import React from 'react'
-import { connect } from 'react-redux'
-import { searchUsers } from '../actions/users'
 
 class FindFriends extends React.Component {
   state = {
@@ -15,21 +13,29 @@ class FindFriends extends React.Component {
     })
   }
 
-  handleKeyPress = (target) => {
-    if(target.charCode===13){
-      target.preventDefault()
-      this.props.searchUsers(this.state.query)
+  handleKeyDown = (event) => {
+    let key = event.keyCode
+    let min_chars = 2
+    if(key===13){
+      event.preventDefault()
+      if (this.state.query.length <= min_chars) {
+        console.log('Not enough characters')
+      } else {
+        this.props.search(this.state.query)
+      }
+    } else if ( key == 8 || key == 46 ) {
+      this.props.undo()
     }
   }
 
   render(){
     return(
       <form className="ui icon input">
-        <input type="text" name="query" value={this.state.query} onInput={this.handleInput} onKeyPress={this.handleKeyPress} placeholder="Find New Friends"/>
+        <input type="text" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
         <i className="search icon"></i>
       </form>
     )
   }
 }
 
-export default connect(null, { searchUsers })(FindFriends)
+export default FindFriends

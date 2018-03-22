@@ -18,7 +18,7 @@ class Chatroom extends React.Component {
 			},
 			body: JSON.stringify({
 				content: this.state.content,
-				user_id: this.props.currentUser.id
+				user_id: this.props.currentUser.user.id
 			})
 		})
 		.then(res => {

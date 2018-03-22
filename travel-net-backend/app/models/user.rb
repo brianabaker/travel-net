@@ -1,8 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  include Devise::JWT::RevocationStrategies::Whitelist
+
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+         :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :trips
   validates :username,uniqueness: true
@@ -14,6 +16,10 @@ class User < ApplicationRecord
   has_many :messages
   has_friendship
 
+  def on_jwt_dispatch(token, payload)
+    super
+    do_something(token, payload)
+  end
 
   def email_required?
     false

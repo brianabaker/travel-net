@@ -41,9 +41,17 @@ class SignIn extends React.Component {
             <input type="submit"/>
           </form>
             <div>Or Sign Up<button>Here</button></div>
+            <br/><br/>
+
       </div>
     )
   }
 }
 
-export default connect(null, {login})(SignIn)
+    // {this.props.alert ? this.props.alert : null}
+
+const mapStateToProps = (state) => {
+  return {alert: state.users.alert}
+}
+
+export default connect(mapStateToProps, {login})(SignIn)

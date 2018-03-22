@@ -10,8 +10,8 @@ export const FINDING_USER = "FIND_USER"
 export const FOUND_USER = "FOUND_USER"
 export const CREATING_USER = "CREATING_USER"
 export const CREATED_USER = "CREATED_USER"
-export const SEARCHING_USERS = "SEARCHING_USERS"
-export const SEARCHED_USERS = "SEARCHED_USERS"
+// export const SEARCHING_USERS = "SEARCHING_USERS"
+// export const SEARCHED_USERS = "SEARCHED_USERS"
 export const SELECTED_USER = "SELECTED_USER"
 export const REQUEST_FRIENDSHIP = "REQUEST_FRIENDSHIP"
 export const REQUESTED_FRIENDSHIP = "REQUESTED_FRIENDSHIP"
@@ -23,6 +23,7 @@ export const FETCHING_FRIENDS = "FETCHING_FRIENDS"
 export const FETCHED_FRIENDS = "FETCHED_FRIENDS"
 export const FETCHING_PROFILE = "FETCHING_PROFILE"
 export const FETCHED_PROFILE = "FETCHED_PROFILE"
+export const ERRORS = "ERRORS"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -71,18 +72,18 @@ export function positiveResponseFriendRequest(user, friend){
   }
 }
 
-// username: username,
-// email: email,
-// password: password,
-// password_confirmation: passwordConfirmation,
-// location: res
-
 export function createUser(username, password, passwordConfirmation, location) {
   return function(dispatch){
      dispatch({type: "CREATING_USER"})
      UserApi.createUser(username, password, passwordConfirmation, location).then(userJSON => {
-       dispatch({type: "CREATED_USER", payload: userJSON})
-        dispatch(push('/welcome'))
+       if (userJSON.errors) {
+         dispatch({type: "ERRORS", payload: userJSON.errors})
+       } else {
+         dispatch({type: "CREATED_USER", payload: userJSON})
+         localStorage.setItem("token", userJSON.auth_token)
+         console.log('hello')
+         dispatch(push('/welcome'))
+       }
      })
   }
 }
@@ -91,27 +92,32 @@ export function login(username, password) {
   return function(dispatch){
     dispatch({type: "FINDING_USER"})
     UserApi.login(username, password).then(userJSON => {
-      dispatch({type: "FOUND_USER", payload: userJSON})
-      localStorage.setItem("token", userJSON.auth_token);
-      dispatch(push('/welcome'))
+      console.log(userJSON.errors)
+      if (userJSON.errors) {
+        dispatch({type: "ERRORS", payload: userJSON.errors})
+      } else {
+        localStorage.setItem("token", userJSON.auth_token);
+        dispatch({type: "FOUND_USER", payload: userJSON})
+        dispatch(push('/welcome'))
+      }
     })
   }
 }
 
-export function searchUsers(username) {
-  console.log('in the search user', username)
-  return function(dispatch){
-    dispatch({type: "SEARCHING_USERS"})
-    UserApi.searchUsers(username).then(usersJSON => {
-      dispatch({type: "SEARCHED_USERS", payload: usersJSON})
-    })
-  }
-}
+// export function searchUsers(username) {
+//   console.log('in the search user', username)
+//   return function(dispatch){
+//     dispatch({type: "SEARCHING_USERS"})
+//     UserApi.searchUsers(username).then(usersJSON => {
+//       dispatch({type: "SEARCHED_USERS", payload: usersJSON})
+//     })
+//   }
+// }
 
-export function requestFriendship(currentUser, addFriend) {
+export function requestFriendship(currentUserId, addFriend) {
   return function(dispatch){
     dispatch({type: "REQUEST_FRIENDSHIP"})
-    UserApi.requestFriendship(currentUser, addFriend).then(responseJSON => {
+    UserApi.requestFriendship(currentUserId, addFriend).then(responseJSON => {
       dispatch({type: "REQUESTED_FRIENDSHIP", payload: responseJSON})
     })
   }

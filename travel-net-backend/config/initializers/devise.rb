@@ -8,19 +8,26 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = '25afbd8445b42c0ecb7a6b8725d66e23a43424613365bf9acb4d3b7419474e46f9c588b66225c2b6b5aefb4e54e8c53b1cde55834a59d28dbc0559a559814d67'
 
-  # This configuration is for Devise JWT.
-   config.jwt do |jwt|
-     # TODO: Assign this to environment variable before production deployment!
-     jwt.secret = '221c5ebc478124e418235d87b89bdff8a6d376a375296ce41e1edccbdc7e2e4895f278822f245f93958cc8cf492b01e5c2a8b4ee2d9317425f0fe9115839f499'
-     jwt.dispatch_requests = [
-         ['POST', %r{^/users/sign_in$}],
-         ['GET', %r{^/$}]
-     ]
-     jwt.request_formats = { user: [:json] }
-     jwt.expiration_time = 8.hours.to_i
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
+
+  config.jwt do |jwt|
+     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
    end
+
+  # # This configuration is for Devise JWT.
+  #  config.jwt do |jwt|
+  #    # TODO: Assign this to environment variable before production deployment!
+  #    jwt.secret =
+  #    jwt.dispatch_requests = [
+  #        ['POST', %r{^/users/sign_in$}],
+  #        ['GET', %r{^/$}]
+  #    ]
+  #    jwt.request_formats = { user: [:json] }
+  #    jwt.expiration_time = 8.hours.to_i
+  #  end
+
+
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -278,6 +285,10 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+
+  config.warden do |manager|
+    manager.failure_app = MyApp::FailureApp
+ end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

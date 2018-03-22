@@ -20,6 +20,9 @@ gem 'puma', '~> 3.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise-jwt'
 gem 'devise'
+# gem "responders"
+# gem "figaro"
+gem 'dotenv-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

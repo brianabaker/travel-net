@@ -10,9 +10,9 @@ const NavBar = (props) => {
       <div className="header item">
         TravelNet
       </div>
-      <a className="item">
+      <Link to='/' className="item">
         Home
-      </a>
+      </Link>
       <Link to='/friends' className="item">
         Your Friends
       </Link>

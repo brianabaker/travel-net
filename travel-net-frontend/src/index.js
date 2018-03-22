@@ -27,6 +27,13 @@ import {ActionCableProvider} from 'react-actioncable-provider'
 //local localStorage
 import {loadState, saveState} from './localStorage'
 
+// app routes
+import { Route, Switch} from "react-router-dom";
+import App from "./App";
+import NavBar from './NavBar'
+import SignUp from './users/SignUp'
+import SignIn from './users/SignIn'
+
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
@@ -49,7 +56,15 @@ ReactDOM.render(
  <Provider store={store}>
    <ActionCableProvider url={API_WS_ROOT}>
      <ConnectedRouter history={history}>
-       <AppRoutes />
+        <React.Fragment>
+          <NavBar/>
+          <Switch>
+            <Route exact path='/' component={App}/>
+            <Route exact path="/signup" component={SignUp}/>
+            <Route exact path="/signin" component={SignIn}/>
+            <AppRoutes />
+          </Switch>
+       </React.Fragment>
      </ConnectedRouter>
    </ActionCableProvider>
  </Provider>,

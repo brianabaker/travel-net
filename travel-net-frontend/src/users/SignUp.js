@@ -46,7 +46,7 @@ class SignUp extends React.Component {
   };
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     return (
       <div>
         <form onSubmit={this.addUser}>
@@ -92,32 +92,14 @@ class SignUp extends React.Component {
           </div>
           <input type="submit"/>
           </form>
+          {this.props.errors ? this.props.errors : null}
       </div>
     );
   }
 }
 
-// <div>
-//   <label>Country
-//     <CountryDropdown
-//       value={this.state.country}
-//       blacklist = {["CG", "CD", "SH", "GS"]}
-//       onChange={(val) => this.selectCountry(val)} />
-//   </label>
-//   <label>Region
-//     <RegionDropdown
-//       country={this.state.country}
-//       value={this.state.region}
-//
-//       onChange={(val) => this.selectRegion(val)} />
-//   </label>
-// </div>
-// <label>City
-//   <input
-//     name="city"
-//     value={this.state.city}
-//     onChange={this.onInputChange}
-//   />
-// </label>
+const mapStateToProps = (state) => {
+  return {errors: state.users.alert}
+}
 
-export default connect(null, { createUser })(SignUp)
+export default connect(mapStateToProps, { createUser })(SignUp)

@@ -57,20 +57,37 @@ class Profile extends React.Component {
 
   checkFriendship = () => {
     console.log('in the check friednship', this.props.friends)
+    console.log(result)
     let result = ''
-    if (this.props.friends && this.state.selectedUser) {
+    if (this.props.friends.isArray && this.state.selectedUser) {
       return this.props.friends.find(friend => {
         return friend === this.props.selectedUser
           result = true
       })
-    } else if (this.props.friends && this.state.selectedUser) {
-      return this.props.friends.find(friend => {
-        return friend !== this.props.selectedUser
-           result = false
-    })
+    } else {
+        result = ''
+    }
+    return result
   }
-  return result
-}
+
+  requestFriendship = () => {
+    let friendId = parseInt(this.props.match.params.userId, 10)
+    let userId = parseInt(this.props.currentUser.user.id)
+    this.props.requestFriendship(userId, friendId)
+  }
+
+
+  //   } else if (this.props.friends.isArray && this.state.selectedUser) {
+  //     return this.props.friends.find(friend => {
+  //       return friend !== this.props.selectedUser
+  //          result = false
+  //   })
+  // } else {
+  //   result = false
+  //   console.log(result)
+  // }
+//   return result
+// }
 
   render() {
     return(
@@ -88,8 +105,8 @@ class Profile extends React.Component {
                   <h4>{this.state.selectedUser.on_trip ? "Traveling" : "Not Traveling"}</h4>
               </div>
               <div className="column">
-                {this.checkFriendship ? "Button To Remove friend Here" :
-                  <button onClick={() => this.props.requestFriendship(this.props.currentUser)}>Add Friend</button>
+                {this.checkFriendship === true ? "Button to remove friend here" :
+                  <button onClick={() => this.requestFriendship()}>Add Friend</button>
               }
               </div>
             </div>

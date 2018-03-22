@@ -6,9 +6,17 @@ export function findAddress(lat, lng) {
   Geocode.enableDebug();
     return Geocode.fromLatLng(lat, lng).then(
       response => {
-          return response.results.find(place =>
-           place.types.includes("locality")
-        ).formatted_address
+        let localityResponse = response.results.find(place =>
+           place.types.includes("locality"))
+        let politicalResponse = response.results.find(place =>
+           place.types.includes("political"))
+        if (localityResponse) {
+          return localityResponse.formatted_address
+        } else if (politicalResponse) {
+          return politicalResponse.formatted_address
+        } else {
+          return "Try Again"
+        }
       },
       error => {
         console.error(error);

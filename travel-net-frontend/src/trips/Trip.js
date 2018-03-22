@@ -15,6 +15,7 @@ class Trip extends React.Component {
   }
 
   componentDidMount () {
+    console.log('component did mount', this.props.id)
     if (this.props.id) {
       this.props.fetchTrip(this.props.id)
     } else {
@@ -38,6 +39,7 @@ class Trip extends React.Component {
   }
 
   render(){
+    console.log("trip", this.props)
     return (
       <div className="ui stackable grid container">
         {this.props.tripLocations ?
@@ -66,7 +68,7 @@ class Trip extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {currentUser: state.users.currentUser,
+  return {currentUser: state.users.currentUser.user,
           currentTrip: state.trips.currentTrip,
           tripLocations: state.trips.tripLocations}
 }

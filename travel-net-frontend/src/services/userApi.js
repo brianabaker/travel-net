@@ -2,7 +2,8 @@
 
 class UserApi {
   static createUser(username, password, passwordConfirmation, location) {
-    return fetch("http://localhost:3000/users", {
+    console.log('in the create user')
+    return fetch("http://localhost:3000/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -45,6 +46,7 @@ class UserApi {
   }
 
   static requestFriendship(currentUser, user) {
+    console.log('in the requqest friend', currentUser, user)
     return fetch("http://localhost:3000/users/request", {
       method: "POST",
       headers: {
@@ -54,7 +56,8 @@ class UserApi {
         currentUser: currentUser,
         requestFriend: user
       })
-    }).then(res => res.json());
+    }).then(res => res.json())
+
   }
 
   static viewFriendRequests(currentUser) {
@@ -66,7 +69,8 @@ class UserApi {
       body: JSON.stringify({
         currentUser: currentUser
       })
-    }).then(res => res.json());
+    }).then(res => res.json())
+    // .then(json => console.log(json))
   }
 
   static positiveResponseFriendRequest(currentUser, friend) {
@@ -103,10 +107,6 @@ class UserApi {
   //   }
 
   static signOut(){
-    console.log('in the signout')
-    fetch('http://localhost:3000/users/sign_out')
-    .then(res => res.json())
-    .then(json => console.log(json))
     localStorage.removeItem("state");
     localStorage.removeItem("token");
   }

@@ -2,33 +2,22 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFriends} from '../actions/users'
-
 import UserItem from './UserItem'
+
 class ListFriends extends React.Component {
 
-// NEED TO ADD LOADING HERE
-
-  componentDidMount(){
-    this.props.fetchFriends(this.props.currentUser)
-  }
-
-  // filterFriends = () => {
-  //   // if this.props.data
-  // }
   render() {
-    // const friends = this.props.friends.map(friend => <li>friend.username</li>)
+    console.log('list friends', this.props)
+
     return(
       <div>
         <h4>Friends List</h4>
           {this.props.city ? <h4>{this.props.city}</h4> : null }
-          {this.props.friends ?
           <React.Fragment>
-            {this.props.data ?
-            this.props.data.map(friend => <UserItem key={friend.id} data={friend}/>) :
-            this.props.friends.map(friend => <UserItem key={friend.id} data={friend}/>)}
+          {this.props.friends.length > 0 ?
+            this.props.friends.map(friend => <UserItem key={friend.id} data={friend}/>)
+          : "No Friends Yet" }
           </React.Fragment>
-          : "Loading" }
       </div>
     )
   }
@@ -36,8 +25,7 @@ class ListFriends extends React.Component {
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
-          isLoading: state.users.isLoading,
-          friends: state.users.friends}
+          isLoading: state.users.isLoading}
 }
 
-export default connect(mapStateToProps, {fetchFriends})(ListFriends)
+export default connect(mapStateToProps)(ListFriends)

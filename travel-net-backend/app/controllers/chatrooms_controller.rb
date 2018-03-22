@@ -11,7 +11,7 @@ class ChatroomsController < ApplicationController
 	# end
 
   def find_or_create_by
-    @current_user = User.find(params[:currentUser][:id])
+    @current_user = User.find(params[:currentUser][:user][:id])
     @friend = User.find(params[:friend])
 
 		if Chatroom.find_by(user1_id: @current_user.id, user2_id: @friend.id)

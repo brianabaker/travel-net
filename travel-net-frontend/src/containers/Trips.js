@@ -13,22 +13,12 @@ class TripsContainer extends React.Component {
     locations: ''
   }
 
-  // componentDidMount () {
-  //   const token = localStorage.getItem("token");
-  //   var base64Url = token.split('.')[1];
-  //   var base64 = base64Url.replace('-', '+').replace('_', '/');
-  //   console.log(JSON.parse(window.atob(base64)))
-  //
-  //
-  //   this.props.fetchTrip(this.props.currentUser)
-  // }
-  //
-  // // <Trip id={this.props.currentUser.current_trip_id}/>
 
   render(){
+    console.log(this.props.currentUser.user)
     return(
       <div>
-        {this.props.currentUser.on_trip ? <Trip id={this.props.currentUser.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
+        {this.props.currentUser.user.on_trip ? <Trip id={this.props.currentUser.user.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
             <React.Fragment>
               <button onClick={this.props.renderForm} className="ui green button">Make a trip!</button>
               No past trips!
