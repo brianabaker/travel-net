@@ -18,7 +18,6 @@ function usersReducer(state = usersState, action) {
     case CREATING_USER:
       return {...state, isLoading: true, alert: ''}
     case CREATED_USER:
-    console.log(action.payload)
       return {...state, isLoading: false, currentUser: action.payload, alert: ''}
     case FINDING_USER:
       return {...state, isLoading: true, alert: ''}
@@ -41,10 +40,8 @@ function usersReducer(state = usersState, action) {
     case RETURN_TO_FRIENDS_MENU:
       return {...state, friendRequests: "", alert: ''}
     case FETCHING_FRIENDS:
-    console.log('in the fetching friends')
       return {...state, isLoading: true, alert: ''}
     case FETCHED_FRIENDS:
-    console.log('in the fetched friends')
       return {...state, isLoading: false, friends: action.payload, alert: ''}
     case FETCHING_PROFILE:
       return {...state, isLoading: true, alert: ''}

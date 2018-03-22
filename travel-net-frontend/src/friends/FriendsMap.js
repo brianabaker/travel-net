@@ -36,12 +36,13 @@ class FriendsMap extends React.Component {
   }
 
   numberOfPeopleAtLocation = (lat, lng) => {
-    let friendsArray = this.props.friends.filter(friend => friend.lat == lat && friend.lng == lng)
+    let friendsArray = this.props.friends.filter(friend => {
+      return parseFloat(friend.lat) === lat && parseFloat(friend.lng) === lng
+    })
     return friendsArray.length.toString()
   }
 
   render() {
-    console.log(this.props.friends)
     return (
       <GoogleMapsWrapper
         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0&v=3.exp&libraries=geometry,drawing,places"
@@ -52,7 +53,7 @@ class FriendsMap extends React.Component {
         onClick={() => this.handleToggleClose()}
         defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
       >
-      {this.props.friends.filter(friend => friend.on_trip == false).map((friend, i) => {
+      {this.props.friends.filter(friend => friend.on_trip === false).map((friend, i) => {
         let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
         let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
           return (<Marker
@@ -63,7 +64,7 @@ class FriendsMap extends React.Component {
         >
         </Marker>)
       })}
-      {this.props.friends.filter(friend => friend.on_trip == true).map((friend, i) => {
+      {this.props.friends.filter(friend => friend.on_trip === true).map((friend, i) => {
         let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
         let lng = parseFloat(friend.lng.replace('"','').replace('"',''));
           return (<Marker

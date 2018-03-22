@@ -4,7 +4,8 @@ import React from 'react'
 
 class FindFriends extends React.Component {
   state = {
-    query: ''
+    query: '',
+    errors: ''
   }
 
   handleInput = (e) => {
@@ -19,21 +20,37 @@ class FindFriends extends React.Component {
     if(key===13){
       event.preventDefault()
       if (this.state.query.length <= min_chars) {
-        console.log('Not enough characters')
+        this.setState({
+          errors: "More characters needed"
+        })
       } else {
         this.props.search(this.state.query)
+        this.setState({
+          errors: ''
+        })
       }
-    } else if ( key == 8 || key == 46 ) {
+    } else if ( key === 8 || key === 46 ) {
+      this.setState({
+        errors: ''
+      })
       this.props.undo()
     }
   }
 
   render(){
     return(
-      <form className="ui icon input">
-        <input type="text" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
-        <i className="search icon"></i>
-      </form>
+      <div>
+        <form className="ui icon input">
+          <input type="text" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
+          <i className="search icon"></i>
+        </form>
+        {this.state.errors ?
+        <p className="color-red"><strong>Not enough characters, try again</strong></p>
+        : null }
+        {this.props.errors ?
+        <p className="color-red"><strong>No results found, try again</strong></p>
+        : null }
+      </div>
     )
   }
 }

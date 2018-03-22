@@ -15,15 +15,6 @@ class Profile extends React.Component {
 
   componentDidMount(){
     this.functionWithCurrentUser()
-  //   let id = parseInt(this.props.match.params.userId, 10)
-  //   fetch(`http://localhost:3000/users/${id}`)
-  //   .then(res => res.json())
-  //   .then(profileJSON => {
-  //     this.setState({
-  //       selectedUser: profileJSON
-  //     })
-  //   })
-  //   .then(()=> this.checkTraveling())
   }
 
   functionWithCurrentUser = () => {
@@ -57,12 +48,11 @@ class Profile extends React.Component {
 
   checkFriendship = () => {
     console.log('in the check friednship', this.props.friends)
-    console.log(result)
     let result = ''
     if (this.props.friends.isArray && this.state.selectedUser) {
-      return this.props.friends.find(friend => {
+      return result = this.props.friends.find(friend => {
         return friend === this.props.selectedUser
-          result = true
+        // result = true
       })
     } else {
         result = ''
@@ -72,22 +62,9 @@ class Profile extends React.Component {
 
   requestFriendship = () => {
     let friendId = parseInt(this.props.match.params.userId, 10)
-    let userId = parseInt(this.props.currentUser.user.id)
+    let userId = parseInt(this.props.currentUser.user.id, 10)
     this.props.requestFriendship(userId, friendId)
   }
-
-
-  //   } else if (this.props.friends.isArray && this.state.selectedUser) {
-  //     return this.props.friends.find(friend => {
-  //       return friend !== this.props.selectedUser
-  //          result = false
-  //   })
-  // } else {
-  //   result = false
-  //   console.log(result)
-  // }
-//   return result
-// }
 
   render() {
     return(

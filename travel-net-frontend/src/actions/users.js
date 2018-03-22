@@ -24,10 +24,10 @@ export const FETCHED_FRIENDS = "FETCHED_FRIENDS"
 export const FETCHING_PROFILE = "FETCHING_PROFILE"
 export const FETCHED_PROFILE = "FETCHED_PROFILE"
 export const ERRORS = "ERRORS"
+export const SIGN_OUT = "SIGN_OUT"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
-
 
 // THESE DO NOT NEED THUNK BUT I NEED TO USE DISPATCH
 export function returnToFriendsMenu() {
@@ -129,5 +129,13 @@ export function viewFriendRequests(currentUser) {
     UserApi.viewFriendRequests(currentUser).then(responseJSON => {
       dispatch({type: "RECEIVED_FRIEND_REQUESTS", payload: responseJSON})
     })
+  }
+}
+
+export function signOut() {
+  return function(dispatch){
+    dispatch({type: "SIGN_OUT"})
+    UserApi.signOut()
+    dispatch(push('/signin'))
   }
 }

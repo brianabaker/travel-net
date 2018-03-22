@@ -7,8 +7,6 @@ import UserItem from './UserItem'
 class ListFriends extends React.Component {
 
   render() {
-    console.log('list friends', this.props)
-
     return(
       <div>
         <h4>Friends List</h4>

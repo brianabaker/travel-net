@@ -10,6 +10,7 @@
     "react-actioncable-provider": "^1.0.3",
     "react-country-region-selector": "^1.2.3",
     "react-dom": "^16.2.0",
+    "react-drive-in": "^1.7.3",
     "react-geocode": "^0.0.7",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",

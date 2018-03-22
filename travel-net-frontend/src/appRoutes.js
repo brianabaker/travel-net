@@ -1,30 +1,22 @@
 // this is app routes
 
-// packages
+// packages and etc
 import React from "react";
 import { Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux'
+import {fetchFriends} from './actions/users'
 
-//components and containers
-// import App from "./App";
-// import NavBar from './NavBar'
-// import SignUp from './users/SignUp'
-// import SignIn from './users/SignIn'
+// components
 import Welcome from './users/Welcome'
 import Friends from './containers/Friends'
 import Profile from './users/Profile'
 import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
-import {fetchFriends} from './actions/users'
-
-
-// this is in charge of all the routes
 
 class AppRoutes extends React.Component {
 
   componentDidMount(){
     this.props.fetchFriends(this.props.currentUser.user)
-    console.log('component mount')
   }
 
   render() {

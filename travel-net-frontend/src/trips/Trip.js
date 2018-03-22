@@ -6,7 +6,7 @@ import React from 'react'
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
 import {fetchTrip, addToTrip} from '../actions/trips'
-import {findAddress, getLatLng} from '../helpers'
+import {getLatLng} from '../helpers'
 import LocationList from './LocationList'
 
 class Trip extends React.Component {

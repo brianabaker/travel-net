@@ -25,15 +25,15 @@ class SignIn extends React.Component {
 
   render(){
     return(
-      <div>
+      <div id="opaque">
         <div><h4>Sign In!</h4></div>
-          <form onSubmit={this.findUser}>
-            <div><label>Username
+          <form className="ui form" onSubmit={this.findUser}>
+            <div className="field"><label>Username
               <input type="text" value={this.state.username} name="username" placeholder="username"
               onChange={this.onInputChange}/>
               </label>
             </div>
-            <div><label>Password
+            <div className="field"><label>Password
               <input type="password" value={this.state.password} name="password" placeholder="password"
               onChange={this.onInputChange}/>
               </label>

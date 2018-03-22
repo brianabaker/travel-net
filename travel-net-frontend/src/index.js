@@ -24,7 +24,7 @@ import tripsReducer from './reducers/tripsReducer'
 //websockets
 import {ActionCableProvider} from 'react-actioncable-provider'
 
-//local localStorage
+// local localStorage
 import {loadState, saveState} from './localStorage'
 
 // app routes

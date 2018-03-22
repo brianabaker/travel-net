@@ -88,7 +88,6 @@ class UserApi {
   }
 
   static fetchFriends(currentUser) {
-    console.log('in the api', currentUser.id)
     return fetch(`http://localhost:3000/users/${currentUser.id}/friends`)
     .then(res => res.json())
   }

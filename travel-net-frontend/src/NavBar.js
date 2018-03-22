@@ -1,12 +1,13 @@
 
 import React from 'react'
-
 import { Link } from "react-router-dom"
-import UserApi from './services/userApi'
+
+import {connect} from 'react-redux'
+import {signOut} from './actions/users'
 
 const NavBar = (props) => {
   return(
-    <div className="ui menu">
+    <div className="ui menu" style={{marginBottom: "0px"}}>
       <div className="header item">
         TravelNet
       </div>
@@ -23,7 +24,7 @@ const NavBar = (props) => {
         <Link to='/signin' className="item">
           SignIn
         </Link>
-        <a onClick={() => UserApi.signOut()} className="ui item">
+        <a onClick={() => props.signOut()} className="ui item">
           SignOut
         </a>
       </div>
@@ -31,4 +32,5 @@ const NavBar = (props) => {
   )
 }
 
-export default NavBar
+
+export default connect(null, {signOut})(NavBar)

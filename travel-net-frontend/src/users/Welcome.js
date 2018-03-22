@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 const Welcome = (props) => {
   console.log("welcome", props.currentUser.user.username)
   return(
-    <div>
+    <div id="add-padding">
       Welcome {props.currentUser.user.username}
     </div>
   )
