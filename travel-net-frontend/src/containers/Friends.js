@@ -15,6 +15,8 @@ import FriendsMap from '../friends/FriendsMap'
 import UserApi from '../services/userApi'
 
 import {findAddress} from '../helpers'
+
+// needed an empty map to show up as a quick fix if they had no friends. TODO
 import EmptyMap from '../friends/EmptyMap'
 
 class Friends extends React.Component {

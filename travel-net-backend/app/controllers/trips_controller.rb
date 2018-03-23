@@ -28,6 +28,7 @@ class TripsController < ApplicationController
   end
 
   def edit_trip_location
+    # byebug
     @trip_location = TripLocation.find(params[:id])
     @trip_location.lat = params[:lat]
     @trip_location.lng = params[:lng]
@@ -35,7 +36,7 @@ class TripsController < ApplicationController
     render json: @trip_location, status: 200
   end
 
-  def update
+  def add_trip_location
     # byebug
     @trip = Trip.find(params[:id])
     @new_location = TripLocation.create(lat: params[:location][:lat], lng: params[:location][:lng], trip_id: @trip.id)

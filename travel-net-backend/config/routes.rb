@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get '/users/:id' => "users#show_own_profile"
   patch '/users' => "users#update"
 
+  patch '/trips/:id/add' => 'trips#add_trip_location'
   get '/trips/:id/locations' => 'trips#show_locations'
   patch '/triplocations/:id' => 'trips#edit_trip_location'
 

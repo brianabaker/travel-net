@@ -33,10 +33,13 @@ class Trip extends React.Component {
     e.preventDefault()
     getLatLng(this.state.newLocation).then(res =>
     this.props.addToTrip(this.props.currentTrip.id, res))
-
+    this.setState({
+      newLocation: ''
+    })
   }
 
   render(){
+    console.log(this.props)
     return (
       <div className="ui stackable grid container">
         {this.props.tripLocations ?
@@ -55,7 +58,7 @@ class Trip extends React.Component {
               <button>Go</button>
             </form>
             <h4>Your Locations So Far</h4>
-            <LocationList locations={this.props.tripLocations}/>
+            <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
           </div>
           </React.Fragment>
           : "Loading"}

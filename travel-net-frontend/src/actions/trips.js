@@ -9,6 +9,8 @@ export const FETCHING_TRIP = "FETCHING_TRIP";
 export const FETCHED_TRIP = "FETCHED_TRIP";
 export const ADDING_TO_TRIP = "ADDING_TO_TRIP";
 export const FETCHED_LOCATIONS = "FETCHED_LOCATIONS";
+export const EDITING_TRIP_LOCATION = "EDITING_TRIP_LOCATION";
+export const EDITED_TRIP_LOCATION = "EDITED_TRIP_LOCATION";
 
 export function createTrip(currentUser, tripName, lat, lng) {
   return function(dispatch) {
@@ -41,6 +43,18 @@ export function fetchTrip(tripId) {
     dispatch({ type: "FETCHING_TRIP" });
     TripApi.fetchTrip(tripId).then(tripJSON => {
       dispatch({ type: "FETCHED_TRIP", payload: tripJSON });
+      TripApi.fetchLocations(tripId).then(locationsJSON => {
+        dispatch({ type: "FETCHED_LOCATIONS", payload: locationsJSON });
+      });
+    });
+  };
+}
+
+export function editTripLocation(tripLocationId, lat, lng, tripId) {
+  return function(dispatch) {
+    dispatch({ type: "EDITING_TRIP_LOCATION" });
+    TripApi.editTripLocation(tripLocationId, lat, lng).then(editedTripLocation => {
+      dispatch({type: "EDITED_TRIP_LOCATION"})
       TripApi.fetchLocations(tripId).then(locationsJSON => {
         dispatch({ type: "FETCHED_LOCATIONS", payload: locationsJSON });
       });

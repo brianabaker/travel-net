@@ -1,5 +1,5 @@
 
-import {RENDER_FORM, CANCEL_CREATE_TRIP, CREATING_TRIP, CREATED_TRIP, FETCHING_TRIP, FETCHED_TRIP, FETCHED_LOCATIONS, ADDING_TO_TRIP} from '../actions/trips'
+import {RENDER_FORM, CANCEL_CREATE_TRIP, CREATING_TRIP, CREATED_TRIP, FETCHING_TRIP, FETCHED_TRIP, FETCHED_LOCATIONS, ADDING_TO_TRIP, EDITING_TRIP_LOCATION, EDITED_TRIP_LOCATION} from '../actions/trips'
 
 export const tripsState = {
   renderForm: false,
@@ -26,6 +26,12 @@ function tripsReducer(state = tripsState, action) {
       return {...state, tripLocations: action.payload}
     case ADDING_TO_TRIP:
      return {...state, isLoading: true}
+    case EDITING_TRIP_LOCATION:
+    console.log('hitting trip reducer')
+      return {...state, isLoading: true}
+    case EDITED_TRIP_LOCATION:
+    console.log('in the edited')
+      return {...state, isLoading: false}
     default:
       return state;
   }
