@@ -5,11 +5,14 @@ import { Link } from "react-router-dom"
 import {connect} from 'react-redux'
 import {signOut} from './actions/users'
 
+// import Sidebar from './containers/Sidebar'
+
+import FriendsMenu from './containers/FriendsMenu'
+
 const NavBar = (props) => {
-  console.log(props)
+
   return(
     <div className="ui menu" style={{marginBottom: "0px"}}>
-        <React.Fragment>
       <div className="header item">
         TravelNet
       </div>
@@ -35,7 +38,6 @@ const NavBar = (props) => {
           SignIn
         </Link>  }
       </div>
-      </React.Fragment>
     </div>
   )
 }

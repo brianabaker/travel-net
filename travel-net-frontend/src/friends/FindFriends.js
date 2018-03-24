@@ -41,7 +41,7 @@ class FindFriends extends React.Component {
     return(
       <div>
         <form className="ui icon input">
-          <input type="text" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
+          <input type="text" size="15" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
           <i className="search icon"></i>
         </form>
         {this.state.errors ?

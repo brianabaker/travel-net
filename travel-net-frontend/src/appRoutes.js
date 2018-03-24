@@ -14,6 +14,11 @@ import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 
+//sidebar trials
+// import Sidebar from './containers/Sidebar'
+// import VerticalMenu from './containers/VerticalMenu'
+import FriendsMenu from './containers/FriendsMenu'
+// import MainContainer from './containers/MainContainer'
 class AppRoutes extends React.Component {
 
   componentDidMount(){

@@ -31,6 +31,7 @@ class Profile extends React.Component {
   }
 
   fetchProfile = (id) => {
+    console.log('this is fetching the friends profile', id)
     fetch(`http://localhost:3000/users/${id}`, {
       method: "POST",
       headers: {
@@ -44,7 +45,7 @@ class Profile extends React.Component {
     .then(profileJSON => {
         this.setState({
           selectedUser: profileJSON
-        })
+        }, () => console.log('selected user', id))
     })
     .then(() => this.checkTraveling())
     .then(() => this.checkFriendship())
@@ -130,7 +131,11 @@ class Profile extends React.Component {
                : null
               : null }
             </div>
-            {!this.state.sameUser ? <ChatroomContainer friend_id={this.state.selectedUser.id}/> : null}
+            {!this.state.sameUser ?
+                this.state.selectedUser ?
+              <ChatroomContainer friend_id={this.state.selectedUser.id}/>
+              : null
+            : null }
             </React.Fragment>
           }
           </React.Fragment>

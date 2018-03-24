@@ -20,6 +20,7 @@ import AppRoutes from "./appRoutes";
 // reducers
 import usersReducer from "./reducers/usersReducer"
 import tripsReducer from './reducers/tripsReducer'
+import chatsReducer from './reducers/chatsReducer'
 
 //websockets
 import {ActionCableProvider} from 'react-actioncable-provider'
@@ -34,13 +35,15 @@ import NavBar from './NavBar'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 
+// working on navbar
+import FriendsMenu from './containers/FriendsMenu'
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 const router = routerMiddleware(history)
 
-const reducers= combineReducers({users: usersReducer, trips: tripsReducer, router: routerReducer});
+const reducers= combineReducers({users: usersReducer, trips: tripsReducer, chats: chatsReducer, router: routerReducer});
 
 const persistedState = loadState()
 
@@ -56,15 +59,7 @@ ReactDOM.render(
  <Provider store={store}>
    <ActionCableProvider url={API_WS_ROOT}>
      <ConnectedRouter history={history}>
-        <React.Fragment>
-          <NavBar/>
-          <Switch>
-            <Route exact path='/' component={App}/>
-            <Route exact path="/signup" component={SignUp}/>
-            <Route exact path="/signin" component={SignIn}/>
-            <AppRoutes />
-          </Switch>
-       </React.Fragment>
+       <App/>
      </ConnectedRouter>
    </ActionCableProvider>
  </Provider>,

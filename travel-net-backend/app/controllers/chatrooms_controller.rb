@@ -13,7 +13,6 @@ class ChatroomsController < ApplicationController
   def find_or_create_by
     @current_user = User.find(params[:currentUser][:id])
     @friend = User.find(params[:friend])
-
 		if Chatroom.find_by(user1_id: @current_user.id, user2_id: @friend.id)
 			chatroom = Chatroom.find_by(user1_id: @current_user.id, user2_id: @friend.id)
 			render json: prepare_chatroom(chatroom)
@@ -32,7 +31,7 @@ class ChatroomsController < ApplicationController
 		if chatroom
 			render json: prepare_chatroom(chatroom, true)
 		else
-			render json: {error: "You dun goofed!"}
+			render json: {error: "Error"}
 		end
 	end
 
@@ -41,14 +40,17 @@ class ChatroomsController < ApplicationController
 		user = User.find(params[:user_id])
 		if chatroom && user
 			message = Message.create(chatroom: chatroom, user: user, content: params[:content])
-
 			ChatroomChannel.broadcast_to(chatroom, {
 				type: 'ADD_MESSAGE',
 				payload: prepare_message(message)
 			})
-			render json: prepare_message(message)
+			response = { :message => prepare_message(message), :chatroom => prepare_chatroom(chatroom) }
+	    respond_to do |format|
+	      format.json  { render :json => response }
+	    end
+			# render json: prepare_message(message)
 		else
-			render json: {error: "You dun goofed!"}
+			render json: {error: "Error"}
 		end
 
 	end

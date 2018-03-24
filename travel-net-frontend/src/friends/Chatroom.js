@@ -2,31 +2,12 @@ import React from 'react'
 import { ActionCable } from 'react-actioncable-provider';
 
 import {connect} from 'react-redux'
+import {sendMessage} from '../actions/chats'
 
 class Chatroom extends React.Component {
 
 	state = {
 		content: ""
-	}
-
-	sendMesssage = (event) => {
-		console.log(this.props.chatroom)
-		fetch(`http://localhost:3000/chatrooms/${this.props.chatroom.id}/add_message`, {
-			method: "POST",
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			},
-			body: JSON.stringify({
-				content: this.state.content,
-				user_id: this.props.currentUser.id
-			})
-		})
-		.then(res => {
-			this.setState({
-				content: "",
-			})
-		})
 	}
 
 	handleChange = (event) => {
@@ -35,15 +16,26 @@ class Chatroom extends React.Component {
 		})
 	}
 
-	handleSocketResponse = data => {
+	sendMesssage = (e) => {
+		e.preventDefault()
+		console.log(this.state.content)
+		this.props.sendMessage(this.props.chatroom.id, this.props.currentUser.id, this.state.content)
+			this.setState({
+				content: ""
+		})
+	}
 
+
+
+	handleSocketResponse = data => {
+		console.log(data)
     switch (data.type) {
       case 'ADD_MESSAGE':
        		this.props.addMessage(data.payload)
        		break;
-      case "DELETE_MESSAGE":
-      		this.props.removeMessage(data.payload.message_id)
-       		break;
+      // case "DELETE_MESSAGE":
+      // 		this.props.removeMessage(data.payload.message_id)
+      //  		break;
       default:
         console.log(data);
     }
@@ -65,7 +57,7 @@ class Chatroom extends React.Component {
   }
 
 	render(){
-    // console.log(this.props.chatroom.messages)
+    console.log(this.props)
     let messageComponents = ''
     {this.props.chatroom.messages ?
       (messageComponents = this.props.chatroom.messages.map(message => {
@@ -73,27 +65,34 @@ class Chatroom extends React.Component {
           <p key={message.id}>
             {message.content}
           </p>
-
         )
       }))
       : null}
 		return (
 			<div>
 				<ActionCable
-          channel={{ channel: 'ChatroomChannel', chatroom_id: this.props.chatroom.id }}
-          onReceived={this.handleSocketResponse}
-        />
-				<textarea onChange={this.handleChange} value={this.state.content}/>
-				<button onClick={this.sendMesssage} >Enter</button>
-				<p>Past Messages:</p>
+					channel={{ channel: 'ChatroomChannel', chatroom_id: this.props.chatroom.id }}
+					onReceived={this.handleSocketResponse}
+				/>
 				{messageComponents}
+				<textarea className="ui text area" onChange={this.handleChange} value={this.state.content}/>
+				<button onClick={this.sendMesssage} >Enter</button>
 			</div>
 		)
 	}
 }
+//
+// <ActionCable
+// 	channel={{ channel: 'ChatroomChannel', chatroom_id: this.props.chatroom.id }}
+// 	onReceived={this.handleSocketResponse}
+// />
+// <textarea onChange={this.handleChange} value={this.state.content}/>
+// <button onClick={this.sendMesssage} >Enter</button>
+// <p>Past Messages:</p>
+// {messageComponents}
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser}
 }
 
-export default connect(mapStateToProps)(Chatroom)
+export default connect(mapStateToProps, {sendMessage})(Chatroom)

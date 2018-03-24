@@ -15,7 +15,7 @@ import FriendsMap from '../friends/FriendsMap'
 import UserApi from '../services/userApi'
 
 import {findAddress} from '../helpers'
-
+import FriendsMenu from './FriendsMenu'
 // needed an empty map to show up as a quick fix if they had no friends. TODO
 import EmptyMap from '../friends/EmptyMap'
 
@@ -80,38 +80,36 @@ class Friends extends React.Component {
   render(){
 
     return(
-      <div id="add-padding">
-      <div className="ui stackable grid container">
+      <React.Fragment>
+        <div className="ui grid">
         {this.props.friends ?
       <React.Fragment>
-        <div className="two column row">
-          <div className="column"><FindFriends errors={this.state.errors} search={this.searchUsers} undo={this.undoFriendsByLocation}/></div>
-          <div className="column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
-        </div>
         <div className="ten wide column">
         {this.props.friends.length > 0 ?
-          <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
-          :
-          <EmptyMap/>
+            <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
+            :
+            <EmptyMap/>
         }
         </div>
+        <div className="three wide column">
+          <FindFriends errors={this.state.errors} search={this.searchUsers} undo={this.undoFriendsByLocation}/>
+          <button onClick={this.seeFriendRequests} className="ui small green button">See Friend Requests</button>
         {this.props.friendRequests ?
-          <div className="four wide column">
-            <FriendRequests/>
-          </div> :
-        <div className="four wide column">
+            <FriendRequests/> :
             <ListFriends friends={this.state.filterFriends} city={this.state.cityName}/>
-        </div>
         }
+        </div>
       </React.Fragment>
       :
       "Loading"}
       </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
+// <div className="ui centered column"><FindFriends errors={this.state.errors} search={this.searchUsers} undo={this.undoFriendsByLocation}/></div>
+// <div className="ui centered column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
