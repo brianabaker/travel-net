@@ -12,7 +12,7 @@ import FriendsMenu from './containers/FriendsMenu'
 const NavBar = (props) => {
 
   return(
-    <div className="ui menu" style={{marginBottom: "0px"}}>
+    <div className="ui menu sticky-nav" style={{marginBottom: "0px"}}>
       <div className="header item">
         TravelNet
       </div>

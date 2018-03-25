@@ -1,3 +1,7 @@
+body {
+  margin-top: 70px;
+}
+
 .App {
   text-align: center;
 }
@@ -33,7 +37,6 @@
 
 #add-padding {
   margin-left: 10px;
-  margin-top: 20px;
 }
 
 .color-red {
@@ -43,9 +46,35 @@
 #ui.button.create-new-menu-btn {
   border-radius: 0;
   background-color: transparent;
-
+}
+.sticky-nav{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
 }
 
+.chat-me {
+  background-color: lightblue;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 0.5em;
+  border-bottom: solid 1px cyan;
+  margin-left: 0;
+}
+
+.chat-them {
+  background-color: antiquewhite;
+  margin: 1em;
+  padding: 1em;
+  border-radius: .5em;
+  border-bottom: solid 1px;
+  margin-right: 0;
+}
+
+.chat-input {
+  border: solid lightblue;
+}
 
 /* #background-video{
 

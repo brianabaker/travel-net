@@ -57,12 +57,15 @@ class Chatroom extends React.Component {
   }
 
 	render(){
-    console.log(this.props)
+    console.log(this.props.chatroom.messages)
     let messageComponents = ''
     {this.props.chatroom.messages ?
       (messageComponents = this.props.chatroom.messages.map(message => {
+				// console.log('trial', message.user_id)
+				// console.log(this.props.currentUser.id)
+				let bubbleStyle = message.user_id === this.props.currentUser.id ? "chat-me" : "chat-them"
         return(
-          <p key={message.id}>
+          <p key={message.id} className={bubbleStyle}>
             {message.content}
           </p>
         )
@@ -75,8 +78,10 @@ class Chatroom extends React.Component {
 					onReceived={this.handleSocketResponse}
 				/>
 				{messageComponents}
-				<textarea className="ui text area" onChange={this.handleChange} value={this.state.content}/>
-				<button onClick={this.sendMesssage} >Enter</button>
+				<div className="ui fluid action input chat-input">
+					<input type="text" onChange={this.handleChange} value={this.state.content}/>
+					<button className="ui button" onClick={this.sendMesssage} >Enter</button>
+				</div>
 			</div>
 		)
 	}
