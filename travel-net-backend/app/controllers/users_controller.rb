@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def request_friendship
-    byebug
+    # byebug
     @current_user = User.find(params[:currentUser])
     @add_friend = User.find(params[:requestFriend])
     @current_user.friend_request(@add_friend)

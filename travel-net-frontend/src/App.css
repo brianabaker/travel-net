@@ -35,9 +35,9 @@ body {
   background-color: rgba(52, 52, 52, 0.3);
 }
 
-#add-padding {
+/* #add-padding {
   margin-left: 10px;
-}
+} */
 
 .color-red {
   color: red;
@@ -52,6 +52,24 @@ body {
   top: 0;
   width: 100%;
   z-index: 2;
+}
+
+.sticky-side-bar {
+  position: fixed;
+  width: 12%!important;
+  top: 70px;
+  left: 10px;
+  z-index: 2;
+}
+
+.sticky-side-chat{
+  position: fixed;
+  z-index: 2;
+  left: 12%;
+  width: 30%;
+  background-color: #ffffffc2;
+  overflow-y: scroll;
+  height: 90vh;
 }
 
 .chat-me {
@@ -76,6 +94,10 @@ body {
   border: solid lightblue;
 }
 
+.location-list {
+  overflow-y: scroll;
+  height: 300px;
+}
 /* #background-video{
 
 height: 100%;

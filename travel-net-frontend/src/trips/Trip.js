@@ -49,7 +49,7 @@ class Trip extends React.Component {
               <h4>{this.props.currentTrip.name}</h4>
             </div>
           </div>
-          <div className="ten wide column">
+          <div className="twelve wide column">
             {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
         </div>
           <div className="four wide column">

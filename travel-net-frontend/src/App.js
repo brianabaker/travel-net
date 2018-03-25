@@ -15,52 +15,47 @@ import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 import FriendsMenu from './containers/FriendsMenu'
 import Home from './containers/Home'
-import ChatroomContainer from './friends/ChatroomContainer'
+import Splash from './containers/Splash'
+// import ChatroomContainer from './friends/ChatroomContainer'
 import FriendsChat from './friends/FriendsChat'
+import NotLoggedInRoutes from './notLoggedInRoutes'
 class App extends React.Component {
 
   state = {
-    visible: false,
     friendId: ''
   }
 
   toggleChat = (id) => {
     console.log('in the toggle chat', id)
+
     this.setState({
-      visible: !this.state.visible,
-      friendId: id
-    }, () => console.log(this.state.visible, id))
+      friendId: this.state.friendId === id ? null : id
+    }, () => console.log(this.state.friendId, id))
   }
 
   render() {
-    let sectionStyle = {
-        margin: 0,
-        height: "100vh",
-        backgroundSize: "cover",
-        backgroundImage: `url(${image})`
-      }
+    // let sectionStyle = {
+    //     margin: 0,
+    //     height: "100vh",
+    //     backgroundSize: "cover",
+    //     backgroundImage: `url(${image})`
+    //   }
 
     return(
         <div>
           <NavBar/>
           <div id="add-padding" className="ui grid">
-            <div className="two wide column">
-              {this.props.friends ?
-              <FriendsMenu toggleChat={this.toggleChat}/>
-              : null }
-            </div>
-          <div id="main-container" className="twelve wide column">
-            {this.state.visible ?
-              <FriendsChat friendId={this.state.friendId}/>
-              :
-            <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route exact path="/signup" component={SignUp}/>
-              <Route exact path="/signin" component={SignIn}/>
-              <AppRoutes />
-            </Switch>
-            }
-          </div>
+            {this.props.friends ?
+              <div className="two wide column">
+                <FriendsMenu friendId={this.state.friendId} toggleChat={this.toggleChat} />
+              </div>
+            : null }
+            {this.state.friendId ?
+              <div className="sticky-side-chat">
+                <FriendsChat friendId={this.state.friendId}/>
+              </div>
+                : null }
+            <NotLoggedInRoutes/>
         </div>
        </div>
     )

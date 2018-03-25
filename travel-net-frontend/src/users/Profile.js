@@ -45,7 +45,7 @@ class Profile extends React.Component {
     .then(profileJSON => {
         this.setState({
           selectedUser: profileJSON
-        }, () => console.log('selected user', id))
+        }, () => console.log('selected user', profileJSON))
     })
     .then(() => this.checkTraveling())
     .then(() => this.checkFriendship())
@@ -70,16 +70,17 @@ class Profile extends React.Component {
   // make it match as well
 
   checkFriendship = () => {
-    let result = ''
-    if (this.props.friends.isArray && this.state.selectedUser) {
-      return result = this.props.friends.find(friend => {
-        return friend === this.props.selectedUser
+    // console.log('check friendship', Array.isArray(this.props.friends), this.state.selectedUser)
+    // let result = ''
+    if (Array.isArray(this.props.friends) && this.state.selectedUser) {
+      let result = this.props.friends.find(friend => {
+        return friend.id === this.state.selectedUser.id
       })
-    } else {
-        result = ''
-    }
-    return result
+      return !!result
+  } else {
+    return false
   }
+}
 
   requestFriendship = () => {
     let friendId = parseInt(this.props.match.params.userId, 10)
@@ -113,9 +114,9 @@ class Profile extends React.Component {
               <div className="column">
                 {!this.state.sameUser ?
                   <React.Fragment>
-                {this.checkFriendship === true ? "Button to remove friend here" :
-                  <button onClick={() => this.requestFriendship()}>Add Friend</button>
-                }
+                    {this.checkFriendship == true ? "Button to remove friend here" :
+                      <button onClick={() => this.requestFriendship()}>Add Friend</button>
+                    }
                 </React.Fragment>
                : <button className="ui green button" onClick={() => this.props.history.push('/edit')}>Edit Profile</button>}
               </div>

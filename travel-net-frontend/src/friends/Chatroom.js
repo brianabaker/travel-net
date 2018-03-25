@@ -18,7 +18,6 @@ class Chatroom extends React.Component {
 
 	sendMesssage = (e) => {
 		e.preventDefault()
-		console.log(this.state.content)
 		this.props.sendMessage(this.props.chatroom.id, this.props.currentUser.id, this.state.content)
 			this.setState({
 				content: ""
@@ -28,7 +27,6 @@ class Chatroom extends React.Component {
 
 
 	handleSocketResponse = data => {
-		console.log(data)
     switch (data.type) {
       case 'ADD_MESSAGE':
        		this.props.addMessage(data.payload)
@@ -57,7 +55,6 @@ class Chatroom extends React.Component {
   }
 
 	render(){
-    console.log(this.props.chatroom.messages)
     let messageComponents = ''
     {this.props.chatroom.messages ?
       (messageComponents = this.props.chatroom.messages.map(message => {

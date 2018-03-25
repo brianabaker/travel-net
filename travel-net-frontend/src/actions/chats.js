@@ -1,6 +1,6 @@
 import ChatApi from "../services/chatApi";
 
-import { push } from "react-router-redux";
+// import { push } from "react-router-redux";
 
 export const FETCHING_CHAT = "FETCHING_CHAT";
 export const FETCHED_CHAT = "FETCHED_CHAT";

@@ -5,9 +5,6 @@ import { Link } from "react-router-dom"
 import {connect} from 'react-redux'
 import {signOut} from './actions/users'
 
-// import Sidebar from './containers/Sidebar'
-
-import FriendsMenu from './containers/FriendsMenu'
 
 const NavBar = (props) => {
 

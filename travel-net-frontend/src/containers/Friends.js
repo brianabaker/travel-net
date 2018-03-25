@@ -15,24 +15,24 @@ import FriendsMap from '../friends/FriendsMap'
 import UserApi from '../services/userApi'
 
 import {findAddress} from '../helpers'
-import FriendsMenu from './FriendsMenu'
+// import FriendsMenu from './FriendsMenu'
 // needed an empty map to show up as a quick fix if they had no friends. TODO
 import EmptyMap from '../friends/EmptyMap'
 
 class Friends extends React.Component {
   state = {
-    allFriends: [],
+    // allFriends: [],
     filterFriends: [],
     cityName: '',
     erros: ''
   }
 
-  componentDidMount() {
-    this.setState({
-      allFriends: this.props.friends,
-      filterFriends: this.props.friends
-    })
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     allFriends: this.props.friends,
+  //     filterFriends: this.props.friends
+  //   })
+  // }
 
   seeFriendRequests = (e) => {
     e.preventDefault()
@@ -55,7 +55,7 @@ class Friends extends React.Component {
 
   undoFriendsByLocation = () => {
     this.setState({
-      filterFriends: this.state.allFriends,
+      filterFriends: [],
       cityName: '',
       errors: ''
     })
@@ -84,7 +84,7 @@ class Friends extends React.Component {
         <div className="ui grid">
         {this.props.friends ?
       <React.Fragment>
-        <div className="ten wide column">
+        <div className="twelve wide column">
         {this.props.friends.length > 0 ?
             <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
             :
@@ -96,7 +96,7 @@ class Friends extends React.Component {
           <button onClick={this.seeFriendRequests} className="ui small green button">See Friend Requests</button>
         {this.props.friendRequests ?
             <FriendRequests/> :
-            <ListFriends friends={this.state.filterFriends} city={this.state.cityName}/>
+            <ListFriends friends={this.state.filterFriends} filterFriends={this.state.filterFriends} city={this.state.cityName}/>
         }
         </div>
       </React.Fragment>

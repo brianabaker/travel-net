@@ -7,6 +7,7 @@ import { connect } from "react-redux"
 import { login } from "../actions/users"
 
 class SignIn extends React.Component {
+
   state = {
     username: '',
     password: ''

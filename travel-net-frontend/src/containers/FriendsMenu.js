@@ -2,29 +2,27 @@ import React from 'react'
 
 import {connect} from 'react-redux'
 
-// import Friends from './Friends'
-import VerticalMenu from './VerticalMenu'
 import FriendItem from '../friends/FriendItem'
 
 class FriendsMenu extends React.Component {
-  state = {
-    friendId: ''
-  }
+  // state = {
+  //   friendId: ''
+  // }
 
   toggleVisibility = (id) => {
     this.props.toggleChat(id)
-      this.setState({
-        friendId: id
-      }, () => console.log(this.state.friendId))
+      // this.setState({
+      //   friendId: id
+      // }, () => console.log(this.state.friendId))
     }
 
   render() {
     return(
       <React.Fragment>
-        <div className="ui fluid borderless secondary stackable vertical menu">
+        <div className="ui borderless secondary stackable vertical menu sticky-side-bar">
           <p className="item">Friends List</p>
         {this.props.friends.map(friend => {
-            return <FriendItem key={friend.id} id={friend.id} toggleVisibility={this.toggleVisibility} name={friend.username}/>
+            return <FriendItem key={friend.id} id={friend.id} currentChatId={this.props.friendId} toggleVisibility={this.toggleVisibility} name={friend.username}/>
               })}
         </div>
       </React.Fragment>

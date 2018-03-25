@@ -17,9 +17,10 @@ class FriendItem extends React.Component {
   //   }
 
   render() {
+      let itemClass = this.props.currentChatId === this.props.id ? "active item" : "item"
     return(
       <div>
-      <a onClick={() => this.props.toggleVisibility(this.props.id)} className="item">{this.props.name}</a>
+        <a onClick={() => this.props.toggleVisibility(this.props.id)} className={itemClass}>{this.props.name}</a>
       </div>
     )
   }

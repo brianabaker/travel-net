@@ -9,11 +9,10 @@ class ListFriends extends React.Component {
   render() {
     return(
       <div>
-        <h4>Friends List</h4>
           {this.props.city ? <h4>{this.props.city}</h4> : null }
           <React.Fragment>
           {this.props.friends.length > 0 ?
-            this.props.friends.map(friend => <UserItem key={friend.id} data={friend}/>)
+            this.props.filterFriends.map(friend => <UserItem key={friend.id} data={friend}/>)
           : "No Friends Yet" }
           </React.Fragment>
       </div>
@@ -23,7 +22,8 @@ class ListFriends extends React.Component {
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
-          isLoading: state.users.isLoading}
+          isLoading: state.users.isLoading,
+          friends: state.users.friends}
 }
 
 export default connect(mapStateToProps)(ListFriends)

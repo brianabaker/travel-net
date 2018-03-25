@@ -15,7 +15,7 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux"
 
 //react-redux
-import AppRoutes from "./appRoutes";
+// import AppRoutes from "./appRoutes";
 
 // reducers
 import usersReducer from "./reducers/usersReducer"
@@ -29,14 +29,14 @@ import {ActionCableProvider} from 'react-actioncable-provider'
 import {loadState, saveState} from './localStorage'
 
 // app routes
-import { Route, Switch} from "react-router-dom";
 import App from "./App";
-import NavBar from './NavBar'
-import SignUp from './users/SignUp'
-import SignIn from './users/SignIn'
+// import { Route, Switch} from "react-router-dom";
+// import NavBar from './NavBar'
+// import SignUp from './users/SignUp'
+// import SignIn from './users/SignIn'
 
 // working on navbar
-import FriendsMenu from './containers/FriendsMenu'
+// import FriendsMenu from './containers/FriendsMenu'
 // react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
