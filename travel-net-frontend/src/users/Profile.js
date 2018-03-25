@@ -132,11 +132,6 @@ class Profile extends React.Component {
                : null
               : null }
             </div>
-            {!this.state.sameUser ?
-                this.state.selectedUser ?
-              <ChatroomContainer friend_id={this.state.selectedUser.id}/>
-              : null
-            : null }
             </React.Fragment>
           }
           </React.Fragment>
@@ -144,6 +139,11 @@ class Profile extends React.Component {
       )
   }
 }
+// {!this.state.sameUser ?
+//     this.state.selectedUser ?
+//   <ChatroomContainer friend_id={this.state.selectedUser.id}/>
+//   : null
+// : null }
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,

@@ -4,19 +4,19 @@ import { Route, Switch} from "react-router-dom";
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 import Splash from './containers/Splash'
-import AppRoutes from "./appRoutes";
+import LoggedInRoutes from "./LoggedInRoutes";
 
-const NotLoggedInRoutes = (props) => {
+const AllRoutes = (props) => {
   return(
     <React.Fragment>
       <Switch>
           <Route exact path='/' component={Splash}/>
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn}/>
-          <AppRoutes />
+          <LoggedInRoutes />
       </Switch>
     </React.Fragment>
   )
 }
 
-export default NotLoggedInRoutes
+export default AllRoutes

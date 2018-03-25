@@ -15,7 +15,7 @@ import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 
 
-class AppRoutes extends React.Component {
+class LoggedInRoutes extends React.Component {
 
   componentDidMount(){
     this.props.fetchFriends(this.props.currentUser)
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser}
 }
 
-export default connect(mapStateToProps, {fetchFriends})(AppRoutes)
+export default connect(mapStateToProps, {fetchFriends})(LoggedInRoutes)

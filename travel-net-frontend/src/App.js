@@ -9,7 +9,6 @@ import './App.css';
 import image from './images/small-world.jpeg'
 
 //components
-import AppRoutes from "./appRoutes";
 import NavBar from './NavBar'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
@@ -18,7 +17,7 @@ import Home from './containers/Home'
 import Splash from './containers/Splash'
 // import ChatroomContainer from './friends/ChatroomContainer'
 import FriendsChat from './friends/FriendsChat'
-import NotLoggedInRoutes from './notLoggedInRoutes'
+import AllRoutes from './AllRoutes'
 class App extends React.Component {
 
   state = {
@@ -55,7 +54,7 @@ class App extends React.Component {
                 <FriendsChat friendId={this.state.friendId}/>
               </div>
                 : null }
-            <NotLoggedInRoutes/>
+            <AllRoutes/>
         </div>
        </div>
     )
