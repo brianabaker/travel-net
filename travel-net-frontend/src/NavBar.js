@@ -8,33 +8,36 @@ import {signOut} from './actions/users'
 
 const NavBar = (props) => {
 
+  const ifCurrentUser = () => {
+    if (props.currentUser) {
+      return(
+        <React.Fragment>
+          <Link to='/' className="item">
+            Home
+          </Link>
+          <Link to='/friends' className="item">
+            Your Friends
+          </Link>
+          <Link to='/trips' className="item">
+            Your Trips
+          </Link>
+          <div className="right menu">
+          <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
+          <a onClick={() => props.signOut()} className="ui item">
+            SignOut
+          </a>
+        </div>
+        </React.Fragment>
+      )
+    }
+  }
+
   return(
     <div className="ui menu sticky-nav" style={{marginBottom: "0px"}}>
       <div className="header item">
         TravelNet
       </div>
-      <Link to='/' className="item">
-        Home
-      </Link>
-      <Link to='/friends' className="item">
-        Your Friends
-      </Link>
-      <Link to='/trips' className="item">
-        Your Trips
-      </Link>
-      <div className="right menu">
-        {props.currentUser ?
-        <React.Fragment>
-          <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
-          <a onClick={() => props.signOut()} className="ui item">
-            SignOut
-          </a>
-        </React.Fragment>
-        :
-        <Link to='/signin' className="item">
-          SignIn
-        </Link>  }
-      </div>
+      {ifCurrentUser()}
     </div>
   )
 }

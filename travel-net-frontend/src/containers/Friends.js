@@ -25,7 +25,6 @@ class Friends extends React.Component {
     filterFriends: [],
     cityName: '',
     erros: '',
-    search: '',
     center:  { lat: 15.517860, lng: -36.777681 },
     zoom: 2
   }
@@ -38,13 +37,15 @@ class Friends extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.location.state.detail !== nextProps.location.state.detail){
-      let lat = parseFloat(nextProps.location.state.detail.lat)
-      let lng = parseFloat(nextProps.location.state.detail.lng)
-      this.setState({
-        center: {lat: lat, lng: lng},
-        zoom: 10
-      }, () => console.log(this.state.zoom))
+    if (this.props.location.state) {
+      if (this.props.location.state.detail !== nextProps.location.state.detail){
+        let lat = parseFloat(nextProps.location.state.detail.lat)
+        let lng = parseFloat(nextProps.location.state.detail.lng)
+        this.setState({
+          center: {lat: lat, lng: lng},
+          zoom: 10
+        }, () => console.log(this.state.zoom))
+      }
     }
   }
 
@@ -91,7 +92,6 @@ class Friends extends React.Component {
   }
 
   render(){
-    console.log(this.props.location.state.detail)
 
     return(
       <React.Fragment>

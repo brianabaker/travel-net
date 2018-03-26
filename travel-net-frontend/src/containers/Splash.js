@@ -14,12 +14,10 @@ const Splash = (props) => {
       backgroundImage: `url(${image})`
     }
   return(
-    <div style={sectionStyle}>
-      <div className="ui grid">
+    <div className="ui grid" style={sectionStyle}>
       <div className="six wide column"></div>
       <div className="four wide column"><SignIn/></div>
       <div className="six wide column"></div>
-      </div>
     </div>
   )
 }

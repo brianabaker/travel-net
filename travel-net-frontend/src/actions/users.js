@@ -169,6 +169,6 @@ export function signOut() {
   return function(dispatch){
     dispatch({type: "SIGN_OUT"})
     UserApi.signOut()
-    dispatch(push('/signin'))
+    dispatch(push('/'))
   }
 }

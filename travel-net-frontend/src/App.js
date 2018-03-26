@@ -51,7 +51,7 @@ class App extends React.Component {
     return(
         <div>
           <NavBar/>
-          <div id="add-padding" className="ui grid">
+          <div className="ui grid">
             {this.props.friends ?
               <div className="two wide column">
                 <FriendsMenu friendId={this.state.friendId} toggleChat={this.toggleChat} />
@@ -61,8 +61,8 @@ class App extends React.Component {
               <div className="sticky-side-chat">
                 <ChatroomContainer friendId={this.state.friendId}/>
               </div>
-                : null }
-            <AllRoutes/>
+              : null }
+              <AllRoutes/>
         </div>
        </div>
     )
