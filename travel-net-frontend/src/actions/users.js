@@ -38,10 +38,10 @@ export function returnToFriendsMenu() {
     dispatch(push('/friends'))
   }
 }
-export function selectUser(user) {
+export function selectUser(id) {
   return function(dispatch){
-    dispatch({type: "SELECTED_USER", payload: user})
-    dispatch(push(`/profile/${user.id}`))
+    // dispatch({type: "SELECTED_USER", payload: user})
+    dispatch(push(`/users/${id}`))
   }
 }
 

@@ -33,7 +33,10 @@ class UsersController < ApplicationController
 
   def search
     @users = User.all.select { |user| user.username.downcase.include?(params[:query]) }
-    render json: @users, status: 200
+    @current_user = User.find(params[:currentUserId])
+    @notfriendsusers = @users.select { |user| !@current_user.friends_with?(user) }
+    @alsonotcurrentuser = @notfriendsusers.select { |user| user != @current_user}
+    render json: @alsonotcurrentuser, status: 200
   end
 
   def request_friendship
@@ -56,7 +59,7 @@ class UsersController < ApplicationController
   end
 
   def add_friend
-    byebug
+    # byebug
     @current_user = User.find(params[:currentUser][:id])
     @friend = User.find(params[:friend][:id])
     @current_user.accept_request(@friend)

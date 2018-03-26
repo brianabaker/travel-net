@@ -10,10 +10,23 @@ class Chatroom extends React.Component {
 		content: ""
 	}
 
+	componentDidMount() {
+		this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
+
+	scrollToBottom() {
+		this.el.scrollIntoView({ behavior: 'smooth' });
+	}
+
+
 	handleChange = (event) => {
 		this.setState({
 			content: event.target.value
-		})
+		}, () => console.log('chatroom change', this.state.content))
 	}
 
 	sendMesssage = (e) => {
@@ -40,19 +53,19 @@ class Chatroom extends React.Component {
   };
 
 
-  deleteMessage = (messageId) => {
-  	fetch("http://localhost:3000/chatrooms/delete_message", {
-  		method: "POST",
-  		headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			},
-			body: JSON.stringify({
-				message_id: messageId,
-				chatroom_id: this.props.chatroom.id
-			})
-  	})
-  }
+  // deleteMessage = (messageId) => {
+  // 	fetch("http://localhost:3000/chatrooms/delete_message", {
+  // 		method: "POST",
+  // 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			'Accept': 'application/json'
+	// 		},
+	// 		body: JSON.stringify({
+	// 			message_id: messageId,
+	// 			chatroom_id: this.props.chatroom.id
+	// 		})
+  // 	})
+  // }
 
 	render(){
     let messageComponents = ''
@@ -62,9 +75,12 @@ class Chatroom extends React.Component {
 				// console.log(this.props.currentUser.id)
 				let bubbleStyle = message.user_id === this.props.currentUser.id ? "chat-me" : "chat-them"
         return(
-          <p key={message.id} className={bubbleStyle}>
-            {message.content}
-          </p>
+					<React.Fragment>
+          	<p key={message.id} className={bubbleStyle}>
+            	{message.content}
+          	</p>
+						<div ref={el => { this.el = el; }} />
+					</React.Fragment>
         )
       }))
       : null}

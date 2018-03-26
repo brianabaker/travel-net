@@ -62,7 +62,8 @@ class Friends extends React.Component {
   }
 
   searchUsers = (query) => {
-    UserApi.searchUsers(query)
+    console.log('search', this.props.currentUser.id, query)
+    UserApi.searchUsers(this.props.currentUser.id, query)
     .then(searchResults => {
       console.log("results", searchResults.length)
       if (searchResults.length <= 0) {

@@ -9,10 +9,16 @@ state = {
 	}
 
 	componentDidMount(){
-		if (this.props.friendId) {
+		// if (this.props.friendId) {
 			 this.props.fetchChat(this.props.currentUser, this.props.friendId)
-		} else {
-			this.props.fetchChat(this.props.currentUser, this.props.friend_id)
+		// } else {
+		// 	this.props.fetchChat(this.props.currentUser, this.props.friend_id)
+		// }
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.friendId !== nextProps.friendId) {
+			this.props.fetchChat(this.props.currentUser, nextProps.friendId)
 		}
 	}
 

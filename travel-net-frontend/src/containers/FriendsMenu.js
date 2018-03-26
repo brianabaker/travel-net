@@ -17,6 +17,7 @@ class FriendsMenu extends React.Component {
     }
 
   render() {
+    // console.log(this.props.history)
     return(
       <React.Fragment>
         <div className="ui borderless secondary stackable vertical menu sticky-side-bar">

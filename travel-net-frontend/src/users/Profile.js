@@ -6,7 +6,7 @@ import {fetchTrip} from '../actions/trips'
 // import {fetchFriends} from '../actions/users'
 import TripMap from '../trips/TripMap'
 // import SameProfile from './SameProfile'
-import ChatroomContainer from '../friends/ChatroomContainer'
+// import ChatroomContainer from '../friends/ChatroomContainer'
 
 class Profile extends React.Component {
   state = {
@@ -21,7 +21,6 @@ class Profile extends React.Component {
         sameUser: true
       })
       this.fetchMyProfile(id)
-      console.log('in the did mount')
     } else {
       this.setState({
         sameUser: false
@@ -30,8 +29,15 @@ class Profile extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      this.fetchMyProfile(nextProps.match.params.userId)
+    }
+  }
+
+
   fetchProfile = (id) => {
-    console.log('this is fetching the friends profile', id)
+    // console.log('this is fetching the friends profile', id)
     fetch(`http://localhost:3000/users/${id}`, {
       method: "POST",
       headers: {
@@ -47,8 +53,6 @@ class Profile extends React.Component {
           selectedUser: profileJSON
         }, () => console.log('selected user', profileJSON))
     })
-    .then(() => this.checkTraveling())
-    .then(() => this.checkFriendship())
   }
 
   fetchMyProfile = (id) => {
@@ -70,8 +74,6 @@ class Profile extends React.Component {
   // make it match as well
 
   checkFriendship = () => {
-    // console.log('check friendship', Array.isArray(this.props.friends), this.state.selectedUser)
-    // let result = ''
     if (Array.isArray(this.props.friends) && this.state.selectedUser) {
       let result = this.props.friends.find(friend => {
         return friend.id === this.state.selectedUser.id
@@ -88,7 +90,29 @@ class Profile extends React.Component {
     this.props.requestFriendship(userId, friendId)
   }
 
+  displayTraveling = () => {
+    if (this.state.selectedUser.on_trip){
+      return (<h4>
+        <React.Fragment>
+          Traveling
+          {this.state.sameUser ?
+          <button className="mini ui blue basic button" onClick={() => this.props.history.push('/trips')}>Edit Trip</button>
+          :null}
+        </React.Fragment>
+      </h4>)
+    } else {
+      return (
+        <h4>"Not Traveling"</h4>
+      )
+    }
+  }
+
   render() {
+    if (this.props.isLoading === "Loading"){
+      return (
+        <div>Loading</div>
+      )
+    }
     return(
       <div className="ui stackable grid container" id="add-padding">
         <React.Fragment>
@@ -97,24 +121,16 @@ class Profile extends React.Component {
             {this.props.alert.message}
           </div>)
           : null}
-          {this.props.isLoading ? "Loading" :
             <React.Fragment>
               <div className="two column row">
                 <div className="column">
                   <h4>{this.state.selectedUser.username}</h4>
-                  <h4>{this.state.selectedUser.on_trip ?
-                    <React.Fragment>
-                      Traveling
-                      {this.state.sameUser ?
-                      <button className="mini ui blue basic button" onClick={() => this.props.history.push('/trips')}>Edit Trip</button>
-                      :null}
-                    </React.Fragment>
-                    : "Not Traveling"}</h4>
+                  {this.displayTraveling()}
               </div>
               <div className="column">
                 {!this.state.sameUser ?
                   <React.Fragment>
-                    {this.checkFriendship == true ? "Button to remove friend here" :
+                    {this.checkFriendship() === true ? "Button to remove friend here" :
                       <button onClick={() => this.requestFriendship()}>Add Friend</button>
                     }
                 </React.Fragment>
@@ -125,7 +141,7 @@ class Profile extends React.Component {
               {this.state.selectedUser.bio ? <p>{this.state.selectedUser.bio}</p> : "Add Bio Now!"}
             </div>
             <div className="eight wide column">
-              {this.checkFriendship ?
+              {this.checkFriendship() ?
                 this.state.selectedUser.on_trip ?
                 this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>
                 : null
@@ -133,17 +149,13 @@ class Profile extends React.Component {
               : null }
             </div>
             </React.Fragment>
-          }
+
           </React.Fragment>
         </div>
       )
   }
 }
-// {!this.state.sameUser ?
-//     this.state.selectedUser ?
-//   <ChatroomContainer friend_id={this.state.selectedUser.id}/>
-//   : null
-// : null }
+
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,

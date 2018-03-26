@@ -4,26 +4,35 @@ import {connect} from 'react-redux'
 
 // import Friends from './Friends'
 // import VerticalMenu from './VerticalMenu'
-
+import {selectUser} from '../actions/users'
 class FriendItem extends React.Component {
-  // state = {
-  //   visible: false
-  // }
-  //
-  // toggleVisibility = () => {
-  //     this.setState({
-  //       visible: !this.state.visible
-  //     }, () => console.log(this.state.visible))
-  //   }
+
+  state = {
+    menuId: ''
+  }
+
+  toggleMenu = (id) => {
+    this.setState({
+      menuId: this.state.menuId === id ? null : id
+    }, () => console.log('menu id', this.state.menuId))
+  }
+
 
   render() {
       let itemClass = this.props.currentChatId === this.props.id ? "active item" : "item"
+      console.log(this.props.id)
     return(
-      <div>
-        <a onClick={() => this.props.toggleVisibility(this.props.id)} className={itemClass}>{this.props.name}</a>
-      </div>
+      <React.Fragment>
+        <div className="ui left pointing dropdown link item" onClick={() => this.toggleMenu(this.props.id)}>{this.props.name}</div>
+          {this.state.menuId === this.props.id ?
+          <div className="menu">
+            <a className="item" onClick={() => this.props.selectUser(this.props.id)}>Profile</a>
+            <a className="item" onClick={() => this.props.toggleVisibility(this.props.id)}>Chat</a>
+          </div>
+          : null }
+      </React.Fragment>
     )
   }
 }
 
-export default FriendItem
+export default connect(null, {selectUser})(FriendItem)

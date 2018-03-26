@@ -32,14 +32,15 @@ class UserApi {
     }).then(res => res.json())
   }
 
-  static searchUsers(username) {
-    console.log('in the search api', username)
+  static searchUsers(id, username) {
+    console.log('in the search api', id, username)
     return fetch("http://localhost:3000/users/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        currentUserId: id,
         query: username
       })
     }).then(res => res.json());

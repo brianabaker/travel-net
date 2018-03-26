@@ -1,22 +1,22 @@
 
 // packages
 import React from 'react';
-import { Route, Switch} from "react-router-dom";
+// import { Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux'
 
 // styles
 import './App.css';
-import image from './images/small-world.jpeg'
+// import image from './images/small-world.jpeg'
 
 //components
 import NavBar from './NavBar'
-import SignUp from './users/SignUp'
-import SignIn from './users/SignIn'
+// import SignUp from './users/SignUp'
+// import SignIn from './users/SignIn'
 import FriendsMenu from './containers/FriendsMenu'
-import Home from './containers/Home'
-import Splash from './containers/Splash'
-// import ChatroomContainer from './friends/ChatroomContainer'
-import FriendsChat from './friends/FriendsChat'
+// import Home from './containers/Home'
+// import Splash from './containers/Splash'
+import ChatroomContainer from './friends/ChatroomContainer'
+// import FriendsChat from './friends/FriendsChat'
 import AllRoutes from './AllRoutes'
 class App extends React.Component {
 
@@ -25,11 +25,9 @@ class App extends React.Component {
   }
 
   toggleChat = (id) => {
-    console.log('in the toggle chat', id)
-
     this.setState({
       friendId: this.state.friendId === id ? null : id
-    }, () => console.log(this.state.friendId, id))
+    })
   }
 
   render() {
@@ -51,7 +49,7 @@ class App extends React.Component {
             : null }
             {this.state.friendId ?
               <div className="sticky-side-chat">
-                <FriendsChat friendId={this.state.friendId}/>
+                <ChatroomContainer friendId={this.state.friendId}/>
               </div>
                 : null }
             <AllRoutes/>

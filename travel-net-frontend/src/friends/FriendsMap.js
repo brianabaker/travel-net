@@ -49,9 +49,9 @@ class FriendsMap extends React.Component {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `85vh` }} />}
         mapElement={<div style={{ height: `100%` }} />}
-        defaultZoom={2}
+        defaultZoom={3}
         onClick={() => this.handleToggleClose()}
-        defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
+        defaultCenter={{ lat: 15.517860, lng: -36.777681 }}
       >
       {this.props.friends.filter(friend => friend.on_trip === false).map((friend, i) => {
         let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
