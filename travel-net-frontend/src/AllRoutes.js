@@ -4,6 +4,7 @@ import { Route, Switch} from "react-router-dom";
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 import Splash from './containers/Splash'
+import About from './containers/About'
 import LoggedInRoutes from "./LoggedInRoutes";
 
 const AllRoutes = (props) => {

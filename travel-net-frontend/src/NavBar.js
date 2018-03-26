@@ -12,8 +12,8 @@ const NavBar = (props) => {
     if (props.currentUser) {
       return(
         <React.Fragment>
-          <Link to='/' className="item">
-            Home
+          <Link to='/about' className="item">
+            About
           </Link>
           <Link to='/friends' className="item">
             Your Friends

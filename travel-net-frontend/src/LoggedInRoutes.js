@@ -13,7 +13,7 @@ import Profile from './users/Profile'
 import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
-
+import About from './containers/About'
 
 class LoggedInRoutes extends React.Component {
 
@@ -27,6 +27,7 @@ class LoggedInRoutes extends React.Component {
         <div id="main-container" className="fourteen wide column">
           <Switch>
             <Route exact path="/welcome" component={Welcome}/>
+            <Route exact path='/about' component={About}/>
             <Route path="/friends" component={Friends}/>
             <Route path="/trips/:tripId" component={Trip}/>
             <Route exact path="/trips" component={TripsContainer}/>
