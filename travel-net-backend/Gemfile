@@ -24,6 +24,7 @@ gem 'devise'
 # gem "figaro"
 gem 'dotenv-rails'
 gem 'filestack-rails'
+gem 'simple_command'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

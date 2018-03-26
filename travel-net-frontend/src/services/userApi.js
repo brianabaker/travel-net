@@ -109,8 +109,9 @@ class UserApi {
   }
 
   static signOut(){
-    localStorage.removeItem("state");
-    localStorage.removeItem("token");
+    localStorage.clear()
+    // localStorage.removeItem("state");
+    // localStorage.removeItem("token");
   }
 }
 

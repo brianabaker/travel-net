@@ -45,13 +45,13 @@ const router = routerMiddleware(history)
 
 const reducers= combineReducers({users: usersReducer, trips: tripsReducer, chats: chatsReducer, router: routerReducer});
 
-const persistedState = loadState()
+// const persistedState = loadState()
 
-const store = createStore(reducers, persistedState, composeWithDevTools(applyMiddleware(thunk, router)));
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
 
-store.subscribe(() => {
-  saveState(store.getState())
-})
+// store.subscribe(() => {
+//   saveState(store.getState())
+// })
 
 const API_WS_ROOT = `ws://localhost:3000/cable`
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322152034) do
+ActiveRecord::Schema.define(version: 20180320192903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,18 +76,7 @@ ActiveRecord::Schema.define(version: 20180322152034) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "profile_pic_url"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "whitelisted_jwts", force: :cascade do |t|
-    t.string "jti", null: false
-    t.string "aud"
-    t.datetime "exp", null: false
-    t.bigint "users_id"
-    t.index ["jti"], name: "index_whitelisted_jwts_on_jti", unique: true
-    t.index ["users_id"], name: "index_whitelisted_jwts_on_users_id"
-  end
-
-  add_foreign_key "whitelisted_jwts", "users", column: "users_id"
 end
