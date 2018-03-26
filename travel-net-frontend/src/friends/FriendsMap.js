@@ -12,6 +12,7 @@ class FriendsMap extends React.Component {
     traveling: [],
     isOpen: false,
     openInfoWindowMarkerId: ''
+    // center: { lat: 15.517860, lng: -36.777681 }
   };
 
   componentDidMount(){
@@ -42,17 +43,28 @@ class FriendsMap extends React.Component {
     return friendsArray.length.toString()
   }
 
+  displaySpecificFriendOnMap = () => {
+    if (this.props.searchFriend) {
+      let lat = parseFloat(this.props.searchFriend.lat)
+      let lng = parseFloat(this.props.searchFriend.lng)
+    this.setState({
+      center: {lat: lat, lng: lng}
+    })
+  }
+}
+
   render() {
+    // console.log(this.state.center)
     return (
       <GoogleMapsWrapper
         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0&v=3.exp&libraries=geometry,drawing,places"
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `85vh` }} />}
         mapElement={<div style={{ height: `100%` }} />}
-        defaultZoom={3}
+        zoom={this.props.zoom}
         onClick={() => this.handleToggleClose()}
-        defaultCenter={{ lat: 15.517860, lng: -36.777681 }}
-      >
+        center={this.props.center}
+        >
       {this.props.friends.filter(friend => friend.on_trip === false).map((friend, i) => {
         let lat = parseFloat(friend.lat.replace('"','').replace('"',''));
         let lng = parseFloat(friend.lng.replace('"','').replace('"',''));

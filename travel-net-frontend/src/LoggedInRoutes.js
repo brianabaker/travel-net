@@ -27,7 +27,7 @@ class LoggedInRoutes extends React.Component {
         <div id="main-container" className="fourteen wide column">
           <Switch>
             <Route exact path="/welcome" component={Welcome}/>
-            <Route exact path="/friends" component={Friends}/>
+            <Route path="/friends" component={Friends}/>
             <Route path="/trips/:tripId" component={Trip}/>
             <Route exact path="/trips" component={TripsContainer}/>
             <Route path="/users/:userId" component={Profile}/>

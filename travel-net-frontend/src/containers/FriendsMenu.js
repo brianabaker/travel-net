@@ -8,6 +8,15 @@ class FriendsMenu extends React.Component {
   // state = {
   //   friendId: ''
   // }
+  // state = {
+  //   menuId: ''
+  // }
+  //
+  // toggleMenu = (id) => {
+  //   this.setState({
+  //     menuId: this.state.menuId === id ? null : id
+  //   }, () => console.log('menu id', this.state.menuId))
+  // }
 
   toggleVisibility = (id) => {
     this.props.toggleChat(id)
@@ -23,7 +32,7 @@ class FriendsMenu extends React.Component {
         <div className="ui borderless secondary stackable vertical menu sticky-side-bar">
           <p className="item">Friends List</p>
         {this.props.friends.map(friend => {
-            return <FriendItem key={friend.id} id={friend.id} currentChatId={this.props.friendId} toggleVisibility={this.toggleVisibility} name={friend.username}/>
+            return <FriendItem key={friend.id} lat={friend.lat} lng={friend.lng} id={friend.id} currentChatId={this.props.friendId} toggleVisibility={this.toggleVisibility} name={friend.username}/>
               })}
         </div>
       </React.Fragment>

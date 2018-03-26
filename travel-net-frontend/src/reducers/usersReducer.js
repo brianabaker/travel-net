@@ -1,6 +1,6 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER } from '../actions/users'
+import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP } from '../actions/users'
 
 
 export const usersState = {
@@ -8,7 +8,8 @@ export const usersState = {
   friendRequests: '',
   isLoading: false,
   alert: '',
-  friends: ''
+  friends: '',
+  showFriendOnMap: ''
 }
 
 // loader on 45:00
@@ -55,6 +56,9 @@ function usersReducer(state = usersState, action) {
       return {...state, alert: action.payload}
     case SIGN_OUT:
       return {state: usersState}
+    case SHOW_FRIEND_ON_MAP:
+    console.log(action.payload)
+      return {...state, showFriendOnMap: action.payload}
     default:
       return state;
     }

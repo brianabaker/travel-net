@@ -30,6 +30,16 @@ class App extends React.Component {
     })
   }
 
+  // toggleMenu = (id) => {
+  //   this.setState({
+  //     friendId: this.state.friendId === id ? null : id
+  //   })
+  // }
+
+  // showOnMap = (id) => {
+  //   console.log(id)
+  // }
+
   render() {
     // let sectionStyle = {
     //     margin: 0,

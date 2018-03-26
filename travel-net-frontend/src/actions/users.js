@@ -27,6 +27,7 @@ export const ERRORS = "ERRORS"
 export const SIGN_OUT = "SIGN_OUT"
 export const EDITING_USER = "EDITING_USER"
 export const EDITED_USER = "EDITED_USER"
+export const SHOW_FRIEND_ON_MAP = "SHOW_FRIEND_ON_MAP"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -42,6 +43,23 @@ export function selectUser(id) {
   return function(dispatch){
     // dispatch({type: "SELECTED_USER", payload: user})
     dispatch(push(`/users/${id}`))
+  }
+}
+
+// export const showFriendOnMap = (lat, lng) => ({
+//   type: "SHOW_FRIEND_ON_MAP",
+//   payload: {lat, lng}
+// })
+
+export function showFriendOnMap(lat, lng) {
+  return function(dispatch){
+    dispatch({type: "SHOW_FRIEND_ON_MAP", payload: {lat, lng} })
+    // dispatch(push(`/friends/${lat, lng}`))
+    dispatch(push(({
+      pathname: '/friends',
+      search: `?query=${lat,lng}`,
+      state: { detail: {lat, lng} }
+    })))
   }
 }
 

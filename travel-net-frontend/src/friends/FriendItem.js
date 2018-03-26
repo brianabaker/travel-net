@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 // import Friends from './Friends'
 // import VerticalMenu from './VerticalMenu'
-import {selectUser} from '../actions/users'
+import {selectUser, showFriendOnMap} from '../actions/users'
 class FriendItem extends React.Component {
 
   state = {
@@ -20,12 +20,13 @@ class FriendItem extends React.Component {
 
   render() {
       let itemClass = this.props.currentChatId === this.props.id ? "active item" : "item"
-      console.log(this.props.id)
+      console.log(this.props)
     return(
       <React.Fragment>
         <div className="ui left pointing dropdown link item" onClick={() => this.toggleMenu(this.props.id)}>{this.props.name}</div>
           {this.state.menuId === this.props.id ?
           <div className="menu">
+            <a className="item" onClick={() => this.props.showFriendOnMap(this.props.lat, this.props.lng)}>View on Map</a>
             <a className="item" onClick={() => this.props.selectUser(this.props.id)}>Profile</a>
             <a className="item" onClick={() => this.props.toggleVisibility(this.props.id)}>Chat</a>
           </div>
@@ -35,4 +36,4 @@ class FriendItem extends React.Component {
   }
 }
 
-export default connect(null, {selectUser})(FriendItem)
+export default connect(null, {selectUser, showFriendOnMap})(FriendItem)

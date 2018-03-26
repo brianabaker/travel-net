@@ -24,7 +24,10 @@ class Friends extends React.Component {
     // allFriends: [],
     filterFriends: [],
     cityName: '',
-    erros: ''
+    erros: '',
+    search: '',
+    center:  { lat: 15.517860, lng: -36.777681 },
+    zoom: 2
   }
 
   // componentDidMount() {
@@ -33,6 +36,17 @@ class Friends extends React.Component {
   //     filterFriends: this.props.friends
   //   })
   // }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props.location.state.detail !== nextProps.location.state.detail){
+      let lat = parseFloat(nextProps.location.state.detail.lat)
+      let lng = parseFloat(nextProps.location.state.detail.lng)
+      this.setState({
+        center: {lat: lat, lng: lng},
+        zoom: 10
+      }, () => console.log(this.state.zoom))
+    }
+  }
 
   seeFriendRequests = (e) => {
     e.preventDefault()
@@ -62,10 +76,8 @@ class Friends extends React.Component {
   }
 
   searchUsers = (query) => {
-    console.log('search', this.props.currentUser.id, query)
     UserApi.searchUsers(this.props.currentUser.id, query)
     .then(searchResults => {
-      console.log("results", searchResults.length)
       if (searchResults.length <= 0) {
         this.setState({
           errors: "No results found!"
@@ -79,6 +91,7 @@ class Friends extends React.Component {
   }
 
   render(){
+    console.log(this.props.location.state.detail)
 
     return(
       <React.Fragment>
@@ -87,7 +100,7 @@ class Friends extends React.Component {
       <React.Fragment>
         <div className="twelve wide column">
         {this.props.friends.length > 0 ?
-            <FriendsMap friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
+            <FriendsMap zoom={this.state.zoom} center={this.state.center} friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
             :
             <EmptyMap/>
         }
