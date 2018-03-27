@@ -28,6 +28,7 @@ export const SIGN_OUT = "SIGN_OUT"
 export const EDITING_USER = "EDITING_USER"
 export const EDITED_USER = "EDITED_USER"
 export const SHOW_FRIEND_ON_MAP = "SHOW_FRIEND_ON_MAP"
+export const RENDER_SIGN_UP_PAGE = "RENDER_SIGN_UP_PAGE"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -39,6 +40,14 @@ export function returnToFriendsMenu() {
     dispatch(push('/friends'))
   }
 }
+
+export function renderSignUpPage() {
+  return function(dispatch){
+    dispatch({type: "RENDER_SIGN_UP_PAGE"})
+    dispatch(push('/signup'))
+  }
+}
+
 export function selectUser(id) {
   return function(dispatch){
     // dispatch({type: "SELECTED_USER", payload: user})
@@ -95,22 +104,25 @@ export function positiveResponseFriendRequest(user, friend){
 export function createUser(username, password, passwordConfirmation, location) {
   return function(dispatch){
      dispatch({type: "CREATING_USER"})
-     UserApi.createUser(username, password, passwordConfirmation, location).then(userJSON => {
+     UserApi.createUser(username, password, passwordConfirmation, location)
+     .then(userJSON => {
        if (userJSON.errors) {
          dispatch({type: "ERRORS", payload: userJSON.errors})
        } else {
+         console.log('createuser', userJSON)
          localStorage.setItem("token", userJSON.auth_token)
          dispatch({type: "CREATED_USER", payload: userJSON.user})
-         dispatch(push('/welcome'))
        }
      })
-  }
-}
+       .then(dispatch(push('/addbio')))
+     }
+   }
 
-export function editUser(currentUser, username, bio){
+export function editUser(currentUser, username, bio, photoUrl){
   return function(dispatch){
     dispatch({type: "EDITING_USER"})
-    UserApi.editProfile(currentUser, username, bio).then(userJSON => {
+    UserApi.editProfile(currentUser, username, bio, photoUrl).then(userJSON => {
+      console.log('edit user', currentUser, username, bio, photoUrl)
       if (userJSON.error){
         dispatch({type: "ERRORS", payload: userJSON.error})
       } else {
@@ -118,6 +130,20 @@ export function editUser(currentUser, username, bio){
         dispatch(push(`/users/${currentUser.id}`))
       }
     })
+  }
+}
+
+export function addBio(currentUser, bio, photoUrl) {
+  return function(dispatch){
+    dispatch({type: "EDITING_USER"})
+    UserApi.addBio(currentUser, bio, photoUrl).then(userJSON => {
+      if (userJSON.error){
+        dispatch({type: "ERRORS", payload: userJSON.error})
+      } else {
+        dispatch({type: "EDITED_USER", payload: userJSON})
+      }
+    })
+    .then(dispatch(push(`/welcome`)))
   }
 }
 

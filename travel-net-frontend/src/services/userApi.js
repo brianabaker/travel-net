@@ -93,7 +93,7 @@ class UserApi {
     .then(res => res.json())
   }
 
-  static editProfile(currentUser, username, bio){
+  static editProfile(currentUser, username, bio, photoUrl){
     return fetch('http://localhost:3000/users/', {
       method: "PATCH",
       headers: {
@@ -102,11 +102,27 @@ class UserApi {
       body: JSON.stringify({
         currentUser: currentUser.id,
         username: username,
-        bio: bio
+        bio: bio,
+        photoUrl: photoUrl
       })
     })
     .then(res => res.json())
   }
+
+  static addBio(currentUser, bio, photoUrl){
+    return fetch('http://localhost:3000/users/addbio', {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          currentUser: currentUser.id,
+          bio: bio,
+          photoUrl: photoUrl
+        })
+      })
+      .then(res => res.json())
+    }
 
   static signOut(){
     localStorage.removeItem("state");

@@ -25,15 +25,28 @@ class FriendsMenu extends React.Component {
       // }, () => console.log(this.state.friendId))
     }
 
+
+    checkFriends = () => {
+      if (this.props.friends.length > 0) {
+        return(
+          this.props.friends.map(friend =>
+            <FriendItem key={friend.id} lat={friend.lat} lng={friend.lng} id={friend.id} currentChatId={this.props.friendId} toggleVisibility={this.toggleVisibility} name={friend.username}/>
+          )
+        )
+      } else {
+        return(
+          <div>
+          </div>
+        )
+      }
+    }
+
   render() {
     // console.log(this.props.history)
     return(
       <React.Fragment>
         <div className="ui borderless secondary stackable vertical menu sticky-side-bar">
-          <p className="item">Friends List</p>
-        {this.props.friends.map(friend => {
-            return <FriendItem key={friend.id} lat={friend.lat} lng={friend.lng} id={friend.id} currentChatId={this.props.friendId} toggleVisibility={this.toggleVisibility} name={friend.username}/>
-              })}
+          {this.checkFriends()}
         </div>
       </React.Fragment>
     )

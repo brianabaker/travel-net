@@ -12,18 +12,18 @@ const NavBar = (props) => {
     if (props.currentUser) {
       return(
         <React.Fragment>
-          <Link to='/about' className="item">
+          <Link to='/about' className="item" id="nav-bar-item">
             About
           </Link>
-          <Link to='/friends' className="item">
+          <Link to='/friends' className="item" id="nav-bar-item">
             Your Friends
           </Link>
-          <Link to='/trips' className="item">
+          <Link to='/trips' className="item" id="nav-bar-item">
             Your Trips
           </Link>
           <div className="right menu">
-          <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
-          <a onClick={() => props.signOut()} className="ui item">
+          <Link to={`/users/${props.currentUser.id}`} className="item" id="nav-bar-item">{props.currentUser.username}</Link>
+          <a onClick={() => props.signOut()} className="ui item" id="nav-bar-item">
             SignOut
           </a>
         </div>
@@ -34,7 +34,7 @@ const NavBar = (props) => {
 
   return(
     <div className="ui menu sticky-nav" style={{marginBottom: "0px"}}>
-      <div className="header item">
+      <div className="header item" id="nav-bar-item">
         TravelNet
       </div>
       {ifCurrentUser()}

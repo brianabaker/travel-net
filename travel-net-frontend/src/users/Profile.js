@@ -8,6 +8,8 @@ import TripMap from '../trips/TripMap'
 // import SameProfile from './SameProfile'
 // import ChatroomContainer from '../friends/ChatroomContainer'
 
+import Image from '../images/profile-pic-empty.gif'
+
 class Profile extends React.Component {
   state = {
     selectedUser: '',
@@ -102,7 +104,19 @@ class Profile extends React.Component {
       </h4>)
     } else {
       return (
-        <h4>"Not Traveling"</h4>
+        <h4>Not Traveling</h4>
+      )
+    }
+  }
+
+  renderImage = () => {
+    if (this.state.selectedUser.profile_pic_url) {
+      return (
+        <img src={this.state.selectedUser.profile_pic_url} alt="profile pic" style={{height: "300px", width: "300px"}}/>
+      )
+    } else {
+      return (
+        <img src={Image} alt="profile pic" style={{height: "300px", width: "300px"}}/>
       )
     }
   }
@@ -124,6 +138,7 @@ class Profile extends React.Component {
             <React.Fragment>
               <div className="two column row">
                 <div className="column">
+                  {this.renderImage()}
                   <h4>{this.state.selectedUser.username}</h4>
                   {this.displayTraveling()}
               </div>

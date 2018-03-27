@@ -18,9 +18,6 @@ class SignUp extends React.Component {
     password: '',
     passwordConfirmation: '',
     location: ''
-    // city: "",
-    // country: "",
-    // region: ""
   };
 
   onInputChange = e => {
@@ -28,13 +25,6 @@ class SignUp extends React.Component {
       [e.target.name]: e.target.value
     });
   };
-  // selectCountry = (val) => {
-  //    this.setState({ country: val });
-  //  }
-  //
-  //  selectRegion = (val) => {
-  //    this.setState({ region: val });
-  //  }
 
 // this is really first geocoding and then making the user
   addUser = (e) => {

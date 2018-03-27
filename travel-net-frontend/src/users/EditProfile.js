@@ -1,6 +1,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
+import AddPhoto from './AddPhoto'
 
 // import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
 // import _ from 'lodash'
@@ -12,7 +13,8 @@ class EditProfile extends React.Component {
     username: '',
     bio: '',
     picture: '',
-    changes: ''
+    changes: '',
+    url: ''
   }
 
   componentDidMount() {
@@ -23,10 +25,20 @@ class EditProfile extends React.Component {
         console.log(profileJSON)
         this.setState({
           username: profileJSON.username,
-          bio: profileJSON.bio
+          bio: profileJSON.bio,
+          url: profileJSON.profile_pic_url
         })
       })
   }
+
+    onSuccess = (result) => {
+      this.setState({
+        url: result.filesUploaded[0].url
+      }, () => console.log(this.state.url))
+    }
+    onError = (error) => {
+      console.error('error', error);
+    }
 
   handleInput = (e) => {
     this.setState({
@@ -35,7 +47,7 @@ class EditProfile extends React.Component {
   }
 
   handleEdit = () => {
-    this.props.editUser(this.props.currentUser, this.state.username, this.state.bio)
+    this.props.editUser(this.props.currentUser, this.state.username, this.state.bio, this.state.url)
   }
 
   render() {
@@ -61,6 +73,9 @@ class EditProfile extends React.Component {
                 <input value={this.state.username} name="username" onInput={this.handleInput} />
                   <h4>Bio</h4>
                 <textarea value={this.state.bio} name="bio" onInput={this.handleInput}></textarea>
+              </div>
+              <div id="add-padding">
+                <AddPhoto text="Change Profile Picture" onError={this.onError} onSuccess={this.onSuccess}/>
               </div>
             </div>
             <div className="eight wide column"></div>

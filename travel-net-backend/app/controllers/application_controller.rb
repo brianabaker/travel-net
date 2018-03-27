@@ -1,15 +1,15 @@
 class ApplicationController < ActionController::API
-  before_action :configure_permitted_parameters, if: :devise_controller?
+
 
   include ActionController::MimeResponds
   # self.responder = ApplicationResponder
   respond_to :json
 
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :password, :password_confirmation, :profile_pic, :bio) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:currentUser, :username, :password, :password_confirmation, :profile_pic, :bio) }
-  end
+  # def configure_permitted_parameters
+  #   devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :password, :password_confirmation, :profile_pic, :bio) }
+  #   devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:currentUser, :username, :password, :password_confirmation, :profile_pic, :bio) }
+  # end
 
   # def configure_permitted_parameters
   #   devise_parameter_sanitizer.permit(:lat, :lng)

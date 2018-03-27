@@ -8,10 +8,8 @@ class RegistrationsController < Devise::RegistrationsController
    user = User.new(authentication_params)
    if user.valid?
      user.save
-     # byebug
      render json: payload(user), status: 200
    else
-     # byebug
      @errors = user.errors.full_messages
      render :json => { :errors => @errors }, :status => 420
    end

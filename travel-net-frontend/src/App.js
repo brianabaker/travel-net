@@ -49,7 +49,7 @@ class App extends React.Component {
     //   }
 
     return(
-        <div>
+        <div className="add-padding">
           <NavBar/>
           <div className="ui grid">
             {this.props.friends ?

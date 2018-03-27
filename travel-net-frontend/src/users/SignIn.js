@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from "react-redux"
 
 // actions
-import { login } from "../actions/users"
+import { login, renderSignUpPage } from "../actions/users"
 
 class SignIn extends React.Component {
 
@@ -25,6 +25,7 @@ class SignIn extends React.Component {
   }
 
   render(){
+    console.log(this.props)
     return(
       <div id="opaque">
         <div><h4>Sign In!</h4></div>
@@ -41,7 +42,7 @@ class SignIn extends React.Component {
             </div>
             <input type="submit"/>
           </form>
-            <div>Or Sign Up<button>Here</button></div>
+            <div>Or Sign Up<button onClick={this.props.renderSignUpPage}>Here</button></div>
             <br/><br/>
 
       </div>
@@ -55,4 +56,4 @@ const mapStateToProps = (state) => {
   return {alert: state.users.alert}
 }
 
-export default connect(mapStateToProps, {login})(SignIn)
+export default connect(mapStateToProps, {login, renderSignUpPage})(SignIn)

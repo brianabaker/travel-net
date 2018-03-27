@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   get '/users/:id/friends' => 'users#friends'
   post "/users/:id" => "users#show"
   get '/users/:id' => "users#show_own_profile"
+  patch '/users/addbio' => "users#add_bio"
   patch '/users' => "users#update"
+
 
   patch '/trips/:id/add' => 'trips#add_trip_location'
   get '/trips/:id/locations' => 'trips#show_locations'

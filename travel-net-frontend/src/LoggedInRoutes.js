@@ -14,6 +14,7 @@ import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 import About from './containers/About'
+import AddMoreUserInfo from './users/AddMoreUserInfo'
 
 class LoggedInRoutes extends React.Component {
 
