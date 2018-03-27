@@ -30,7 +30,6 @@ class AddMoreUserInfo extends React.Component {
   }
 
   render() {
-    console.log('add info', this.props)
     return(
       <div>
         <p>Welcome to Travel Net the best Travel Network!</p>

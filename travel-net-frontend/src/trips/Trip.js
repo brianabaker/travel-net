@@ -39,7 +39,6 @@ class Trip extends React.Component {
   }
 
   render(){
-    console.log(this.props)
     return (
       <div className="ui stackable grid container">
         {this.props.tripLocations ?

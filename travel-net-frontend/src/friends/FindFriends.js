@@ -40,16 +40,16 @@ class FindFriends extends React.Component {
   render(){
     return(
       <div>
-        <form className="ui icon input">
-          <input type="text" size="15" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
-          <i className="search icon"></i>
-        </form>
         {this.state.errors ?
         <p className="color-red"><strong>Not enough characters, try again</strong></p>
         : null }
         {this.props.errors ?
         <p className="color-red"><strong>No results found, try again</strong></p>
         : null }
+        <form className="ui icon input">
+          <input type="text" size="15" name="query" value={this.state.query} onInput={this.handleInput} onKeyDown={this.handleKeyDown} placeholder="Find New Friends"/>
+          <i className="search icon"></i>
+        </form>
       </div>
     )
   }

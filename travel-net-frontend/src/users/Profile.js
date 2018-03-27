@@ -5,15 +5,15 @@ import {requestFriendship, fetchProfile} from '../actions/users'
 import {fetchTrip} from '../actions/trips'
 // import {fetchFriends} from '../actions/users'
 import TripMap from '../trips/TripMap'
-// import SameProfile from './SameProfile'
-// import ChatroomContainer from '../friends/ChatroomContainer'
-
+import {findAddress} from '../helpers'
+import RenderButton from './RenderButton'
 import Image from '../images/profile-pic-empty.gif'
 
 class Profile extends React.Component {
   state = {
     selectedUser: '',
-    sameUser: false
+    sameUser: false,
+    location: ''
   }
 
   componentDidMount(){
@@ -21,7 +21,7 @@ class Profile extends React.Component {
     if (id === this.props.currentUser.id) {
       this.setState({
         sameUser: true
-      })
+      }, () => console.log(this.state.sameUser))
       this.fetchMyProfile(id)
     } else {
       this.setState({
@@ -37,6 +37,45 @@ class Profile extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.selectedUser) {
+      this.showLocation()
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.selectedUser) {
+      if (this.state.location === nextState.location) {
+        return false
+      } else if (this.state.location !== nextState.location){
+        return true
+      }
+    } else if (!this.state.selectedUser){
+      return true
+    } else if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      return true
+    }
+  }
+
+  showLocation = () => {
+    console.log(this.state.location === "")
+    if (this.state.location === "" ) {
+      let currentLocation = findAddress(parseFloat(this.state.selectedUser.lat), parseFloat(this.state.selectedUser.lng))
+      .then(data => {
+        this.setState({
+          location:data
+        })
+      })
+    }
+  }
+
+  renderLocation = () => {
+    if (this.state.location) {
+      return(
+        <p>Currently in: {this.state.location}</p>
+      )
+    }
+  }
 
   fetchProfile = (id) => {
     // console.log('this is fetching the friends profile', id)
@@ -68,6 +107,7 @@ class Profile extends React.Component {
   }
 
   checkTraveling = () => {
+    console.log('check traveling', this.state.selectedUser.on_trip)
     if (this.state.selectedUser.on_trip) {
       this.props.fetchTrip(this.state.selectedUser.current_trip_id)
     }
@@ -76,12 +116,16 @@ class Profile extends React.Component {
   // make it match as well
 
   checkFriendship = () => {
-    if (Array.isArray(this.props.friends) && this.state.selectedUser) {
+    if (Array.isArray(this.props.friends) && (this.state.selectedUser.id !== this.props.currentUser.id)) {
       let result = this.props.friends.find(friend => {
         return friend.id === this.state.selectedUser.id
       })
       return !!result
-  } else {
+  } else if (this.state.sameUser === true ){
+    return (
+      "same user"
+    )
+  }  else {
     return false
   }
 }
@@ -94,7 +138,7 @@ class Profile extends React.Component {
 
   displayTraveling = () => {
     if (this.state.selectedUser.on_trip){
-      return (<h4>
+      return (<h4 className="ui header">
         <React.Fragment>
           Traveling
           {this.state.sameUser ?
@@ -121,7 +165,25 @@ class Profile extends React.Component {
     }
   }
 
+  checkButton = () => {
+    if (this.checkFriendship() === true) {
+      return(
+        <RenderButton text={"remove friend button"}/>
+      )
+    } else if (this.state.sameUser === false){
+      return(
+        <RenderButton text={"add friend"} function={this.requestFriendship}/>
+      )
+    } else if (this.state.sameUser === true) {
+      return(
+        <RenderButton text={"edit profile"} function={() => this.props.history.push('/edit')}/>
+      )
+    }
+  }
+
   render() {
+    console.log('trip locations', this.props.tripLocations)
+    console.log('result', this.checkFriendship())
     if (this.props.isLoading === "Loading"){
       return (
         <div>Loading</div>
@@ -137,23 +199,17 @@ class Profile extends React.Component {
           : null}
             <React.Fragment>
               <div className="two column row">
-                <div className="column">
-                  {this.renderImage()}
-                  <h4>{this.state.selectedUser.username}</h4>
-                  {this.displayTraveling()}
-              </div>
+              <div className="column"></div>
               <div className="column">
-                {!this.state.sameUser ?
-                  <React.Fragment>
-                    {this.checkFriendship() === true ? "Button to remove friend here" :
-                      <button onClick={() => this.requestFriendship()}>Add Friend</button>
-                    }
-                </React.Fragment>
-               : <button className="ui green button" onClick={() => this.props.history.push('/edit')}>Edit Profile</button>}
+                {this.checkButton()}
               </div>
             </div>
             <div className="seven wide column">
-              {this.state.selectedUser.bio ? <p>{this.state.selectedUser.bio}</p> : "Add Bio Now!"}
+              {this.renderImage()}
+              <h4 className="ui header">{this.state.selectedUser.username}</h4>
+              {this.displayTraveling()}
+              {this.renderLocation()}
+              {this.state.selectedUser.bio ? <p>{this.state.selectedUser.bio}</p> : "No Bio Provided"}
             </div>
             <div className="eight wide column">
               {this.checkFriendship() ?

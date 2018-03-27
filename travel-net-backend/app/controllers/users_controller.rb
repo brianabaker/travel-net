@@ -37,6 +37,7 @@ class UsersController < ApplicationController
     @current_user.bio = params[:bio]
     @current_user.profile_pic_url = params[:photoUrl]
     @current_user.save
+    render json: @current_user, status: 200
   end
 
   def search
