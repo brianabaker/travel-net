@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   patch '/users/addbio' => "users#add_bio"
   patch '/users' => "users#update"
 
-
+  patch '/trips/:id/endtrip' => 'trips#end_trip'
   patch '/trips/:id/add' => 'trips#add_trip_location'
   get '/trips/:id/locations' => 'trips#show_locations'
   patch '/triplocations/:id' => 'trips#edit_trip_location'

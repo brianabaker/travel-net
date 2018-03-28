@@ -1,5 +1,5 @@
 
-import {RENDER_FORM, CANCEL_CREATE_TRIP, CREATING_TRIP, CREATED_TRIP, FETCHING_TRIP, FETCHED_TRIP, FETCHED_LOCATIONS, ADDING_TO_TRIP, EDITING_TRIP_LOCATION, EDITED_TRIP_LOCATION} from '../actions/trips'
+import {RENDER_FORM, CANCEL_CREATE_TRIP, CREATING_TRIP, CREATED_TRIP, FETCHING_TRIP, FETCHED_TRIP, FETCHED_LOCATIONS, ADDING_TO_TRIP, EDITING_TRIP_LOCATION, EDITED_TRIP_LOCATION, ENDING_TRIP, ENDED_TRIP} from '../actions/trips'
 
 export const tripsState = {
   renderForm: false,
@@ -21,9 +21,11 @@ function tripsReducer(state = tripsState, action) {
     case FETCHING_TRIP:
       return {...state, isLoading: true, tripLocations: ''}
     case FETCHED_TRIP:
-      return {...state, isLoading: false, currentTrip: action.payload}
+    console.log('fetched trip')
+      return {...state, isLoading: true, currentTrip: action.payload}
     case FETCHED_LOCATIONS:
-      return {...state, tripLocations: action.payload}
+    console.log('fetched locations')
+      return {...state, isLoading: false, tripLocations: action.payload}
     case ADDING_TO_TRIP:
      return {...state, isLoading: true}
     case EDITING_TRIP_LOCATION:
@@ -32,6 +34,10 @@ function tripsReducer(state = tripsState, action) {
     case EDITED_TRIP_LOCATION:
     console.log('in the edited')
       return {...state, isLoading: false}
+    case ENDING_TRIP:
+      return {...state, isLoading: true}
+    case ENDED_TRIP:
+      return {...state, isLoading: false, tripLocations: '', currentTrip: ''}
     default:
       return state;
   }

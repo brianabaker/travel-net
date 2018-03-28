@@ -5,9 +5,10 @@ import React from 'react'
 
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
-import {fetchTrip, addToTrip} from '../actions/trips'
+import {fetchTrip, addToTrip, endTrip} from '../actions/trips'
 import {getLatLng} from '../helpers'
 import LocationList from './LocationList'
+import EndTripConfirmation from './EndTripConfirmation'
 
 class Trip extends React.Component {
   state = {
@@ -38,7 +39,18 @@ class Trip extends React.Component {
     })
   }
 
+  endTrip = () => {
+    console.log(this.props.currentTrip)
+    console.log('in the end trip')
+    this.props.endTrip(this.props.currentUser, this.props.currentTrip)
+  }
+
   render(){
+    if (this.props.isLoading === "Loading"){
+      return (
+        <div>Loading</div>
+      )
+    }
     return (
       <div className="ui stackable grid container">
         {this.props.tripLocations ?
@@ -56,6 +68,7 @@ class Trip extends React.Component {
               <input type="text" placeholder="Enter New Location" value={this.state.newLocation} onChange={this.handleOnChange}/>
               <button>Go</button>
             </form>
+            <EndTripConfirmation endTrip={this.endTrip}/>
             <h4>Your Locations So Far</h4>
             <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
           </div>
@@ -69,7 +82,8 @@ class Trip extends React.Component {
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
           currentTrip: state.trips.currentTrip,
+          isLoading: state.trips.isLoading,
           tripLocations: state.trips.tripLocations}
 }
 
-export default connect(mapStateToProps, {fetchTrip, addToTrip})(Trip)
+export default connect(mapStateToProps, {fetchTrip, addToTrip, endTrip})(Trip)

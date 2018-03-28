@@ -1,6 +1,21 @@
 
 class TripApi {
 
+  static endTrip(currentUser, trip){
+    console.log(currentUser, trip)
+    console.log('in the api')
+    return fetch(`http://localhost:3000/trips/${trip.id}/endtrip/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentUser: currentUser
+      })
+    })
+    .then(res => res.json())
+  }
+
   static addToTrip(tripId, res){
     return fetch(`http://localhost:3000/trips/${tripId}/add`, {
       method: "PATCH",

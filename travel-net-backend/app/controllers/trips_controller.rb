@@ -47,4 +47,21 @@ class TripsController < ApplicationController
     render json: @trip, status:200
   end
 
+  def end_trip
+    byebug
+    @current_user = User.find(params[:currentUser][:id])
+    
+    @trip = Trip.find(params[:id])
+    @trip.active = false
+    @trip.save
+
+    @current_user.on_trip = false
+    @current_user.current_trip_id = ''
+    @current_user.save
+    response = { :user => @current_user, :past_trip => @trip }
+    respond_to do |format|
+      format.json  { render :json => response }
+    end
+  end
+
 end

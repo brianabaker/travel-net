@@ -1,6 +1,7 @@
 
 
 import React from 'react'
+import {connect} from 'react-redux'
 import { Marker, Polyline } from "react-google-maps";
 import GoogleMapsWrapper from "../maps/GoogleMapsWrapper.js";
 
@@ -22,6 +23,17 @@ class TripMap extends React.Component {
       openInfoWindowMarkerId: ''
     })
   }
+
+  componentWillUpdate(nextProps, nextState){
+    console.log(nextProps, nextState)
+  }
+  //
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps)
+  // }
+  componentDidCatch(error, info) {
+    console.log(error, info)
+}
 
   render(){
     let lat = parseFloat(this.props.locations[this.props.locations.length - 1].lat.replace('"','').replace('"',''));
@@ -70,5 +82,8 @@ class TripMap extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {isLoading: state.trips.isLoading}
+}
 
-export default TripMap
+export default connect(mapStateToProps)(TripMap)

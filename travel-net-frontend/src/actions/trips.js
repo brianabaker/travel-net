@@ -11,6 +11,19 @@ export const ADDING_TO_TRIP = "ADDING_TO_TRIP";
 export const FETCHED_LOCATIONS = "FETCHED_LOCATIONS";
 export const EDITING_TRIP_LOCATION = "EDITING_TRIP_LOCATION";
 export const EDITED_TRIP_LOCATION = "EDITED_TRIP_LOCATION";
+export const ENDING_TRIP = "ENDING_TRIP"
+export const ENDED_TRIP = "ENDED_TRIP"
+
+export function endTrip(currentUser, currentTrip) {
+  return function(dispatch) {
+    dispatch({type: "ENDING_TRIP"})
+    console.log('in the action')
+    TripApi.endTrip(currentUser, currentTrip).then(tripJSON => {
+      console.log(tripJSON)
+    })
+    .then(dispatch({type: "ENDED_TRIP"}))
+  }
+}
 
 export function createTrip(currentUser, tripName, lat, lng) {
   return function(dispatch) {
