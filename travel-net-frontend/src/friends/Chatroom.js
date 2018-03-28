@@ -54,7 +54,6 @@ class Chatroom extends React.Component {
 
 	render(){
     let messageComponents = ''
-			console.log(this.props.chatroom.messages)
     {this.props.chatroom.messages ?
       (messageComponents = this.props.chatroom.messages.map(message => {
 				let bubbleStyle = message.user_id === this.props.currentUser.id ? "chat-me" : "chat-them"

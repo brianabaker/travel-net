@@ -73,7 +73,7 @@ class Profile extends React.Component {
 
   showLocation = () => {
     if (this.state.location === "" ) {
-      let currentLocation = findAddress(parseFloat(this.state.selectedUser.lat), parseFloat(this.state.selectedUser.lng))
+      findAddress(parseFloat(this.state.selectedUser.lat), parseFloat(this.state.selectedUser.lng))
       .then(data => {
         this.setState({
           location:data

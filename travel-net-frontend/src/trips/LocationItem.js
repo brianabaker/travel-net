@@ -32,9 +32,9 @@ class LocationItem extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <div>
+  handleActive = () => {
+    if (this.props.active) {
+      return(
         <li>
           <RIEInput
             value={this.state.locationName}
@@ -43,11 +43,25 @@ class LocationItem extends React.Component {
             validate={_.isString}
           />
         </li>
+      )
+    } else {
+      return(
+        <li>{this.state.locationName}</li>
+      )
+    }
+  }
+  render() {
+    console.log(this.props)
+    return (
+      <div>
+        {this.handleActive()}
       </div>
     );
   }
 }
 
-// <li key={this.props.i} onClick={this.renderForm}>{this.props.data}</li>
+const mapStateToProps = (state) => {
+  return {tripLocations: state.trips.tripLocations}
+}
 
-export default connect(null, { editTripLocation })(LocationItem);
+export default connect(mapStateToProps, { editTripLocation })(LocationItem);

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 import {connect} from 'react-redux'
 import {getLatLng} from '../helpers'
 import {changeUserLocation} from '../actions/users'
@@ -19,7 +19,6 @@ class AskUserWhereTheyLiveAfterTrip extends React.Component {
   submitNewLocation = (e) => {
     e.preventDefault()
     getLatLng(this.state.location).then(res => {
-      console.log(res)
       this.props.changeUserLocation(this.props.currentUser, res.lat, res.lng)
     })
   }

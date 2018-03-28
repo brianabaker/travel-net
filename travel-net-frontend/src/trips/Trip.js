@@ -3,7 +3,7 @@ import React from 'react'
 
 // google maps stuff
 
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
@@ -22,10 +22,10 @@ class Trip extends React.Component {
   componentDidMount () {
     if (this.props.id) {
       this.props.fetchTrip(this.props.id)
-      console.log(this.props.id)
+      console.log('FETCH', this.props.id)
     } else {
       let tripId = parseInt(this.props.match.params.tripId, 10)
-      console.log(tripId)
+      console.log('FETCH',tripId)
       this.props.fetchTrip(tripId)
     }
   }
@@ -59,7 +59,30 @@ class Trip extends React.Component {
     }
   }
 
+  checkActive = () => {
+    if (this.props.currentTrip.active) {
+      return(
+        <React.Fragment>
+          <form onSubmit={this.handleAddLocation}>
+            <input type="text" placeholder="Enter New Location" value={this.state.newLocation} onChange={this.handleOnChange}/>
+            <button>Go</button>
+          </form>
+          <EndTripConfirmation endTrip={this.endTrip}/>
+          <LocationList active={this.props.currentTrip.active} tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
+        </React.Fragment>
+      )
+    } else {
+      return(
+        <React.Fragment>
+          <h4>Keep Trecking</h4>
+            <LocationList active={this.props.currentTrip.active} tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
+        </React.Fragment>
+      )
+    }
+  }
+
   render(){
+    console.log(this.props)
     if (this.props.isLoading === "Loading"){
       return (
         <div>Trips Page Loading</div>
@@ -78,13 +101,7 @@ class Trip extends React.Component {
           {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
         </div>
         <div className="four wide column">
-          <form onSubmit={this.handleAddLocation}>
-            <input type="text" placeholder="Enter New Location" value={this.state.newLocation} onChange={this.handleOnChange}/>
-            <button>Go</button>
-          </form>
-          <EndTripConfirmation endTrip={this.endTrip}/>
-          <h4>Your Locations So Far</h4>
-          <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
+          {this.checkActive()}
         </div>
         </React.Fragment>
         : null}
@@ -94,6 +111,7 @@ class Trip extends React.Component {
   }
 }
 
+// {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
           currentTrip: state.trips.currentTrip,

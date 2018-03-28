@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     @friends = @current_user.friends
     @all_trips = @current_user.trips
     @not_active_trips = @all_trips.select { |trip| trip.active == false }
-    @sorted_trips = @not_active_trips.sort {|trip| trip.created_at }
+    @sorted_trips = @not_active_trips.sort_by {|trip| trip.created_at }
     if @friends.length == 0
       render json: {status: 200, message: "No friends yet!"}
     else

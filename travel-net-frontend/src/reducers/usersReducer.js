@@ -61,9 +61,9 @@ function usersReducer(state = usersState, action) {
     case SHOW_FRIEND_ON_MAP:
       return {...state, showFriendOnMap: action.payload}
     case RENDER_SIGN_UP_PAGE:
-      return {... state}
+      return {...state}
     case "ENDED_TRIP":
-      return {... state, currentUser: action.payload.user}
+      return {...state, currentUser: action.payload.user}
     case FETCHED_PAST_TRIPS:
       return {...state, pastTrips: action.payload}
     case CHANGE_USER_LOCATION:

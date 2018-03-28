@@ -68,7 +68,7 @@ export function showFriendOnMap(lat, lng) {
     // dispatch(push(`/friends/${lat, lng}`))
     dispatch(push(({
       pathname: '/friends',
-      search: `?query=${lat,lng}`,
+      search: `?query=${lat}`,
       state: { detail: {lat, lng} }
     })))
   }

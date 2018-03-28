@@ -32,7 +32,6 @@ class TripsContainer extends React.Component {
   }
 
   render(){
-    console.log("trip", this.props.currentUser)
     return(
       <div>
         {this.props.currentUser.on_trip ? <Trip id={this.props.currentUser.current_trip_id}/> : this.props.formState ? <NewTripForm/> :

@@ -14,6 +14,8 @@ function chatsReducer(state = chatsState, action) {
       return {...state, isLoading: false, chatroom: action.payload}
     case SENT_MESSAGE:
       return {...state, chatroom: action.payload}
+    case "SIGN_OUT":
+      return {state: chatsState }
     default:
       return state
   }
