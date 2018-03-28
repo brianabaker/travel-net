@@ -54,6 +54,13 @@ class TripApi {
     .then(res => res.json())
   }
 
+  static fetchPhotos(tripId) {
+    ('hit the fetch photos', tripId)
+    return fetch(`http://localhost:3000/trips/${tripId}/photos`)
+    .then(res => res.json())
+  }
+
+
   static editTripLocation(tripLocationId, lat, lng) {
     console.log('hitting api', tripLocationId)
     return fetch(`http://localhost:3000/triplocations/${tripLocationId}`, {

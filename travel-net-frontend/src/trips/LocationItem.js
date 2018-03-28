@@ -51,7 +51,6 @@ class LocationItem extends React.Component {
     }
   }
   render() {
-    console.log(this.props)
     return (
       <div>
         {this.handleActive()}
@@ -60,8 +59,5 @@ class LocationItem extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {tripLocations: state.trips.tripLocations}
-}
 
-export default connect(mapStateToProps, { editTripLocation })(LocationItem);
+export default connect(null, { editTripLocation })(LocationItem);

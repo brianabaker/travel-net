@@ -12,6 +12,7 @@ import {getLatLng} from '../helpers'
 import LocationList from './LocationList'
 import EndTripConfirmation from './EndTripConfirmation'
 import AskUserWhereTheyLiveAfterTrip from '../users/AskUserWhereTheyLiveAfterTrip'
+import AddPhotos from './AddPhotos'
 
 class Trip extends React.Component {
   state = {
@@ -22,10 +23,8 @@ class Trip extends React.Component {
   componentDidMount () {
     if (this.props.id) {
       this.props.fetchTrip(this.props.id)
-      console.log('FETCH', this.props.id)
     } else {
       let tripId = parseInt(this.props.match.params.tripId, 10)
-      console.log('FETCH',tripId)
       this.props.fetchTrip(tripId)
     }
   }
@@ -46,8 +45,6 @@ class Trip extends React.Component {
   }
 
   endTrip = () => {
-    console.log(this.props.currentTrip)
-    console.log('in the end trip')
     this.props.endTrip(this.props.currentUser, this.props.currentTrip)
     this.setState({
       openPopup: true
@@ -59,8 +56,16 @@ class Trip extends React.Component {
     }
   }
 
+  checkIfCurrentUser = () => {
+    if (this.props.currentUser.id == this.props.currentTrip.user_id) {
+      return(
+        <button>Add Image</button>
+      )
+    }
+  }
+
   checkActive = () => {
-    if (this.props.currentTrip.active) {
+    if (this.props.currentTrip.active && (this.props.currentUser.id == this.props.currentTrip.user_id)) {
       return(
         <React.Fragment>
           <form onSubmit={this.handleAddLocation}>
@@ -74,15 +79,39 @@ class Trip extends React.Component {
     } else {
       return(
         <React.Fragment>
-          <h4>Keep Trecking</h4>
+          <h4>Keep Trekking</h4>
             <LocationList active={this.props.currentTrip.active} tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
         </React.Fragment>
       )
     }
   }
 
+  submitPhotos = (result) => {
+    let id = this.props.currentTrip.id
+    console.log(result)
+    result.filesUploaded.map(newPhoto => {
+      fetch(`http://localhost:3000/trips/${id}/photos`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          photoUrl: newPhoto
+        })
+    })
+  })
+    .then(res => res.json())
+  }
+
+
+  onSuccess = (result) => {
+    this.submitPhotos(result)
+    }
+    onError = (error) => {
+      console.error('error', error);
+    }
+
   render(){
-    console.log(this.props)
     if (this.props.isLoading === "Loading"){
       return (
         <div>Trips Page Loading</div>
@@ -97,15 +126,23 @@ class Trip extends React.Component {
             <h4>{this.props.currentTrip.name}</h4>
           </div>
         </div>
-        <div className="twelve wide column">
+        <div className="twelve wide column" style={{paddingBottom: "0"}}>
           {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
         </div>
         <div className="four wide column">
           {this.checkActive()}
+          {this.checkIfCurrentUser()}
         </div>
         </React.Fragment>
         : null}
+        <div className="fourteen wide column" style={{paddingTop: "0"}}>
+            <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
+        </div>
+        <div className="fourteen wide column" style={{paddingTop: "0"}}>
+          An Array of images here
+        </div>
       </div>
+
       )
     }
   }

@@ -7,7 +7,6 @@ import UserItem from './UserItem'
 class ListFriends extends React.Component {
 
   render() {
-    console.log(this.props.friends)
     return(
       <div>
           {this.props.city ? <h4>{this.props.city}</h4> : null }

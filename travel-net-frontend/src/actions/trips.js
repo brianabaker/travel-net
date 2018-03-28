@@ -14,6 +14,7 @@ export const EDITING_TRIP_LOCATION = "EDITING_TRIP_LOCATION";
 export const EDITED_TRIP_LOCATION = "EDITED_TRIP_LOCATION";
 export const ENDING_TRIP = "ENDING_TRIP"
 export const ENDED_TRIP = "ENDED_TRIP"
+export const FETCHED_PHOTOS = "FETCHED_PHOTOS"
 
 export function endTrip(currentUser, currentTrip) {
   return function(dispatch) {
@@ -60,6 +61,9 @@ export function fetchTrip(tripId) {
       dispatch({ type: "FETCHED_TRIP", payload: tripJSON });
       TripApi.fetchLocations(tripId).then(locationsJSON => {
         dispatch({ type: "FETCHED_LOCATIONS", payload: locationsJSON });
+        TripApi.fetchPhotos(tripId).then(photosJSON => {
+          dispatch({ type: "FETCHED_PHOTOS", payload: photosJSON});
+        })
       });
     });
   };

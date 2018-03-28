@@ -96,11 +96,9 @@ export function fetchProfile(currentUser, id){
 }
 
 export function fetchFriends(currentUser) {
-  console.log('in fetch friends', currentUser)
   return function(dispatch){
     dispatch({type: "FETCHING_FRIENDS"})
     UserApi.fetchFriends(currentUser).then(friendsJSON => {
-      console.log(friendsJSON)
       dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
       dispatch({type: "FETCHED_PAST_TRIPS", payload: friendsJSON.past_trips})
     })

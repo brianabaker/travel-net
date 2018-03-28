@@ -20,6 +20,13 @@ class TripsController < ApplicationController
     render json: @locations, status: 200
   end
 
+  def show_photos
+     # byebug
+    @trip = Trip.find(params[:id])
+    @photos = @trip.trip_photos
+    render json: @photos, status: 200
+  end
+
   def show
     # byebug
     @trip = Trip.find(params[:id])
@@ -44,7 +51,7 @@ class TripsController < ApplicationController
     @trip.user.lng = @new_location.lng
     @trip.save
     @trip.user.save
-    render json: @trip, status:200
+    render json: @trip, status: 200
   end
 
   def end_trip
@@ -62,6 +69,13 @@ class TripsController < ApplicationController
     respond_to do |format|
       format.json  { render :json => response }
     end
+  end
+
+  def add_photos
+    @trip = Trip.find(params[:id])
+    TripPhoto.create(trip_photo_url: params[:photoUrl][:url], trip_id: @trip.id)
+    @all_trip_photos = @trip.trip_photos
+    render json: @all_trip_photos, status: 200
   end
 
 end

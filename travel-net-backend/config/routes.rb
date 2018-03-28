@@ -29,7 +29,11 @@ Rails.application.routes.draw do
 
   patch '/trips/:id/endtrip' => 'trips#end_trip'
   patch '/trips/:id/add' => 'trips#add_trip_location'
+
   get '/trips/:id/locations' => 'trips#show_locations'
+  get '/trips/:id/photos' => 'trips#show_photos'
+  
+  post '/trips/:id/addphotos' => 'trips#add_photos'
   patch '/triplocations/:id' => 'trips#edit_trip_location'
 
   post '/chatrooms/find' => 'chatrooms#find_or_create_by'
