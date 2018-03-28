@@ -10,7 +10,8 @@ class SignIn extends React.Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    alert: ''
     }
 
   onInputChange = e => {
@@ -24,9 +25,11 @@ class SignIn extends React.Component {
     this.props.login(this.state.username, this.state.password)
   }
 
+    // {this.props.alert ? <p className="color-red" style={{backgroundColor: "black"}}><strong>{this.props.alert}</strong></p> : null}
   render(){
-    console.log(this.props)
+    console.log(this.props.alert)
     return(
+      <div>
       <div id="opaque">
         <div><h4>Sign In!</h4></div>
           <form className="ui form" onSubmit={this.findUser}>
@@ -44,8 +47,8 @@ class SignIn extends React.Component {
           </form>
             <div>Or Sign Up<button onClick={this.props.renderSignUpPage}>Here</button></div>
             <br/><br/>
-
       </div>
+    </div>
     )
   }
 }

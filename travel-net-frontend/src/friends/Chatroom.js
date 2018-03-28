@@ -11,11 +11,15 @@ class Chatroom extends React.Component {
 	}
 
 	componentDidMount() {
-		this.scrollToBottom();
+		if (this.props.chatroom.messages.length > 5) {
+			this.scrollToBottom();
+		}
 	}
 
 	componentDidUpdate() {
-		this.scrollToBottom();
+		if (this.props.chatroom.messages.length > 5){
+			this.scrollToBottom();
+		}
 	}
 
 	scrollToBottom() {
@@ -26,7 +30,7 @@ class Chatroom extends React.Component {
 	handleChange = (event) => {
 		this.setState({
 			content: event.target.value
-		}, () => console.log('chatroom change', this.state.content))
+		})
 	}
 
 	sendMesssage = (e) => {
@@ -37,42 +41,22 @@ class Chatroom extends React.Component {
 		})
 	}
 
-
-
 	handleSocketResponse = data => {
     switch (data.type) {
       case 'ADD_MESSAGE':
        		this.props.addMessage(data.payload)
        		break;
-      // case "DELETE_MESSAGE":
-      // 		this.props.removeMessage(data.payload.message_id)
-      //  		break;
       default:
         console.log(data);
     }
   };
 
 
-  // deleteMessage = (messageId) => {
-  // 	fetch("http://localhost:3000/chatrooms/delete_message", {
-  // 		method: "POST",
-  // 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			'Accept': 'application/json'
-	// 		},
-	// 		body: JSON.stringify({
-	// 			message_id: messageId,
-	// 			chatroom_id: this.props.chatroom.id
-	// 		})
-  // 	})
-  // }
-
 	render(){
     let messageComponents = ''
+			console.log(this.props.chatroom.messages)
     {this.props.chatroom.messages ?
       (messageComponents = this.props.chatroom.messages.map(message => {
-				// console.log('trial', message.user_id)
-				// console.log(this.props.currentUser.id)
 				let bubbleStyle = message.user_id === this.props.currentUser.id ? "chat-me" : "chat-them"
         return(
 					<React.Fragment>

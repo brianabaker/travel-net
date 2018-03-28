@@ -11,6 +11,7 @@ export function fetchChat(currentUser, friend) {
     console.log("dispatch", currentUser, friend);
     dispatch({ type: "FETCHING_CHAT" });
     ChatApi.fetchChat(currentUser, friend).then(chatroomJSON => {
+      console.log(chatroomJSON)
       dispatch({type: "FETCHED_CHAT", payload: chatroomJSON})
     })
   };
