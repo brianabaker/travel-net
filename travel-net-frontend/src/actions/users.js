@@ -29,6 +29,7 @@ export const EDITING_USER = "EDITING_USER"
 export const EDITED_USER = "EDITED_USER"
 export const SHOW_FRIEND_ON_MAP = "SHOW_FRIEND_ON_MAP"
 export const RENDER_SIGN_UP_PAGE = "RENDER_SIGN_UP_PAGE"
+export const FETCHED_PAST_TRIPS = "FETCHED_PAST_TRIPS"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -84,10 +85,13 @@ export function fetchProfile(currentUser, id){
 }
 
 export function fetchFriends(currentUser) {
+  console.log('in fetch friends', currentUser)
   return function(dispatch){
     dispatch({type: "FETCHING_FRIENDS"})
     UserApi.fetchFriends(currentUser).then(friendsJSON => {
-      dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON})
+      console.log(friendsJSON)
+      dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
+      dispatch({type: "FETCHED_PAST_TRIPS", payload: friendsJSON.past_trips})
     })
   }
 }

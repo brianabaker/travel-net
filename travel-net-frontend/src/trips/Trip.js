@@ -3,16 +3,20 @@ import React from 'react'
 
 // google maps stuff
 
+import Popup from "reactjs-popup";
+
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
 import {fetchTrip, addToTrip, endTrip} from '../actions/trips'
 import {getLatLng} from '../helpers'
 import LocationList from './LocationList'
 import EndTripConfirmation from './EndTripConfirmation'
+import AskUserWhereTheyLiveAfterTrip from '../users/AskUserWhereTheyLiveAfterTrip'
 
 class Trip extends React.Component {
   state = {
-    newLocation: ''
+    newLocation: '',
+    openPopup: false
   }
 
   componentDidMount () {
@@ -43,17 +47,24 @@ class Trip extends React.Component {
     console.log(this.props.currentTrip)
     console.log('in the end trip')
     this.props.endTrip(this.props.currentUser, this.props.currentTrip)
+    this.setState({
+      openPopup: true
+    })
+    if (this.state.openPopup === true){
+      return(
+        <AskUserWhereTheyLiveAfterTrip open={this.state.openPopup}/>
+      )
+    }
   }
 
   render(){
     if (this.props.isLoading === "Loading"){
       return (
-        <div>Loading</div>
+        <div>Trips Page Loading</div>
       )
     }
     return (
       <div className="ui stackable grid container">
-        {this.props.tripLocations ?
           <React.Fragment>
           <div className="two column row">
             <div className="column">
@@ -73,7 +84,6 @@ class Trip extends React.Component {
             <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
           </div>
           </React.Fragment>
-          : "Loading"}
       </div>
     )
   }

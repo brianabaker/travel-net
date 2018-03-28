@@ -2,6 +2,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import React from 'react'
 
+import Popup from "reactjs-popup";
 
 const EndTripConfirmation = (props) => {
   const submit = () => {

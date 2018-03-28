@@ -1,6 +1,6 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE } from '../actions/users'
+import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE, FETCHED_PAST_TRIPS } from '../actions/users'
 
 
 export const usersState = {
@@ -9,7 +9,8 @@ export const usersState = {
   isLoading: false,
   alert: '',
   friends: '',
-  showFriendOnMap: ''
+  showFriendOnMap: '',
+  pastTrips: ''
 }
 
 // loader on 45:00
@@ -58,10 +59,13 @@ function usersReducer(state = usersState, action) {
     case SIGN_OUT:
       return {state: usersState}
     case SHOW_FRIEND_ON_MAP:
-    console.log(action.payload)
       return {...state, showFriendOnMap: action.payload}
     case RENDER_SIGN_UP_PAGE:
       return {... state}
+    case "ENDED_TRIP":
+      return {... state, currentUser: action.payload.user}
+    case FETCHED_PAST_TRIPS:
+      return {...state, pastTrips: action.payload}
     default:
       return state;
     }

@@ -48,9 +48,9 @@ class TripsController < ApplicationController
   end
 
   def end_trip
-    byebug
+    # byebug
     @current_user = User.find(params[:currentUser][:id])
-    
+
     @trip = Trip.find(params[:id])
     @trip.active = false
     @trip.save

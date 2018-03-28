@@ -83,14 +83,22 @@ class UsersController < ApplicationController
     render json: @friends, status: 200
   end
 
+# check if this means i have to unnest user everywhere
+
   def friends
     # byebug
     @current_user = User.find_by(id: params[:id])
     @friends = @current_user.friends
+    @all_trips = @current_user.trips
+    @not_active_trips = @all_trips.select { |trip| trip.active == false }
+    @sorted_trips = @not_active_trips.sort {|trip| trip.created_at }
     if @friends.length == 0
       render json: {status: 200, message: "No friends yet!"}
     else
-      render json: @friends, status: 200
+      response = { :past_trips => @sorted_trips, :friends => @friends }
+      respond_to do |format|
+        format.json  { render :json => response }
+      end
     end
   end
 

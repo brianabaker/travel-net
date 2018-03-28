@@ -5879,6 +5879,10 @@ reactify@^1.1.1:
     react-tools "~0.13.0"
     through "~2.3.4"
 
+reactjs-popup@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/reactjs-popup/-/reactjs-popup-1.0.5.tgz#4525f4caae6ba4b7c948d5e9a9a660321033d3a6"
+
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"

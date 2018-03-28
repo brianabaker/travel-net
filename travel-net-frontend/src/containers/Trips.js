@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {renderForm, fetchTrip} from '../actions/trips'
 import Trip from '../trips/Trip'
 import NewTripForm from '../trips/newTripForm'
-
+import PastTrips from '../trips/PastTrips'
 // import jwt_decode from 'jwt-decode';
 
 class TripsContainer extends React.Component {
@@ -13,15 +13,31 @@ class TripsContainer extends React.Component {
     locations: ''
   }
 
+  checkPastTrips = () => {
+    if (this.props.pastTrips) {
+        this.props.pastTrips.map(trip => {
+          if (trip.name === '' ) {
+            console.log(trip.name === '')
+            return(
+              <PastTrips key={trip.id} id={trip.id} text={"Untitled Trip"}/>
+            )
+          } else {
+            console.log('if else')
+            return(
+              <PastTrips key={trip.id} id={trip.id} text={trip.name}/>
+            )
+          }
+        })
+    }
+  }
 
   render(){
-    console.log(this.props.currentUser)
     return(
       <div>
         {this.props.currentUser.on_trip ? <Trip id={this.props.currentUser.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
             <React.Fragment>
               <button onClick={this.props.renderForm} className="ui green button">Make a trip!</button>
-              No past trips!
+              <PastTrips/>
             </React.Fragment>
           }
       </div>
@@ -31,7 +47,8 @@ class TripsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {formState: state.trips.renderForm,
-          currentUser: state.users.currentUser}
+          currentUser: state.users.currentUser,
+          pastTrips: state.users.pastTrips}
 }
 
 export default connect(mapStateToProps, {renderForm, fetchTrip})(TripsContainer)

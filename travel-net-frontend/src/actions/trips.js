@@ -19,9 +19,8 @@ export function endTrip(currentUser, currentTrip) {
     dispatch({type: "ENDING_TRIP"})
     console.log('in the action')
     TripApi.endTrip(currentUser, currentTrip).then(tripJSON => {
-      console.log(tripJSON)
+      (dispatch({type: "ENDED_TRIP", payload: tripJSON}))
     })
-    .then(dispatch({type: "ENDED_TRIP"}))
   }
 }
 

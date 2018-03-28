@@ -37,7 +37,7 @@ function tripsReducer(state = tripsState, action) {
     case ENDING_TRIP:
       return {...state, isLoading: true}
     case ENDED_TRIP:
-      return {...state, isLoading: false, tripLocations: '', currentTrip: ''}
+      return {...state, isLoading: false, currentUser: action.payload.user, tripLocations: '', currentTrip: ''}
     default:
       return state;
   }
