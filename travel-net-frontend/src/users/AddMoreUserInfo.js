@@ -32,19 +32,23 @@ class AddMoreUserInfo extends React.Component {
   render() {
     return(
       <div>
-        <p>Welcome to Travel Net the best Travel Network!</p>
-        <div className="App">
-          <form className="ui form" onSubmit={this.submitInfo}>
-            <label>
-              Tell Us More About Yourself!
-              <textarea value={this.state.bio} name="bio" onInput={this.handleInput}></textarea>
-            </label>
-          <div>
-            <AddPhoto text="Upload Profile Photo" onError={this.onError} onSuccess={this.onSuccess}/>
-          </div>
-          <input type="submit"/>
-          </form>
-        </div>
+        {this.props.currentUser ?
+          <React.Fragment>
+            <p>Welcome to Travel Net the best Travel Network!</p>
+              <form className="ui form" onSubmit={this.submitInfo}>
+                <label>
+                  Tell Us More About Yourself!
+                  <div>
+                    <textarea className="eight wide field" value={this.state.bio} name="bio" onInput={this.handleInput}></textarea>
+                  </div>
+                </label>
+              <div>
+                <AddPhoto text="Upload Profile Photo" onError={this.onError} onSuccess={this.onSuccess}/>
+              </div><br/><br/>
+            <input type="submit" className="ui button green"/>
+            </form>
+          </React.Fragment>
+        : null }
       </div>
     )
   }

@@ -33,7 +33,6 @@ class UserApi {
   }
 
   static searchUsers(id, username) {
-    console.log('in the search api', id, username)
     return fetch("http://localhost:3000/users/search", {
       method: "POST",
       headers: {
@@ -43,11 +42,11 @@ class UserApi {
         currentUserId: id,
         query: username
       })
-    }).then(res => res.json());
+    })
+    .then(res => res.json())
   }
 
   static requestFriendship(currentUser, user) {
-    console.log('in the requqest friend', currentUser, user)
     return fetch("http://localhost:3000/users/request", {
       method: "POST",
       headers: {

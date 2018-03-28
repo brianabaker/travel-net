@@ -62,11 +62,6 @@ class EditProfile extends React.Component {
           : null}
           {this.props.isLoading ? "Loading" :
             <React.Fragment>
-              <div className="two column row">
-              <div className="column">
-               <button className="ui green button" onClick={() => this.handleEdit()}>Finish Editing Profile</button>
-              </div>
-            </div>
             <div className="seven wide column">
               <div className="ui form">
                 <h4>Username</h4>
@@ -76,7 +71,8 @@ class EditProfile extends React.Component {
               </div>
               <div id="add-padding">
                 <AddPhoto text="Change Profile Picture" onError={this.onError} onSuccess={this.onSuccess}/>
-              </div>
+              </div><br/><br/>
+                <button className="ui green button" onClick={() => this.handleEdit()}>Finish Editing Profile</button>
             </div>
             <div className="eight wide column"></div>
             </React.Fragment>

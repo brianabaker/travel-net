@@ -36,10 +36,9 @@ class SignUp extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     return (
-      <div>
-        <form onSubmit={this.addUser}>
+      <div id="opaque">
+        <form className="ui form" onSubmit={this.addUser}>
           <div>
             <label>Username
               <input

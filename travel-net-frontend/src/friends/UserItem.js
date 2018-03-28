@@ -9,7 +9,7 @@ import {selectUser} from '../actions/users'
 
 const UserItem = (props) => {
   return(
-    <div>
+    <div style={{padding: "3px"}}>
       <li><Link to={`users/${props.data.id}`}>{props.data.username}</Link></li>
     </div>
   )

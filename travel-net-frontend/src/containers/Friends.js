@@ -49,6 +49,13 @@ class Friends extends React.Component {
     }
   }
 
+  // shouldComponentUpdate(nextProps, nextState){
+  //   if (this.state.filterFriends !== this.props.nextState) {
+  //     console.log('if true')
+  //     return true
+  //   }
+  // }
+
   seeFriendRequests = (e) => {
     e.preventDefault()
     this.props.viewFriendRequests(this.props.currentUser)
@@ -77,8 +84,10 @@ class Friends extends React.Component {
   }
 
   searchUsers = (query) => {
+    // console.log('search', query)
     UserApi.searchUsers(this.props.currentUser.id, query)
     .then(searchResults => {
+      console.log(searchResults)
       if (searchResults.length <= 0) {
         this.setState({
           errors: "No results found!"
@@ -86,7 +95,7 @@ class Friends extends React.Component {
       } else {
         this.setState({
           filterFriends: searchResults
-        })
+        }, () => console.log('search users', this.state.filterFriends))
       }
     })
   }

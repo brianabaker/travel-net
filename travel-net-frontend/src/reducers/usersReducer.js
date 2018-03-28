@@ -29,13 +29,14 @@ function usersReducer(state = usersState, action) {
     case REQUEST_FRIENDSHIP:
       return {...state, alert: ''}
     case REQUESTED_FRIENDSHIP:
+          console.log('hit completed friend request')
       return {...state, selectedUser: '', alert: action.payload}
     case VIEW_FRIEND_REQUESTS:
       return {...state, alert: ''}
     case RECEIVED_FRIEND_REQUESTS:
       return {...state, friendRequests: action.payload, alert: ''}
     case POSTIVE_RESPONSE_FRIEND_REQUEST:
-      return {...state, alert: ''}
+      return {...state, alert: ""}
     case COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST:
       return {...state, alert: "Added Friend"}
     case RETURN_TO_FRIENDS_MENU:

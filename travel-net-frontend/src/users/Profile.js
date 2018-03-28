@@ -13,7 +13,10 @@ class Profile extends React.Component {
   state = {
     selectedUser: '',
     sameUser: false,
-    location: ''
+    location: '',
+    currentUserFriendsArray: '',
+    requestedFriendshipBoolean: '',
+    selectedFriendsWithCurrentUser: ''
   }
 
   componentDidMount(){
@@ -41,6 +44,13 @@ class Profile extends React.Component {
     if (this.state.selectedUser) {
       this.showLocation()
     }
+    if (this.state.currentUserFriendsArray) {
+      let requestedFriendshipBoolean = this.state.currentUserFriendsArray.map(friend => friend.id).includes(this.state.selectedUser.id)
+      this.setState({
+        requestedFriendshipBoolean: requestedFriendshipBoolean
+      }, () => console.log(this.state.requestedFriendshipBoolean))
+    }
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -55,10 +65,13 @@ class Profile extends React.Component {
     } else if (this.props.match.params.userId !== nextProps.match.params.userId) {
       return true
     }
+    // if (this.props.alert !== nextProps.alert){
+    //   console.log('if true')
+    //   return true
+    // }
   }
 
   showLocation = () => {
-    console.log(this.state.location === "")
     if (this.state.location === "" ) {
       let currentLocation = findAddress(parseFloat(this.state.selectedUser.lat), parseFloat(this.state.selectedUser.lng))
       .then(data => {
@@ -91,7 +104,9 @@ class Profile extends React.Component {
     .then(res => res.json())
     .then(profileJSON => {
         this.setState({
-          selectedUser: profileJSON
+          selectedUser: profileJSON.user,
+          currentUserFriendsArray: profileJSON.current_user_pending_friends_array,
+          selectedFriendsWithCurrentUser: profileJSON.are_friends
         }, () => console.log('selected user', profileJSON))
     })
   }
@@ -107,7 +122,6 @@ class Profile extends React.Component {
   }
 
   checkTraveling = () => {
-    console.log('check traveling', this.state.selectedUser.on_trip)
     if (this.state.selectedUser.on_trip) {
       this.props.fetchTrip(this.state.selectedUser.current_trip_id)
     }
@@ -170,7 +184,7 @@ class Profile extends React.Component {
       return(
         <RenderButton text={"remove friend button"}/>
       )
-    } else if (this.state.sameUser === false){
+    } else if (this.state.sameUser === false && this.state.requestedFriendshipBoolean === false){
       return(
         <RenderButton text={"add friend"} function={this.requestFriendship}/>
       )
@@ -178,12 +192,24 @@ class Profile extends React.Component {
       return(
         <RenderButton text={"edit profile"} function={() => this.props.history.push('/edit')}/>
       )
+    } else if (this.state.requestedFriendshipBoolean === true) {
+      console.log('if true')
+      return (
+        <RenderButton text={"sent friend request"}/>
+      )
+    }
+  }
+
+  renderAlert = () => {
+    console.log('if render')
+    if (this.props.alert) {
+      <div className="ui positive message">
+        {this.props.alert.message}
+      </div>
     }
   }
 
   render() {
-    console.log('trip locations', this.props.tripLocations)
-    console.log('result', this.checkFriendship())
     if (this.props.isLoading === "Loading"){
       return (
         <div>Loading</div>
@@ -192,11 +218,7 @@ class Profile extends React.Component {
     return(
       <div className="ui stackable grid container" id="add-padding">
         <React.Fragment>
-        {this.props.alert ? (
-          <div className="ui positive message">
-            {this.props.alert.message}
-          </div>)
-          : null}
+        {this.renderAlert()}
             <React.Fragment>
               <div className="two column row">
               <div className="column"></div>

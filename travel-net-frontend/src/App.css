@@ -11,6 +11,15 @@ body {
   height: 80px;
 }
 
+@font-face {
+  font-family: 'Painter';
+  src: local('Painter-Font'), url(./fonts/Painter-Font.ttf) format('painter');
+}
+
+#welcome {
+  font-family: "Painter";
+}
+
 /* .App-header {
   background-color: #222;
   height: 150px;
@@ -32,7 +41,8 @@ body {
 }
 
 #opaque {
-  background-color: rgba(52, 52, 52, 0.3);
+  background-color: rgba(52, 52, 52, 0.3)!important;
+  margin-top: 40px!important;
 }
 
 /* #add-padding {
@@ -53,7 +63,7 @@ body {
   width: 100%;
   z-index: 2;
   margin-bottom: 0px;
-  background-color: #85acc9!important;
+  background-color: #94bad3!important;
 }
 
 #nav-bar-item {
@@ -104,6 +114,11 @@ body {
   overflow-y: scroll;
   height: 50vh;
 }
+
+#welcome {
+  font-family: "Painter";
+}
+
 /* #background-video{
 
 height: 100%;

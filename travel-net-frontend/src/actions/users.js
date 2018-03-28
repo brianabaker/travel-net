@@ -177,7 +177,8 @@ export function requestFriendship(currentUserId, addFriend) {
   return function(dispatch){
     dispatch({type: "REQUEST_FRIENDSHIP"})
     UserApi.requestFriendship(currentUserId, addFriend).then(responseJSON => {
-      dispatch({type: "REQUESTED_FRIENDSHIP", payload: responseJSON})
+      console.log('dispatch', responseJSON)
+      dispatch({type: "REQUESTED_FRIENDSHIP", payload: responseJSON.message})
     })
   }
 }

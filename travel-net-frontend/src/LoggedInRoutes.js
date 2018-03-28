@@ -34,6 +34,7 @@ class LoggedInRoutes extends React.Component {
             <Route exact path="/trips" component={TripsContainer}/>
             <Route path="/users/:userId" component={Profile}/>
             <Route exact path="/edit" component={EditProfile}/>
+            <Route exact path="/addbio" component={AddMoreUserInfo}/>
          </Switch>
        </div>
      </React.Fragment>
