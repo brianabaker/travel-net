@@ -35,10 +35,12 @@ class TripMap extends React.Component {
     console.log(error, info)
 }
 
+
   render(){
-    let lat = parseFloat(this.props.locations[this.props.locations.length - 1].lat.replace('"','').replace('"',''));
-    let lng = parseFloat(this.props.locations[this.props.locations.length - 1].lng.replace('"','').replace('"',''));
-    let array = []
+    console.log(this.props.locations)
+      let lat = parseFloat(this.props.locations[this.props.locations.length - 1].lat.replace('"','').replace('"',''));
+      let lng = parseFloat(this.props.locations[this.props.locations.length - 1].lng.replace('"','').replace('"',''));
+      let array = []
     return(
       <GoogleMapsWrapper
         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTnFckTcPidqCa5F9dWom4H_0hbJu9Nh0&v=3.exp&libraries=geometry,drawing,places"
@@ -48,6 +50,7 @@ class TripMap extends React.Component {
         defaultZoom={5}
         defaultCenter={{ lat: lat, lng: lng }}
       >
+
         {this.props.locations.map((location, i) => {
           let lat = parseFloat(location.lat.replace('"','').replace('"',''));
           let lng = parseFloat(location.lng.replace('"','').replace('"',''));
@@ -77,6 +80,7 @@ class TripMap extends React.Component {
           </React.Fragment>
         )
       })}
+
       </GoogleMapsWrapper>
     )
   }

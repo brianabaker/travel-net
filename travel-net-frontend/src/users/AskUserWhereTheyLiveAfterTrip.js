@@ -1,23 +1,46 @@
 
 import React from 'react'
 import Popup from "reactjs-popup";
+import {connect} from 'react-redux'
+import {getLatLng} from '../helpers'
+import {changeUserLocation} from '../actions/users'
+class AskUserWhereTheyLiveAfterTrip extends React.Component {
 
-const AskUserWhereTheyLiveAfterTrip = (props) => {
-  console.log('in the popup', props)
-  return(
-    <Popup
-        >
-          <div className="modal">
-            <a className="close" onClick={props.closeModal}>
-              &times;
-            </a>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
-            omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
-            ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
-            doloribus. Odit, aut.
-          </div>
-    </Popup>
-  )
+  state = {
+    location: ''
+  }
+
+  onInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  submitNewLocation = (e) => {
+    e.preventDefault()
+    getLatLng(this.state.location).then(res => {
+      console.log(res)
+      this.props.changeUserLocation(this.props.currentUser, res.lat, res.lng)
+    })
+  }
+
+  render() {
+    return(
+      <div>
+        <h4>Where are you living now?</h4>
+          <form className="ui form" onSubmit={this.submitNewLocation}>
+            <div className="four wide field">
+              <input type="text" value={this.state.location} name="location" placeholder="Location"
+              onChange={this.onInputChange}/>
+            </div>
+            <button className="ui green button">Alright</button>
+        </form>
+      </div>
+    )
+  }
 }
 
-export default AskUserWhereTheyLiveAfterTrip
+const mapStateToProps = (state) => {
+  return {currentUser: state.users.currentUser}
+}
+export default connect(mapStateToProps, {changeUserLocation})(AskUserWhereTheyLiveAfterTrip)

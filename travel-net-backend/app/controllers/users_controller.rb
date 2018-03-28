@@ -102,6 +102,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_where_live
+    # byebug
+    @current_user = User.find(params[:currentUser])
+    @current_user.lat = params[:user][:lat]
+    @current_user.lng = params[:user][:lng]
+    @current_user.save
+    render json: @current_user, status: 200
+  end
+
   # create is done by devise
 
   private

@@ -21,10 +21,8 @@ function tripsReducer(state = tripsState, action) {
     case FETCHING_TRIP:
       return {...state, isLoading: true, tripLocations: ''}
     case FETCHED_TRIP:
-    console.log('fetched trip')
       return {...state, isLoading: true, currentTrip: action.payload}
     case FETCHED_LOCATIONS:
-    console.log('fetched locations')
       return {...state, isLoading: false, tripLocations: action.payload}
     case ADDING_TO_TRIP:
      return {...state, isLoading: true}

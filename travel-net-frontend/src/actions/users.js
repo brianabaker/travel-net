@@ -30,6 +30,7 @@ export const EDITED_USER = "EDITED_USER"
 export const SHOW_FRIEND_ON_MAP = "SHOW_FRIEND_ON_MAP"
 export const RENDER_SIGN_UP_PAGE = "RENDER_SIGN_UP_PAGE"
 export const FETCHED_PAST_TRIPS = "FETCHED_PAST_TRIPS"
+export const CHANGE_USER_LOCATION = "CHANGE_USER_LOCATION"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -70,6 +71,16 @@ export function showFriendOnMap(lat, lng) {
       search: `?query=${lat,lng}`,
       state: { detail: {lat, lng} }
     })))
+  }
+}
+
+export function changeUserLocation(currentUser, lat, lng){
+  return function(dispatch){
+    dispatch({type: "CHANGE_USER_LOCATION"})
+    UserApi.editUserLocation(currentUser, lat, lng).then(userJSON => {
+      dispatch({type: "FOUND_USER", payload: userJSON})
+    })
+    .then(dispatch(push(`/trips`)))
   }
 }
 

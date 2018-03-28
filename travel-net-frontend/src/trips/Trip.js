@@ -22,8 +22,10 @@ class Trip extends React.Component {
   componentDidMount () {
     if (this.props.id) {
       this.props.fetchTrip(this.props.id)
+      console.log(this.props.id)
     } else {
       let tripId = parseInt(this.props.match.params.tripId, 10)
+      console.log(tripId)
       this.props.fetchTrip(tripId)
     }
   }
@@ -62,30 +64,33 @@ class Trip extends React.Component {
       return (
         <div>Trips Page Loading</div>
       )
-    }
+    } else {
     return (
       <div className="ui stackable grid container">
-          <React.Fragment>
-          <div className="two column row">
-            <div className="column">
-              <h4>{this.props.currentTrip.name}</h4>
-            </div>
+        {this.props.tripLocations ?
+        <React.Fragment>
+        <div className="two column row">
+          <div className="column">
+            <h4>{this.props.currentTrip.name}</h4>
           </div>
-          <div className="twelve wide column">
-            {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
         </div>
-          <div className="four wide column">
-            <form onSubmit={this.handleAddLocation}>
-              <input type="text" placeholder="Enter New Location" value={this.state.newLocation} onChange={this.handleOnChange}/>
-              <button>Go</button>
-            </form>
-            <EndTripConfirmation endTrip={this.endTrip}/>
-            <h4>Your Locations So Far</h4>
-            <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
-          </div>
-          </React.Fragment>
+        <div className="twelve wide column">
+          {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/>: "loading"}
+        </div>
+        <div className="four wide column">
+          <form onSubmit={this.handleAddLocation}>
+            <input type="text" placeholder="Enter New Location" value={this.state.newLocation} onChange={this.handleOnChange}/>
+            <button>Go</button>
+          </form>
+          <EndTripConfirmation endTrip={this.endTrip}/>
+          <h4>Your Locations So Far</h4>
+          <LocationList tripId={this.props.currentTrip.id} locations={this.props.tripLocations}/>
+        </div>
+        </React.Fragment>
+        : null}
       </div>
-    )
+      )
+    }
   }
 }
 

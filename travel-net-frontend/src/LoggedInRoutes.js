@@ -15,7 +15,7 @@ import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 import About from './containers/About'
 import AddMoreUserInfo from './users/AddMoreUserInfo'
-
+import AskUserWhereTheyLiveAfterTrip from './users/AskUserWhereTheyLiveAfterTrip'
 class LoggedInRoutes extends React.Component {
 
   componentDidMount(){
@@ -35,6 +35,7 @@ class LoggedInRoutes extends React.Component {
             <Route path="/users/:userId" component={Profile}/>
             <Route exact path="/edit" component={EditProfile}/>
             <Route exact path="/addbio" component={AddMoreUserInfo}/>
+            <Route exact path="/wherelive" component={AskUserWhereTheyLiveAfterTrip}/>
          </Switch>
        </div>
      </React.Fragment>

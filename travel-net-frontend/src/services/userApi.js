@@ -108,6 +108,22 @@ class UserApi {
     .then(res => res.json())
   }
 
+  static editUserLocation(currentUser, lat, lng){
+    console.log('api', currentUser, lat, lng)
+    return fetch(`http://localhost:3000/users/wherelive`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          currentUser: currentUser.id,
+          lat: lat,
+          lng: lng
+        })
+      })
+      .then(res => res.json())
+  }
+
   static addBio(currentUser, bio, photoUrl){
     return fetch('http://localhost:3000/users/addbio', {
       method: "PATCH",
