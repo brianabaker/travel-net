@@ -25,7 +25,8 @@ class Friends extends React.Component {
     filterFriends: [],
     cityName: '',
     erros: '',
-    center:  { lat: 15.517860, lng: -36.777681 },
+    center: {lat: 31.343431, lng: 3.924604},
+    // center:  { lat: 15.517860, lng: -36.777681 },
     zoom: 2
   }
 
@@ -37,15 +38,23 @@ class Friends extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.location.state) {
-      if (this.props.location.state.detail !== nextProps.location.state.detail){
-        let lat = parseFloat(nextProps.location.state.detail.lat)
-        let lng = parseFloat(nextProps.location.state.detail.lng)
-        this.setState({
-          center: {lat: lat, lng: lng},
-          zoom: 10
-        }, () => console.log(this.state.zoom))
+    if (nextProps.location.state) {
+      if (this.props.location.state !== nextProps.location.state) {
+        if (nextProps.location.state.detail) {
+          let lat = parseFloat(nextProps.location.state.detail.lat)
+          let lng = parseFloat(nextProps.location.state.detail.lng)
+          this.setState({
+            center: {lat: lat, lng: lng},
+            zoom: 10
+          }, () => console.log(this.state.zoom))
+        }
       }
+    }
+    if (nextProps.location.state == null) {
+        this.setState({
+          center: {lat: 31.343431, lng: 3.924604},
+          zoom: 2
+      })
     }
   }
 
@@ -116,7 +125,7 @@ class Friends extends React.Component {
         </div>
         <div className="three wide column">
           <FindFriends errors={this.state.errors} search={this.searchUsers} undo={this.undoFriendsByLocation}/>
-          <button onClick={this.seeFriendRequests} className="ui small green button">See Friend Requests</button>
+          <button onClick={this.seeFriendRequests} className="ui small green button" style={{    margin: "5px"}}>See Friend Requests</button>
         {this.props.friendRequests ?
             <FriendRequests/> :
             <ListFriends friends={this.state.filterFriends} filterFriends={this.state.filterFriends} city={this.state.cityName}/>
