@@ -17,7 +17,6 @@ class TripsContainer extends React.Component {
     if (this.props.pastTrips) {
         this.props.pastTrips.map(trip => {
           if (trip.name === '' ) {
-            console.log(trip.name === '')
             return(
               <PastTrips key={trip.id} id={trip.id} text={"Untitled Trip"}/>
             )

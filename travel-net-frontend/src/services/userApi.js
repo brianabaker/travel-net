@@ -2,7 +2,6 @@
 
 class UserApi {
   static createUser(username, password, passwordConfirmation, location) {
-    console.log('in the create user')
     return fetch("http://localhost:3000/users/", {
       method: "POST",
       headers: {
@@ -19,7 +18,6 @@ class UserApi {
   }
 
   static login(username, password) {
-    console.log(username, password)
     return fetch("http://localhost:3000/auth_user", {
       method: "POST",
       headers: {
@@ -74,7 +72,6 @@ class UserApi {
   }
 
   static positiveResponseFriendRequest(currentUser, friend) {
-    console.log("api add friend");
     return fetch("http://localhost:3000/users/addfriend", {
       method: "POST",
       headers: {
@@ -109,7 +106,6 @@ class UserApi {
   }
 
   static editUserLocation(currentUser, lat, lng){
-    console.log('api', currentUser, lat, lng)
     return fetch(`http://localhost:3000/users/wherelive`, {
       method: 'PATCH',
       headers: {

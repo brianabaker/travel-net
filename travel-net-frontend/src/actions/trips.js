@@ -35,6 +35,7 @@ export function createTrip(currentUser, tripName, lat, lng) {
   return function(dispatch) {
     dispatch({ type: "CREATING TRIP" });
     TripApi.createTrip(currentUser, tripName, lat, lng).then(tripJSON => {
+      console.log(tripJSON)
       dispatch({ type: "CREATED_TRIP", payload: tripJSON.trip });
       dispatch({ type: "FOUND_USER", payload: tripJSON.user });
       TripApi.fetchLocations(tripJSON.trip.id).then(locationsJSON => {

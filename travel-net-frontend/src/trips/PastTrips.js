@@ -18,11 +18,11 @@ const PastTrips = (props) => {
             return(
               <div className="card set-width" key={trip.id}>
                 <Link to={`trips/${trip.id}`}>
-                <div class="image">
+                <div className="image">
                   {trip.most_recent_photo_url ?
-                      <img height="100px" width="150px" src={trip.most_recent_photo_url}/>
+                      <img height="100px" width="150px" alt="thumbnail" src={trip.most_recent_photo_url}/>
                   :
-                      <img height="100px" width="150px" src={placeholder}/>
+                      <img height="100px" alt="thumbnail" width="150px" src={placeholder}/>
                   }
                 </div>
                   <div className="header">Best Trip Ever {num}</div>
@@ -36,14 +36,14 @@ const PastTrips = (props) => {
             return(
             <div className="card set-width" key={trip.id}>
               <Link to={`trips/${trip.id}`}>
-                <div class="image">
+                <div className="image">
                   {trip.most_recent_photo_url ?
-                      <img height="100px" width="150px" src={trip.most_recent_photo_url}/>
+                      <img height="100px" width="150px" alt="thumbnail" src={trip.most_recent_photo_url}/>
                   :
-                      <img height="100px" width="150px" src={placeholder}/>
+                      <img height="100px" width="150px" alt="thumbnail" src={placeholder}/>
                   }
                 </div>
-                <div classNam="header">{trip.name}</div>
+                <div className="header">{trip.name}</div>
                   <div className="meta">
                     <span className="date">{moment(trip.created_at).format("MMM Do YY")}</span>
                   </div>

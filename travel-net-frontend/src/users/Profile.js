@@ -24,7 +24,7 @@ class Profile extends React.Component {
     if (id === this.props.currentUser.id) {
       this.setState({
         sameUser: true
-      }, () => console.log(this.state.sameUser))
+      })
       this.fetchMyProfile(id)
     } else {
       this.setState({
@@ -48,7 +48,7 @@ class Profile extends React.Component {
       let requestedFriendshipBoolean = this.state.currentUserFriendsArray.map(friend => friend.id).includes(this.state.selectedUser.id)
       this.setState({
         requestedFriendshipBoolean: requestedFriendshipBoolean
-      }, () => console.log(this.state.requestedFriendshipBoolean))
+      })
     }
 
   }
@@ -107,7 +107,7 @@ class Profile extends React.Component {
           selectedUser: profileJSON.user,
           currentUserFriendsArray: profileJSON.current_user_pending_friends_array,
           selectedFriendsWithCurrentUser: profileJSON.are_friends
-        }, () => console.log('selected user', profileJSON))
+        })
     })
   }
 
@@ -193,7 +193,6 @@ class Profile extends React.Component {
         <RenderButton text={"edit profile"} function={() => this.props.history.push('/edit')}/>
       )
     } else if (this.state.requestedFriendshipBoolean === true) {
-      console.log('if true')
       return (
         <RenderButton text={"sent friend request"}/>
       )
@@ -201,7 +200,6 @@ class Profile extends React.Component {
   }
 
   renderAlert = () => {
-    console.log('if render')
     if (this.props.alert) {
       <div className="ui positive message">
         {this.props.alert.message}

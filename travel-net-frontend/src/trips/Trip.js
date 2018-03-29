@@ -4,7 +4,7 @@ import React from 'react'
 // google maps stuff
 
 // import Popup from "reactjs-popup";
-import TripApi from '../services/tripApi'
+// import TripApi from '../services/tripApi'
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
 import {fetchTrip, addToTrip, endTrip, addPhotos} from '../actions/trips'
@@ -59,7 +59,7 @@ class Trip extends React.Component {
 
   checkIfCurrentUser = () => {
     if (this.props.currentUser && this.props.currentTrip) {
-      if (this.props.currentUser.id == this.props.currentTrip.user_id) {
+      if (this.props.currentUser.id === this.props.currentTrip.user_id) {
         return(
           <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
         )
@@ -68,7 +68,7 @@ class Trip extends React.Component {
   }
 
   checkActive = () => {
-    if (this.props.currentTrip.active && (this.props.currentUser.id == this.props.currentTrip.user_id)) {
+    if (this.props.currentTrip.active && (this.props.currentUser.id === this.props.currentTrip.user_id)) {
       return(
         <React.Fragment>
           <form onSubmit={this.handleAddLocation}>
@@ -104,7 +104,6 @@ class Trip extends React.Component {
     }
 
   render(){
-    console.log(this.props.currentUser, this.props.currentTrip)
     if (this.props.isLoading === "Loading"){
       return (
         <div>Trips Page Loading</div>

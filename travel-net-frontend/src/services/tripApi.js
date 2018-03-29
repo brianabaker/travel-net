@@ -2,8 +2,6 @@
 class TripApi {
 
   static endTrip(currentUser, trip){
-    console.log(currentUser, trip)
-    console.log('in the api')
     return fetch(`http://localhost:3000/trips/${trip.id}/endtrip/`, {
       method: "PATCH",
       headers: {
@@ -56,14 +54,11 @@ class TripApi {
   }
 
   static fetchPhotos(tripId) {
-    ('hit the fetch photos', tripId)
     return fetch(`http://localhost:3000/trips/${tripId}/photos`)
     .then(res => res.json())
   }
 
   static addPhotos(tripId, photos) {
-    console.log('hit the api', tripId, photos)
-    // photos.filesUploaded.map(newPhoto => {
       return fetch(`http://localhost:3000/trips/${tripId}/photos`, {
         method: "POST",
         headers: {

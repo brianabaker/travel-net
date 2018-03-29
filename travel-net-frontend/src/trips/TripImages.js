@@ -1,7 +1,7 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 import React from 'react'
 import {connect} from 'react-redux'
-import ImageGallery from 'react-image-gallery';
+// import ImageGallery from 'react-image-gallery';
 
 class TripImages extends React.Component {
 

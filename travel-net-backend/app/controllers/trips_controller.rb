@@ -6,6 +6,8 @@ class TripsController < ApplicationController
      @location = TripLocation.create(trip_id: @trip.id, lat: params[:location][:lat], lng: params[:location][:lng])
      @current_user.on_trip = true
      @current_user.current_trip_id = @trip.id
+     @current_user.lat = @location.lat
+     @current_user.lng = @location.lng
      @current_user.save
      response = { :user => @current_user, :trip => @trip }
      respond_to do |format|

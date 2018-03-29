@@ -24,6 +24,7 @@ function usersReducer(state = usersState, action) {
     case FINDING_USER:
       return {...state, isLoading: true, alert: ''}
     case FOUND_USER:
+      console.log('FOUND', action.payload)
       return {...state, isLoading: false, currentUser: action.payload, alert: ''}
     case SELECTED_USER:
       return {...state, selectedUser: action.payload, alert: ''}
