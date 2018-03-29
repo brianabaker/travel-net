@@ -4,16 +4,17 @@ import React from 'react'
 // google maps stuff
 
 // import Popup from "reactjs-popup";
-
+import TripApi from '../services/tripApi'
 import TripMap from './TripMap'
 import {connect} from 'react-redux'
-import {fetchTrip, addToTrip, endTrip} from '../actions/trips'
+import {fetchTrip, addToTrip, endTrip, addPhotos} from '../actions/trips'
 import {getLatLng} from '../helpers'
 import LocationList from './LocationList'
 import EndTripConfirmation from './EndTripConfirmation'
 import AskUserWhereTheyLiveAfterTrip from '../users/AskUserWhereTheyLiveAfterTrip'
 import AddPhotos from './AddPhotos'
 
+import TripImages from './TripImages'
 class Trip extends React.Component {
   state = {
     newLocation: '',
@@ -59,7 +60,7 @@ class Trip extends React.Component {
   checkIfCurrentUser = () => {
     if (this.props.currentUser.id == this.props.currentTrip.user_id) {
       return(
-        <button>Add Image</button>
+        <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
       )
     }
   }
@@ -87,20 +88,9 @@ class Trip extends React.Component {
   }
 
   submitPhotos = (result) => {
-    let id = this.props.currentTrip.id
-    console.log(result)
-    result.filesUploaded.map(newPhoto => {
-      fetch(`http://localhost:3000/trips/${id}/photos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          photoUrl: newPhoto
-        })
-    })
-  })
-    .then(res => res.json())
+    let tripId = this.props.currentTrip.id
+    let arrayOfPhotos = result
+    this.props.addPhotos(tripId, arrayOfPhotos)
   }
 
 
@@ -131,15 +121,14 @@ class Trip extends React.Component {
         </div>
         <div className="four wide column">
           {this.checkActive()}
-          {this.checkIfCurrentUser()}
         </div>
         </React.Fragment>
         : null}
-        <div className="fourteen wide column" style={{paddingTop: "0"}}>
-            <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
+        <div className="fourteen wide column" style={{paddingTop: "0", paddingBottom: "0"}}>
+            {this.checkIfCurrentUser()}
         </div>
-        <div className="fourteen wide column" style={{paddingTop: "0"}}>
-          An Array of images here
+        <div className="fourteen wide column" style={{paddingTop: "0", overflow: "auto", overflowY: "hidden"}}>
+            <TripImages/>
         </div>
       </div>
 
@@ -156,4 +145,4 @@ const mapStateToProps = (state) => {
           tripLocations: state.trips.tripLocations}
 }
 
-export default connect(mapStateToProps, {fetchTrip, addToTrip, endTrip})(Trip)
+export default connect(mapStateToProps, {fetchTrip, addToTrip, endTrip, addPhotos})(Trip)

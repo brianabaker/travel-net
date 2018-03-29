@@ -14,7 +14,9 @@ export const EDITING_TRIP_LOCATION = "EDITING_TRIP_LOCATION";
 export const EDITED_TRIP_LOCATION = "EDITED_TRIP_LOCATION";
 export const ENDING_TRIP = "ENDING_TRIP"
 export const ENDED_TRIP = "ENDED_TRIP"
+export const POSTING_PHOTOS = "POSTING_PHOTOS"
 export const FETCHED_PHOTOS = "FETCHED_PHOTOS"
+
 
 export function endTrip(currentUser, currentTrip) {
   return function(dispatch) {
@@ -68,6 +70,23 @@ export function fetchTrip(tripId) {
     });
   };
 }
+
+export function addPhotos(tripId, photos){
+  return function(dispatch){
+    dispatch({type: "POSTING_PHOTOS"})
+      TripApi.addPhotos(tripId, photos).then(allPhotosJSON => {
+        console.log('ACTION', allPhotosJSON)
+        dispatch({ type: "FETCHED_PHOTOS", payload: allPhotosJSON})
+      })
+    }
+  }
+  //       console.log('HERE', json))
+  //       TripApi.fetchPhotos(tripId).then(photosJSON => {
+  //         console.log('IN THE ACTION', photosJSON)
+  //         dispatch({ type: "FETCHED_PHOTOS", payload: photosJSON})
+  //       })
+  //   }
+  // }
 
 export function editTripLocation(tripLocationId, lat, lng, tripId) {
   return function(dispatch) {

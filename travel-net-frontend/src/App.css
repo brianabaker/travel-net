@@ -112,7 +112,7 @@ body {
 
 .location-list {
   overflow-y: scroll;
-  height: 50vh;
+  max-height: 50vh;
 }
 
 #welcome {

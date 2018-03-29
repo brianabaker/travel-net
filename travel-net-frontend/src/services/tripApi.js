@@ -44,6 +44,7 @@ class TripApi {
     .then(res => res.json())
   }
 
+
   static fetchTrip(tripId){
     return fetch(`http://localhost:3000/trips/${tripId}`)
     .then(res => res.json())
@@ -60,9 +61,23 @@ class TripApi {
     .then(res => res.json())
   }
 
+  static addPhotos(tripId, photos) {
+    console.log('hit the api', tripId, photos)
+    // photos.filesUploaded.map(newPhoto => {
+      return fetch(`http://localhost:3000/trips/${tripId}/photos`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          photoUrl: photos
+        })
+      })
+    .then(res => res.json())
+  }
+
 
   static editTripLocation(tripLocationId, lat, lng) {
-    console.log('hitting api', tripLocationId)
     return fetch(`http://localhost:3000/triplocations/${tripLocationId}`, {
       method: "PATCH",
       headers: {

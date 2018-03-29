@@ -7,7 +7,6 @@ const AddPhotos = (props) => {
     accept: 'image/*',
     fromSources: ['local_file_system'],
     maxSize: 1024 * 1024,
-    imageMax: [300, 300],
     maxFiles: 5,
   }
 
