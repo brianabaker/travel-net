@@ -115,6 +115,10 @@ body {
   max-height: 50vh;
 }
 
+.set-width {
+  width: 100%!important;
+}
+
 #welcome {
   font-family: "Painter";
 }

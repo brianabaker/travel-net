@@ -72,12 +72,14 @@ class TripsController < ApplicationController
   end
 
   def add_photos
-    # byebug
     @trip = Trip.find(params[:id])
     @photos = params[:photoUrl][:filesUploaded]
     @photo_urls = @photos.map { |photo| photo["url"] }
     @photo_urls.map {|photo_url| TripPhoto.create(trip_photo_url: photo_url, trip_id: @trip.id)}
     @all_trip_photos = @trip.trip_photos
+    @most_recent_photo = (@all_trip_photos[@all_trip_photos.length - 1])
+    @trip.most_recent_photo_url = @most_recent_photo.trip_photo_url
+    @trip.save
     render json: @all_trip_photos, status: 200
   end
 

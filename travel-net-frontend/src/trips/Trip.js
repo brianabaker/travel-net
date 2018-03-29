@@ -58,10 +58,12 @@ class Trip extends React.Component {
   }
 
   checkIfCurrentUser = () => {
-    if (this.props.currentUser.id == this.props.currentTrip.user_id) {
-      return(
-        <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
-      )
+    if (this.props.currentUser && this.props.currentTrip) {
+      if (this.props.currentUser.id == this.props.currentTrip.user_id) {
+        return(
+          <AddPhotos onSuccess={this.onSuccess} onError={this.onError}/>
+        )
+      }
     }
   }
 
@@ -102,6 +104,7 @@ class Trip extends React.Component {
     }
 
   render(){
+    console.log(this.props.currentUser, this.props.currentTrip)
     if (this.props.isLoading === "Loading"){
       return (
         <div>Trips Page Loading</div>
@@ -125,7 +128,7 @@ class Trip extends React.Component {
         </React.Fragment>
         : null}
         <div className="fourteen wide column" style={{paddingTop: "0", paddingBottom: "0"}}>
-            {this.checkIfCurrentUser()}
+          {this.checkIfCurrentUser()}
         </div>
         <div className="fourteen wide column" style={{paddingTop: "0", overflow: "auto", overflowY: "hidden"}}>
             <TripImages/>

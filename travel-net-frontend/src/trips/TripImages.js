@@ -6,8 +6,6 @@ import ImageGallery from 'react-image-gallery';
 class TripImages extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState){
-    console.log('BEFORE', this.props)
-    console.log('NEXT PROPS', nextProps)
     if (this.props.tripPhotos !== nextProps.tripPhotos) {
       return true
     } else {
@@ -16,15 +14,19 @@ class TripImages extends React.Component {
   }
 
   gatherPhotos = () => {
-    return(
-      this.props.tripPhotos.reverse().map(photo => {
-      return (
-        <div className="column" key={photo.id}>
-          <img src={photo.trip_photo_url} key={photo.id} height="100px" width="150px" alt={photo.id}/>
-        </div>
-        )
-      })
-    )
+    if (this.props.tripPhotos) {
+      return(
+        this.props.tripPhotos.reverse().map(photo => {
+        return (
+          <div className="column" key={photo.id}>
+            <img src={photo.trip_photo_url} key={photo.id} height="100px" width="150px" alt={photo.id}/>
+          </div>
+          )
+        })
+      )
+    } else {
+      return null
+    }
   }
 
   render(){

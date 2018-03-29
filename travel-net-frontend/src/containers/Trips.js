@@ -15,6 +15,7 @@ class TripsContainer extends React.Component {
 
   checkPastTrips = () => {
     if (this.props.pastTrips) {
+      console.log('TRIPS HERE', this.props.pastTrips);
         this.props.pastTrips.map(trip => {
           if (trip.name === '' ) {
             console.log(trip.name === '')
