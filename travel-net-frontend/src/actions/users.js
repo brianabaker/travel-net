@@ -122,7 +122,6 @@ export function createUser(username, password, passwordConfirmation, location) {
        if (userJSON.errors) {
          dispatch({type: "ERRORS", payload: userJSON.errors})
        } else {
-         console.log('createuser', userJSON)
          localStorage.setItem("token", userJSON.auth_token)
          dispatch({type: "CREATED_USER", payload: userJSON.user})
        }

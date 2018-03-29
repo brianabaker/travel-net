@@ -10,6 +10,7 @@ class Chatroom extends React.Component {
 		content: ""
 	}
 
+
 	componentDidMount() {
 		if (this.props.chatroom.messages.length > 5) {
 			this.scrollToBottom();

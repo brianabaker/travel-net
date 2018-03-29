@@ -26,17 +26,8 @@ class Friends extends React.Component {
     cityName: '',
     erros: '',
     center: {lat: 31.343431, lng: 3.924604},
-    // center:  { lat: 15.517860, lng: -36.777681 },
     zoom: 2
   }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     allFriends: this.props.friends,
-  //     filterFriends: this.props.friends
-  //   })
-  // }
-
   componentWillReceiveProps(nextProps){
     if (nextProps.location.state) {
       if (this.props.location.state !== nextProps.location.state) {
@@ -46,7 +37,7 @@ class Friends extends React.Component {
           this.setState({
             center: {lat: lat, lng: lng},
             zoom: 10
-          }, () => console.log(this.state.zoom))
+          })
         }
       }
     }
@@ -57,13 +48,6 @@ class Friends extends React.Component {
       })
     }
   }
-
-  // shouldComponentUpdate(nextProps, nextState){
-  //   if (this.state.filterFriends !== this.props.nextState) {
-  //     console.log('if true')
-  //     return true
-  //   }
-  // }
 
   seeFriendRequests = (e) => {
     e.preventDefault()
@@ -96,7 +80,6 @@ class Friends extends React.Component {
     // console.log('search', query)
     UserApi.searchUsers(this.props.currentUser.id, query)
     .then(searchResults => {
-      console.log(searchResults)
       if (searchResults.length <= 0) {
         this.setState({
           errors: "No results found!"
@@ -114,13 +97,10 @@ class Friends extends React.Component {
     return(
       <React.Fragment>
         <div className="ui grid">
-        {this.props.friends ?
       <React.Fragment>
         <div className="twelve wide column">
-        {this.props.friends.length > 0 ?
+        {!this.props.friends ? <EmptyMap/> :
             <FriendsMap zoom={this.state.zoom} center={this.state.center} friends={this.props.friends} cb={this.friendsByLocation} undo={this.undoFriendsByLocation}/>
-            :
-            <EmptyMap/>
         }
         </div>
         <div className="three wide column">
@@ -132,8 +112,6 @@ class Friends extends React.Component {
         }
         </div>
       </React.Fragment>
-      :
-      "Loading"}
       </div>
       </React.Fragment>
     )

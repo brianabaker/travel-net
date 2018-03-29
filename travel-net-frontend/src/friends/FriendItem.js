@@ -14,13 +14,12 @@ class FriendItem extends React.Component {
   toggleMenu = (id) => {
     this.setState({
       menuId: this.state.menuId === id ? null : id
-    }, () => console.log('menu id', this.state.menuId))
+    })
   }
 
 
   render() {
       let itemClass = this.props.currentChatId === this.props.id ? "active item" : "item"
-      console.log(this.props)
     return(
       <React.Fragment>
         <div className="ui left pointing dropdown link item" onClick={() => this.toggleMenu(this.props.id)}>{this.props.name}</div>

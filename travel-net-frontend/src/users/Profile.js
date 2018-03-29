@@ -54,6 +54,11 @@ class Profile extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log('this', this.state.location)
+    console.log('next', nextProps.location)
+    if (this.state.selectedUser !== nextState.selectedUser) {
+      return true
+    }
     if (this.state.selectedUser) {
       if (this.state.location === nextState.location) {
         return false
@@ -62,13 +67,7 @@ class Profile extends React.Component {
       }
     } else if (!this.state.selectedUser){
       return true
-    } else if (this.props.match.params.userId !== nextProps.match.params.userId) {
-      return true
     }
-    // if (this.props.alert !== nextProps.alert){
-    //   console.log('if true')
-    //   return true
-    // }
   }
 
   showLocation = () => {

@@ -31,7 +31,7 @@ class AddMoreUserInfo extends React.Component {
 
   render() {
     return(
-      <div>
+      <div style={{paddingLeft: "50px"}}>
         {this.props.currentUser ?
           <React.Fragment>
             <p>Welcome to Travel Net the best Travel Network!</p>
@@ -39,7 +39,7 @@ class AddMoreUserInfo extends React.Component {
                 <label>
                   Tell Us More About Yourself!
                   <div>
-                    <textarea className="eight wide field" value={this.state.bio} name="bio" onInput={this.handleInput}></textarea>
+                    <textarea value={this.state.bio} name="bio" onInput={this.handleInput}></textarea>
                   </div>
                 </label>
               <div>

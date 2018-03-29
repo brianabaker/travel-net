@@ -6,7 +6,7 @@ import SignIn from './users/SignIn'
 import Splash from './containers/Splash'
 // import About from './containers/About'
 import LoggedInRoutes from "./LoggedInRoutes";
-// import AddMoreUserInfo from './users/AddMoreUserInfo';
+import AddMoreUserInfo from './users/AddMoreUserInfo';
 import SignUpContainer from './containers/SignUpContainer'
 
 const AllRoutes = (props) => {
@@ -16,6 +16,7 @@ const AllRoutes = (props) => {
           <Route exact path='/' component={Splash}/>
           <Route exact path="/signup" component={SignUpContainer}/>
           <Route exact path="/signin" component={SignIn}/>
+          <Route exact path="/addbio" component={AddMoreUserInfo}/>
           <LoggedInRoutes />
       </Switch>
     </React.Fragment>

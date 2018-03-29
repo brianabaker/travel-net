@@ -3,7 +3,7 @@
 import React from 'react';
 // import { Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux'
-
+import {showChat} from './actions/chats'
 // styles
 import './App.css';
 // import image from './images/small-world.jpeg'
@@ -30,33 +30,17 @@ class App extends React.Component {
     })
   }
 
-  // toggleMenu = (id) => {
-  //   this.setState({
-  //     friendId: this.state.friendId === id ? null : id
-  //   })
-  // }
-
-  // showOnMap = (id) => {
-  //   console.log(id)
-  // }
-
   render() {
-    // let sectionStyle = {
-    //     margin: 0,
-    //     height: "100vh",
-    //     backgroundSize: "cover",
-    //     backgroundImage: `url(${image})`
-    //   }
 
     return(
         <div className="add-padding">
           <NavBar/>
           <div className="ui grid">
-            {this.props.friends ?
-              <div className="two wide column">
-                <FriendsMenu friendId={this.state.friendId} toggleChat={this.toggleChat} />
-              </div>
-            : null }
+            <div className="two wide column">
+              {this.props.friends ?
+                  <FriendsMenu friendId={this.state.friendId} toggleChat={this.toggleChat} />
+              : null }
+            </div>
             {this.state.friendId ?
               <div className="sticky-side-chat">
                 <ChatroomContainer friendId={this.state.friendId}/>
@@ -90,5 +74,5 @@ const mapStateToProps = (state) => {
   return {friends: state.users.friends}
 }
 
-export default connect(mapStateToProps, null, null, {
+export default connect(mapStateToProps, {showChat}, null, {
   pure: false})(App)

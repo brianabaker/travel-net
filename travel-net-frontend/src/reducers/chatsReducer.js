@@ -1,5 +1,5 @@
 
-import {FETCHING_CHAT, FETCHED_CHAT, SENT_MESSAGE} from '../actions/chats'
+import {FETCHING_CHAT, FETCHED_CHAT, SENT_MESSAGE, SHOW_CHAT} from '../actions/chats'
 
 export const chatsState = {
   isLoading: false,
@@ -16,6 +16,8 @@ function chatsReducer(state = chatsState, action) {
       return {...state, chatroom: action.payload}
     case "SIGN_OUT":
       return {state: chatsState }
+    case SHOW_CHAT:
+      return {...state, showChat: true}
     default:
       return state
   }

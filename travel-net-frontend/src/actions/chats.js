@@ -5,13 +5,18 @@ import ChatApi from "../services/chatApi";
 export const FETCHING_CHAT = "FETCHING_CHAT";
 export const FETCHED_CHAT = "FETCHED_CHAT";
 export const SENT_MESSAGE = "SEND_MESSAGE"
+export const SHOW_CHAT = "SHOW_CHAT"
+
+export function showChat() {
+  return function(dispatch){
+    dispatch({type: "SHOW_CHAT"})
+  }
+}
 
 export function fetchChat(currentUser, friend) {
   return function(dispatch) {
-    console.log("dispatch", currentUser, friend);
     dispatch({ type: "FETCHING_CHAT" });
     ChatApi.fetchChat(currentUser, friend).then(chatroomJSON => {
-      console.log(chatroomJSON)
       dispatch({type: "FETCHED_CHAT", payload: chatroomJSON})
     })
   };
