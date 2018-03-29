@@ -15,7 +15,6 @@ class TripsContainer extends React.Component {
 
   checkPastTrips = () => {
     if (this.props.pastTrips) {
-      console.log('TRIPS HERE', this.props.pastTrips);
         this.props.pastTrips.map(trip => {
           if (trip.name === '' ) {
             console.log(trip.name === '')
@@ -23,7 +22,6 @@ class TripsContainer extends React.Component {
               <PastTrips key={trip.id} id={trip.id} text={"Untitled Trip"}/>
             )
           } else {
-            console.log('if else')
             return(
               <PastTrips key={trip.id} id={trip.id} text={trip.name}/>
             )
@@ -37,7 +35,7 @@ class TripsContainer extends React.Component {
       <div>
         {this.props.currentUser.on_trip ? <Trip id={this.props.currentUser.current_trip_id}/> : this.props.formState ? <NewTripForm/> :
             <React.Fragment>
-              <button onClick={this.props.renderForm} className="ui green button">Make a trip!</button>
+              <button onClick={this.props.renderForm} className="ui blue button">Start A New Trip</button>
               <PastTrips/>
             </React.Fragment>
           }
