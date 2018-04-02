@@ -2,14 +2,13 @@ import React from 'react'
 import { ActionCable } from 'react-actioncable-provider';
 
 import {connect} from 'react-redux'
-import {sendMessage} from '../actions/chats'
+import {sendMessage, addMessage} from '../actions/chats'
 
 class Chatroom extends React.Component {
 
 	state = {
 		content: ""
 	}
-
 
 	componentDidMount() {
 		if (this.props.chatroom.messages.length > 5) {
@@ -97,4 +96,4 @@ const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser}
 }
 
-export default connect(mapStateToProps, {sendMessage})(Chatroom)
+export default connect(mapStateToProps, {sendMessage, addMessage})(Chatroom)

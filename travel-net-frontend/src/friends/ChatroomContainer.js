@@ -10,7 +10,6 @@ state = {
 
 	componentDidMount(){
 		this.props.fetchChat(this.props.currentUser, this.props.friendId)
-		console.log('thisstatechat', this.state.chatroom)
 		// this.setState({
 		// 	chatroom: this.
 		// })
@@ -39,23 +38,15 @@ state = {
 		if (this.props.chatroom) {
 			this.setState({
 				chatroom: this.props.chatroom
-			}, () => console.log(this.state.chatroom))
+			})
 		}
 	}
 
-	addMessage = (message) => {
-		console.log(this.state.chatroom)
-		let copyChat = {...this.props.chatroom}
-		copyChat.messages.push(message)
-		this.setState({
-			chatroom: copyChat
-		}, () => console.log(this.state.chatroom))
-	}
 
 	render() {
 		return (
 			<div>
-				{this.props.chatroom ? <Chatroom addMessage={this.addMessage} chatroom={this.props.chatroom}/> : "Loading"}
+				{this.props.chatroom ? <Chatroom chatroom={this.props.chatroom}/> : "Loading"}
 			</div>
 		);
 	}

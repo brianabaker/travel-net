@@ -74,8 +74,10 @@ body {
   position: fixed;
   width: 12%!important;
   top: 70px;
+  bottom: 0;
   left: 10px;
   z-index: 2;
+  overflow-y: scroll!important;
 }
 
 .sticky-side-chat{

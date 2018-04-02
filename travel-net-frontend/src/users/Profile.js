@@ -26,59 +26,45 @@ class Profile extends React.Component {
         sameUser: true
       })
       this.fetchMyProfile(id)
+      .then(data => this.showLocation())
     } else {
       this.setState({
         sameUser: false
       })
       this.fetchProfile(id)
+      .then(data => this.showLocation())
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
-      this.fetchMyProfile(nextProps.match.params.userId)
+      this.fetchProfile(nextProps.match.params.userId)
+      .then(data => this.showLocation())
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.selectedUser) {
-      this.showLocation()
-    }
+  requestFriendshipFunction = () => {
     if (this.state.currentUserFriendsArray) {
       let requestedFriendshipBoolean = this.state.currentUserFriendsArray.map(friend => friend.id).includes(this.state.selectedUser.id)
       this.setState({
         requestedFriendshipBoolean: requestedFriendshipBoolean
-      })
-    }
-
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('this', this.state.location)
-    console.log('next', nextProps.location)
-    if (this.state.selectedUser !== nextState.selectedUser) {
-      return true
-    }
-    if (this.state.selectedUser) {
-      if (this.state.location === nextState.location) {
-        return false
-      } else if (this.state.location !== nextState.location){
-        return true
-      }
-    } else if (!this.state.selectedUser){
-      return true
+      }, () => console.log(this.state.requestedFriendshipBoolean))
     }
   }
 
   showLocation = () => {
-    if (this.state.location === "" ) {
-      findAddress(parseFloat(this.state.selectedUser.lat), parseFloat(this.state.selectedUser.lng))
+    console.log('SHOW LOC')
+    // if (this.state.location === "" ) {
+      let lat = parseFloat(this.state.selectedUser.lat)
+      let lng = parseFloat(this.state.selectedUser.lng)
+      this.requestFriendshipFunction()
+      return findAddress(lat, lng)
       .then(data => {
         this.setState({
-          location:data
+          location: data
         })
       })
-    }
+    // }
   }
 
   renderLocation = () => {
@@ -91,7 +77,7 @@ class Profile extends React.Component {
 
   fetchProfile = (id) => {
     // console.log('this is fetching the friends profile', id)
-    fetch(`http://localhost:3000/users/${id}`, {
+    return fetch(`http://localhost:3000/users/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -111,7 +97,7 @@ class Profile extends React.Component {
   }
 
   fetchMyProfile = (id) => {
-    fetch(`http://localhost:3000/users/${id}`)
+    return fetch(`http://localhost:3000/users/${id}`)
     .then(res => res.json())
     .then(profileJSON => {
       this.setState({

@@ -6,11 +6,16 @@ export const FETCHING_CHAT = "FETCHING_CHAT";
 export const FETCHED_CHAT = "FETCHED_CHAT";
 export const SENT_MESSAGE = "SEND_MESSAGE"
 export const SHOW_CHAT = "SHOW_CHAT"
+export const ADD_MESSAGE = "ADD_MESSAGE"
 
 export function showChat() {
   return function(dispatch){
     dispatch({type: "SHOW_CHAT"})
   }
+}
+
+export function addMessage(message) {
+  return {type: "ADD_MESSAGE", payload: message}
 }
 
 export function fetchChat(currentUser, friend) {

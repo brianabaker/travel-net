@@ -1,5 +1,5 @@
 
-import {FETCHING_CHAT, FETCHED_CHAT, SENT_MESSAGE, SHOW_CHAT} from '../actions/chats'
+import {FETCHING_CHAT, FETCHED_CHAT, SENT_MESSAGE, SHOW_CHAT, ADD_MESSAGE} from '../actions/chats'
 
 export const chatsState = {
   isLoading: false,
@@ -18,6 +18,12 @@ function chatsReducer(state = chatsState, action) {
       return {state: chatsState }
     case SHOW_CHAT:
       return {...state, showChat: true}
+    case ADD_MESSAGE:
+    console.log('action', action.payload)
+    console.log('in chat reducer', state.chatroom)
+    let newChatroom = {...state.chatroom}
+    newChatroom.messages.push(action.payload)
+      return {...state, chatroom: newChatroom}
     default:
       return state
   }
