@@ -11,14 +11,14 @@ body {
   height: 80px;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Painter';
-  src: local('Painter-Font'), url(./fonts/Painter-Font.ttf) format('painter');
+  src: local('Painter-Font'), url(./Painter-Font.ttf) format('painter');
 }
 
 #welcome {
   font-family: "Painter";
-}
+} */
 
 /* .App-header {
   background-color: #222;
@@ -121,43 +121,15 @@ body {
   width: auto!important;
 }
 
+@font-face {
+    font-family: 'Painter';
+    src: url('./fonts/Painter-Font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #welcome {
   font-family: "Painter";
+  font-size: 30px;
+  padding: 30px;
 }
-
-/* #background-video{
-
-height: 100%;
-width: 100%;
-float: left;
-top: 0;
-padding: none;
-position: fixed;
-
-} */
-
-/* .video-container {
-  /* position: absolute; */
-  /* top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-}
-.video-container > video {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-@media screen and (max-aspect-ratio: 1920/1080) {
-  .video-container > video {
-    height: 100%;
-  }
-}
-@media screen and (min-aspect-ratio: 1920/1080) {
-  .video-container > video {
-    width: 100%;
-  }
-} */
