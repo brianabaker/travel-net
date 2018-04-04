@@ -8,13 +8,13 @@ A social network for those with wanderlust to stay in touch with friends both tr
 
 ## How To Use
 * Search for friends to add, await a friend response
-* Your friends will be listed on the left side of the scrren 
+* Your friends will be listed on the left side of the screen 
 * Click on a friend listed to select their profile, chat window, or see where they are on the map
 * Your friends traveling will appear on the map as blue markers 
 * Your friends not currently traveling will appear on the map as red markers 
-* Go on a trip, and add locations as you travel to keep your friends to date with where you are 
+* Go on a trip, and add locations as you travel to keep your friends up to date with where you are 
 * Add pictures to your trips 
-* End a trip at any time and return to real life 
+* End a trip at any time, and put in where you've decided to take residence
 
 ## Prerequisites
 
