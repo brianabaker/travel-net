@@ -23,7 +23,7 @@ A social network for those with wanderlust to stay in touch with friends both tr
 * React
 
 ## Install
-1. Clone this repo - https://github.com/brianabaker/travel-net
+1. Fork and clone this repo - https://github.com/brianabaker/travel-net
 2. Navigate to travel-net-backend, complete backend setup
 3. In a separate terminal window, navigate to travel-net-frontend, complete frontend setup
 
