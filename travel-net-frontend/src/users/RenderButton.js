@@ -7,7 +7,7 @@ const RenderButton = (props) => {
 
   return(
     <div>
-      <button onClick={props.function}>{props.text}</button>
+      <button className="ui small blue button" onClick={props.function}>{props.text}</button>
     </div>
   )
 }

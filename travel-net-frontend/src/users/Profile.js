@@ -19,24 +19,41 @@ class Profile extends React.Component {
     selectedFriendsWithCurrentUser: ''
   }
 
-  componentDidMount(){
-    let id = parseInt(this.props.match.params.userId, 10)
-    if (id === this.props.currentUser.id) {
-      this.setState({
-        sameUser: true
-      })
-      this.fetchMyProfile(id)
-      .then(data => this.showLocation())
-    } else {
-      this.setState({
-        sameUser: false
-      })
-      this.fetchProfile(id)
-      .then(data => this.showLocation())
-    }
-  }
+  // componentDidMount(){
+  //   let id = parseInt(this.props.match.params.userId, 10)
+  //   if (id === this.props.currentUser.id) {
+  //     this.setState({
+  //       sameUser: true
+  //     })
+  //     this.fetchMyProfile(id)
+  //     .then(data => this.showLocation())
+  //   } else {
+  //     this.setState({
+  //       sameUser: false
+  //     })
+  //     this.fetchProfile(id)
+  //     .then(data => this.showLocation())
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.currentUser) {
+      let id = parseInt(this.props.match.params.userId, 10)
+      if (id === this.props.currentUser.id) {
+        this.setState({
+          sameUser: true
+        })
+        this.fetchMyProfile(id)
+        .then(data => this.showLocation())
+      } else {
+        this.setState({
+          sameUser: false
+        })
+        this.fetchProfile(id)
+        .then(data => this.showLocation())
+      }
+
+    }
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
       this.fetchProfile(nextProps.match.params.userId)
       .then(data => this.showLocation())
@@ -88,6 +105,7 @@ class Profile extends React.Component {
     })
     .then(res => res.json())
     .then(profileJSON => {
+      console.log('fetch profile', profileJSON)
         this.setState({
           selectedUser: profileJSON.user,
           currentUserFriendsArray: profileJSON.current_user_pending_friends_array,
