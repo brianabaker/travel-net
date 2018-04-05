@@ -1,9 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
 
-  attributes :id, :username, :lat, :lng
+  attributes :id, :username, :lat, :lng, :bio, :on_trip, :current_trip_id
 
   has_many :trips
-  has_friendship
+  # has_friendship
+  # CHECK IF IT BREAKS HERE 
 
   has_many :messages
 

@@ -20,6 +20,7 @@ import ChatroomContainer from './friends/ChatroomContainer'
 import AllRoutes from './AllRoutes'
 class App extends React.Component {
 
+
   state = {
     friendId: ''
   }
@@ -52,23 +53,6 @@ class App extends React.Component {
     )
   }
 }
-// <NavBar/>
-// <div id="add-padding" className="ui grid">
-//   <div className="two wide column">
-//     {this.props.friends ?
-//     <FriendsMenu toggleChat={this.toggleChat}/>
-//     : null }
-//   </div>
-// <div id="main-container" className="twelve wide column">
-//   <Switch>
-//     <Route exact path='/' component={Home}/>
-//     <Route exact path="/signup" component={SignUp}/>
-//     <Route exact path="/signin" component={SignIn}/>
-//     <AppRoutes />
-//   </Switch>
-// </div>
-// </div>
-//
 
 const mapStateToProps = (state) => {
   return {friends: state.users.friends}

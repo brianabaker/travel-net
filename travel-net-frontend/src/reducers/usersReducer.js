@@ -1,6 +1,6 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, ERRORS, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE, FETCHED_PAST_TRIPS, CHANGE_USER_LOCATION } from '../actions/users'
+import { CREATING_USER, CREATED_USER, FINDING_USER, FOUND_USER_SUCCESS, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE, FETCHED_PAST_TRIPS, CHANGE_USER_LOCATION, SET_USER } from '../actions/users'
 
 
 export const usersState = {
@@ -23,9 +23,11 @@ function usersReducer(state = usersState, action) {
       return {...state, isLoading: false, currentUser: action.payload, alert: ''}
     case FINDING_USER:
       return {...state, isLoading: true, alert: ''}
-    case FOUND_USER:
-      console.log('FOUND', action.payload)
+    case FOUND_USER_SUCCESS:
       return {...state, isLoading: false, currentUser: action.payload, alert: ''}
+    case SET_USER:
+    console.log('in set user', action.payload)
+      return {...state, currentUser: action.payload}
     case SELECTED_USER:
       return {...state, selectedUser: action.payload, alert: ''}
     case REQUEST_FRIENDSHIP:
@@ -55,8 +57,6 @@ function usersReducer(state = usersState, action) {
       return {...state, isLoading: true}
     case EDITED_USER:
       return {...state, isLoading: false, currentUser: action.payload}
-    case ERRORS:
-      return {...state, alert: action.payload}
     case SIGN_OUT:
       return {state: usersState}
     case SHOW_FRIEND_ON_MAP:

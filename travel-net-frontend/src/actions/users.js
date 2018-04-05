@@ -7,7 +7,8 @@ import { push } from 'react-router-redux'
 
 // export const MAKE_USER = "MAKE_USER"
 export const FINDING_USER = "FIND_USER"
-export const FOUND_USER = "FOUND_USER"
+export const FOUND_USER_SUCCESS = "FOUND_USER_SUCCESS"
+export const SET_USER = "SET_USER"
 export const CREATING_USER = "CREATING_USER"
 export const CREATED_USER = "CREATED_USER"
 // export const SEARCHING_USERS = "SEARCHING_USERS"
@@ -57,10 +58,18 @@ export function selectUser(id) {
   }
 }
 
-// export const showFriendOnMap = (lat, lng) => ({
-//   type: "SHOW_FRIEND_ON_MAP",
-//   payload: {lat, lng}
-// })
+export function dispatchCurrentUser() {
+  return function(dispatch){
+    UserApi.fetchCurrentUser().then(json => {
+      console.log('in the action fetch current', json)
+      dispatch({type: "SET_USER", payload: json})
+      UserApi.fetchFriends(json).then(friendsJSON => {
+        dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
+        dispatch({type: "FETCHED_PAST_TRIPS", payload: friendsJSON.past_trips})
+      })
+    })
+  }
+}
 
 export function showFriendOnMap(lat, lng) {
   return function(dispatch){
@@ -98,6 +107,7 @@ export function fetchProfile(currentUser, id){
 export function fetchFriends(currentUser) {
   return function(dispatch){
     dispatch({type: "FETCHING_FRIENDS"})
+    console.log('in fetch friends', currentUser)
     UserApi.fetchFriends(currentUser).then(friendsJSON => {
       dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
       dispatch({type: "FETCHED_PAST_TRIPS", payload: friendsJSON.past_trips})
@@ -165,10 +175,11 @@ export function login(username, password) {
     UserApi.login(username, password).then(userJSON => {
       console.log(userJSON.errors)
       if (userJSON.errors) {
-        dispatch({type: "ERRORS", payload: userJSON.errors})
+        // dispatch({type: "FINDING_USER_FAIL"})
+        dispatch({type: "ADD_ERROR", error: userJSON.errors})
       } else {
         localStorage.setItem("token", userJSON.auth_token);
-        dispatch({type: "FOUND_USER", payload: userJSON.user})
+        dispatch({type: "FOUND_USER_SUCCESS", payload: userJSON.user})
         dispatch(push('/welcome'))
       }
     })

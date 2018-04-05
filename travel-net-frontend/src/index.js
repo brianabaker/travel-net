@@ -21,6 +21,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux"
 import usersReducer from "./reducers/usersReducer"
 import tripsReducer from './reducers/tripsReducer'
 import chatsReducer from './reducers/chatsReducer'
+import errorsReducer from './reducers/errorsReducer'
 
 //websockets
 import {ActionCableProvider} from 'react-actioncable-provider'
@@ -30,28 +31,22 @@ import {loadState, saveState} from './localStorage'
 
 // app routes
 import App from "./App";
-// import { Route, Switch} from "react-router-dom";
-// import NavBar from './NavBar'
-// import SignUp from './users/SignUp'
-// import SignIn from './users/SignIn'
-
-// working on navbar
-// import FriendsMenu from './containers/FriendsMenu'
-// react-router-redux
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 const router = routerMiddleware(history)
 
-const reducers= combineReducers({users: usersReducer, trips: tripsReducer, chats: chatsReducer, router: routerReducer});
+const reducers= combineReducers({users: usersReducer, trips: tripsReducer, chats: chatsReducer, router: routerReducer, errors: errorsReducer});
 
-const persistedState = loadState()
+// const persistedState = loadState()
+// persistedState,
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk, router)));
 
-const store = createStore(reducers, persistedState, composeWithDevTools(applyMiddleware(thunk, router)));
-
-store.subscribe(() => {
-  saveState(store.getState())
-})
+// store.subscribe(() => {
+//   saveState({
+//     users: store.getState().users
+//   })
+// })
 
 const API_WS_ROOT = `ws://localhost:3000/cable`
 

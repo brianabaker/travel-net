@@ -12,6 +12,19 @@ class AuthenticationController < ApplicationController
     end
   end
 
+
+  def active_user
+    # i removed a serializer thing from here 
+    if request.headers['Authorization']
+      token = request.headers['Authorization']
+      decoded_token = JsonWebToken.decode(token)
+      @current_user = User.find_by(id: decoded_token[:user_id])
+      render json: current_user
+    else
+      render json: {'error': 'There is no current user'}
+    end
+  end
+
   private
 
   def payload(user)

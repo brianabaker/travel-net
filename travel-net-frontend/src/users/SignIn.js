@@ -27,7 +27,7 @@ class SignIn extends React.Component {
 
     // {this.props.alert ? <p className="color-red" style={{backgroundColor: "black"}}><strong>{this.props.alert}</strong></p> : null}
   render(){
-    console.log(this.props.alert)
+    console.log(this.props.error)
     return(
       <div>
       <div id="opaque">
@@ -56,7 +56,7 @@ class SignIn extends React.Component {
     // {this.props.alert ? this.props.alert : null}
 
 const mapStateToProps = (state) => {
-  return {alert: state.users.alert}
+  return {error: state.errors}
 }
 
 export default connect(mapStateToProps, {login, renderSignUpPage})(SignIn)

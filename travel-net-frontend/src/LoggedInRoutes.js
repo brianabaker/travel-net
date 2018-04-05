@@ -4,7 +4,7 @@
 import React from "react";
 import { Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux'
-import {fetchFriends} from './actions/users'
+import {fetchFriends, dispatchCurrentUser} from './actions/users'
 
 // components
 import Welcome from './users/Welcome'
@@ -19,10 +19,16 @@ import AskUserWhereTheyLiveAfterTrip from './users/AskUserWhereTheyLiveAfterTrip
 class LoggedInRoutes extends React.Component {
 
   componentDidMount(){
-    this.props.fetchFriends(this.props.currentUser)
+    if (localStorage.length===0){
+     this.props.history.push('/')
+    }else{
+      this.props.dispatchCurrentUser()
+      this.props.fetchFriends(this.props.currentUser)
+    }
   }
 
   render() {
+    console.log(this.props.currentUser)
     return (
       <React.Fragment>
         <div id="main-container" className="fourteen wide column">
@@ -45,4 +51,4 @@ const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser}
 }
 
-export default connect(mapStateToProps, {fetchFriends})(LoggedInRoutes)
+export default connect(mapStateToProps, {fetchFriends, dispatchCurrentUser})(LoggedInRoutes)

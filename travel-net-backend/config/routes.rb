@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#index'
 
   post 'auth_user' => 'authentication#authenticate_user'
+  post 'active_user' => 'authentication#active_user'
 
   post '/users/search' => 'users#search'
   # post '/users' => 'users#create'

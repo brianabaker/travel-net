@@ -1,6 +1,16 @@
 // USER API
 
 class UserApi {
+
+  static fetchCurrentUser() {
+    return fetch('http://localhost:3000/active_user', {
+      method: 'POST',
+      headers: {
+        'authorization': localStorage.getItem('token')
+        }
+    }).then(res => res.json())
+  }
+
   static createUser(username, password, passwordConfirmation, location) {
     return fetch("http://localhost:3000/users/", {
       method: "POST",
