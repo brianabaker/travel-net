@@ -6,8 +6,8 @@ import UserApi from '../services/userApi'
 import { push } from 'react-router-redux'
 
 // export const MAKE_USER = "MAKE_USER"
-export const FINDING_USER = "FIND_USER"
-export const FOUND_USER_SUCCESS = "FOUND_USER_SUCCESS"
+export const LOGGING_IN_USER = "LOGGING_IN_USER"
+export const LOGGING_IN_USER_SUCCESS = "LOGGING_IN_USER_SUCCESS"
 export const SET_USER = "SET_USER"
 export const CREATING_USER = "CREATING_USER"
 export const CREATED_USER = "CREATED_USER"
@@ -171,15 +171,13 @@ export function addBio(currentUser, bio, photoUrl) {
 
 export function login(username, password) {
   return function(dispatch){
-    dispatch({type: "FINDING_USER"})
+    dispatch({type: "LOGGING_IN_USER"})
     UserApi.login(username, password).then(userJSON => {
-      console.log(userJSON.errors)
-      if (userJSON.errors) {
-        // dispatch({type: "FINDING_USER_FAIL"})
-        dispatch({type: "ADD_ERROR", error: userJSON.errors})
+      if (userJSON.error) {
+        dispatch({type: "ADD_ERROR", error: userJSON.error})
       } else {
         localStorage.setItem("token", userJSON.auth_token);
-        dispatch({type: "FOUND_USER_SUCCESS", payload: userJSON.user})
+        dispatch({type: "LOGGING_IN_USER_SUCCESS", payload: userJSON.user})
         dispatch(push('/welcome'))
       }
     })

@@ -14,7 +14,7 @@ import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 import About from './containers/About'
-import AddMoreUserInfo from './users/AddMoreUserInfo'
+// import AddMoreUserInfo from './users/AddMoreUserInfo'
 import AskUserWhereTheyLiveAfterTrip from './users/AskUserWhereTheyLiveAfterTrip'
 class LoggedInRoutes extends React.Component {
 
@@ -23,7 +23,7 @@ class LoggedInRoutes extends React.Component {
      this.props.history.push('/')
     }else{
       this.props.dispatchCurrentUser()
-      this.props.fetchFriends(this.props.currentUser)
+      // this.props.fetchFriends(this.props.currentUser)
     }
   }
 

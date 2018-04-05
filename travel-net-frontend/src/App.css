@@ -41,7 +41,7 @@ body {
 }
 
 #opaque {
-  background-color: rgba(52, 52, 52, 0.3)!important;
+  /* background-color: rgba(52, 52, 52, 0.3)!important; */
   margin-top: 40px!important;
 }
 

@@ -27,7 +27,7 @@ import errorsReducer from './reducers/errorsReducer'
 import {ActionCableProvider} from 'react-actioncable-provider'
 
 // local localStorage
-import {loadState, saveState} from './localStorage'
+// import {loadState, saveState} from './localStorage'
 
 // app routes
 import App from "./App";

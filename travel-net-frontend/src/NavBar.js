@@ -7,7 +7,7 @@ import {signOut} from './actions/users'
 
 
 const NavBar = (props) => {
-
+  console.log(props.currentUser)
   const ifCurrentUser = () => {
     if (props.currentUser) {
       return(

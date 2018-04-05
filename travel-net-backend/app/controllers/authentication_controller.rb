@@ -5,16 +5,15 @@ class AuthenticationController < ApplicationController
 
   def authenticate_user
     user = User.find_for_database_authentication(username: params[:authentication][:username])
-    if user.valid_password?(params[:authentication][:password])
+    if user && user.valid_password?(params[:authentication][:password])
       render json: payload(user)
     else
-      render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
+      render json: {error: 'Invalid Username/Password'}, status: :unauthorized
     end
   end
 
-
   def active_user
-    # i removed a serializer thing from here 
+    # i removed a serializer thing from here
     if request.headers['Authorization']
       token = request.headers['Authorization']
       decoded_token = JsonWebToken.decode(token)

@@ -27,11 +27,15 @@ class SignIn extends React.Component {
 
     // {this.props.alert ? <p className="color-red" style={{backgroundColor: "black"}}><strong>{this.props.alert}</strong></p> : null}
   render(){
-    console.log(this.props.error)
+    console.log('signinpage', this.props.error)
     return(
       <div>
       <div id="opaque">
-        <div><h4>Sign In!</h4></div>
+        {this.props.error ?
+          <div className="ui warning message">
+            {this.props.error}
+          </div>
+          : null }
           <form className="ui form" onSubmit={this.findUser}>
             <div className="field"><label>Username
               <input type="text" value={this.state.username} name="username" placeholder="username"
@@ -43,10 +47,9 @@ class SignIn extends React.Component {
               onChange={this.onInputChange}/>
               </label>
             </div>
-            <input type="submit"/>
+            <button className="fluid green ui button">Sign In</button>
           </form>
-            <div>Or Sign Up<button onClick={this.props.renderSignUpPage}>Here</button></div>
-            <br/><br/>
+            <button className ="tiny ui button" style={{marginTop: "20px", float: "right"}} onClick={this.props.renderSignUpPage}>Or Sign Up</button>
       </div>
     </div>
     )
@@ -56,7 +59,7 @@ class SignIn extends React.Component {
     // {this.props.alert ? this.props.alert : null}
 
 const mapStateToProps = (state) => {
-  return {error: state.errors}
+  return {error: state.errors.error}
 }
 
 export default connect(mapStateToProps, {login, renderSignUpPage})(SignIn)
