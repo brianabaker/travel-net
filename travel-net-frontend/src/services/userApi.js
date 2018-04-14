@@ -99,6 +99,20 @@ class UserApi {
     .then(res => res.json())
   }
 
+  static fetchProfile(currentUser, id) {
+    console.log('in fetch profile', currentUser, id)
+    return fetch(`http://localhost:3000/users/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentUser: currentUser
+      })
+    })
+    .then(res => res.json())
+  }
+
   static editProfile(currentUser, username, bio, photoUrl){
     return fetch('http://localhost:3000/users/', {
       method: "PATCH",

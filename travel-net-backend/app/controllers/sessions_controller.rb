@@ -3,11 +3,7 @@ class SessionsController < Devise::SessionsController
   skip_before_action :verify_signed_out_user, only: :destroy
 
   responders :my_application
-  
-  # def create
-  #   self.resource = warden.authenticate!(scope: resource_name)
-  #   render :create, status: :created
-  # end
+
 
   def create
     super { |resource| @resource = resource }

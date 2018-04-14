@@ -7,7 +7,7 @@ import {signOut} from './actions/users'
 
 
 const NavBar = (props) => {
-  console.log(props.currentUser)
+
   const ifCurrentUser = () => {
     if (props.currentUser) {
       return(
@@ -41,11 +41,6 @@ const NavBar = (props) => {
     </div>
   )
 }
-
-//     <Link to={`/users/${props.currentUser.id}`} className="item">{props.currentUser.username}</Link>
-// {this.props.currentUser ?
-// <Link to={`/profile/${currentUser.user.id}`}>{currentUser.user.username}</Link>
-// : null  }
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,

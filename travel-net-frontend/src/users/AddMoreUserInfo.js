@@ -30,6 +30,7 @@ class AddMoreUserInfo extends React.Component {
   }
 
   render() {
+    console.log(this.props.currentUser);
     return(
       <div style={{paddingLeft: "50px"}}>
         {this.props.currentUser ?

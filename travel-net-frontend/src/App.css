@@ -11,22 +11,6 @@ body {
   height: 80px;
 }
 
-/* @font-face {
-  font-family: 'Painter';
-  src: local('Painter-Font'), url(./Painter-Font.ttf) format('painter');
-}
-
-#welcome {
-  font-family: "Painter";
-} */
-
-/* .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-} */
-
 .App-title {
   font-size: 1.5em;
 }
@@ -41,13 +25,9 @@ body {
 }
 
 #opaque {
-  /* background-color: rgba(52, 52, 52, 0.3)!important; */
   margin-top: 40px!important;
 }
 
-/* #add-padding {
-  margin-left: 10px;
-} */
 
 .color-red {
   color: red;

@@ -1,7 +1,6 @@
 
 import React from "react"
 import { connect } from "react-redux"
-// import font from '../fonts/Painter-Font.ttf'
 
 const Welcome = (props) => {
 

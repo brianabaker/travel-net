@@ -1,26 +1,19 @@
 
-// packages
+// react, routing
 import React from 'react';
-// import { Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux'
 import {showChat} from './actions/chats'
+import AllRoutes from './AllRoutes'
+
 // styles
 import './App.css';
-// import image from './images/small-world.jpeg'
 
 //components
 import NavBar from './NavBar'
-// import SignUp from './users/SignUp'
-// import SignIn from './users/SignIn'
 import FriendsMenu from './containers/FriendsMenu'
-// import Home from './containers/Home'
-// import Splash from './containers/Splash'
 import ChatroomContainer from './friends/ChatroomContainer'
-// import FriendsChat from './friends/FriendsChat'
-import AllRoutes from './AllRoutes'
+
 class App extends React.Component {
-
-
   state = {
     friendId: ''
   }

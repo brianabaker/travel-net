@@ -1,8 +1,5 @@
 class AuthenticationController < ApplicationController
 
-# responder :my_application
-# it didn't like this i put this here to try and get a better render method for errors maybe i didn't need it
-
   def authenticate_user
     user = User.find_for_database_authentication(username: params[:authentication][:username])
     if user && user.valid_password?(params[:authentication][:password])
@@ -13,7 +10,6 @@ class AuthenticationController < ApplicationController
   end
 
   def active_user
-    # i removed a serializer thing from here
     if request.headers['Authorization']
       token = request.headers['Authorization']
       decoded_token = JsonWebToken.decode(token)

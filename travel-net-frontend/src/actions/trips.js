@@ -71,6 +71,19 @@ export function fetchTrip(tripId) {
   };
 }
 
+export function fetchTripMap(tripId) {
+  return function(dispatch) {
+    console.log('in the action', tripId)
+    dispatch({ type: "FETCHING_TRIP" });
+    TripApi.fetchTrip(tripId).then(tripJSON => {
+      dispatch({ type: "FETCHED_TRIP", payload: tripJSON });
+      TripApi.fetchLocations(tripId).then(locationsJSON => {
+        dispatch({ type: "FETCHED_LOCATIONS", payload: locationsJSON })
+      })
+    })
+  }
+}
+
 export function addPhotos(tripId, photos){
   return function(dispatch){
     dispatch({type: "POSTING_PHOTOS"})

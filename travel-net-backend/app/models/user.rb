@@ -3,12 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   include Devise::JWT::RevocationStrategies::Whitelist
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :trips
   validates :username,uniqueness: true
-
   has_many :chatrooms, class_name: "Chatroom", foreign_key: "user1"
   has_many :chatrooms, class_name: "Chatroom", foreign_key: "user2"
 

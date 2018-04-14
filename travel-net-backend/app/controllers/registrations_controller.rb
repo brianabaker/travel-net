@@ -1,19 +1,24 @@
 class RegistrationsController < Devise::RegistrationsController
+
+  before_action :configure_permitted_parameters
+
   def new
-   super
- end
+    super
+  end
 
  def create
-   # add custom create logic here
-   user = User.new(authentication_params)
-   if user.valid?
-     user.save
-     render json: payload(user), status: 200
-   else
-     @errors = user.errors.full_messages
-     render :json => { :errors => @errors }, :status => 420
-   end
- end
+   build_resource(authentication_params)
+   resource.save
+   if resource.persisted?
+     if resource.active_for_authentication?
+       render json: payload(resource), status: 200
+     else
+       byebug
+     end
+    else
+      render :json => {:errors => resource.errors.messages}, :status => 420
+    end
+  end
 
  def update
     byebug

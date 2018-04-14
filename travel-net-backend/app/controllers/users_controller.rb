@@ -1,19 +1,11 @@
 class UsersController < ApplicationController
 
-  # before_action :set_user, only: [:show,:update,:destroy,:request_friendship,:view_requests,:friends]
-
-  # def current_user
-  #
-  #   render json: @user, status: 200
-  # end
-
   def show
     # byebug
     @current_user = User.find(params[:currentUser][:id])
     @user = User.find(params[:id])
     @pending_friends = @current_user.pending_friends
     @are_friends = @current_user.friends_with?(@user)
-    # render json: @user, status: 200
     response = { :user => @user, :current_user_pending_friends_array => @pending_friends, :are_friends => @are_friends}
     respond_to do |format|
       format.json  { render :json => response }
@@ -47,7 +39,6 @@ class UsersController < ApplicationController
   end
 
   def search
-    # byebug
     @users = User.all.select { |user| user.username.downcase.include?(params[:query]) }
     @current_user = User.find(params[:currentUserId])
     @notfriendsusers = @users.select { |user| !@current_user.friends_with?(user) }

@@ -5,14 +5,11 @@ import UserApi from '../services/userApi'
 
 import { push } from 'react-router-redux'
 
-// export const MAKE_USER = "MAKE_USER"
 export const LOGGING_IN_USER = "LOGGING_IN_USER"
 export const LOGGING_IN_USER_SUCCESS = "LOGGING_IN_USER_SUCCESS"
 export const SET_USER = "SET_USER"
 export const CREATING_USER = "CREATING_USER"
-export const CREATED_USER = "CREATED_USER"
-// export const SEARCHING_USERS = "SEARCHING_USERS"
-// export const SEARCHED_USERS = "SEARCHED_USERS"
+export const CREATED_USER_SUCCESS = "CREATED_USER_SUCESS"
 export const SELECTED_USER = "SELECTED_USER"
 export const REQUEST_FRIENDSHIP = "REQUEST_FRIENDSHIP"
 export const REQUESTED_FRIENDSHIP = "REQUESTED_FRIENDSHIP"
@@ -61,7 +58,6 @@ export function selectUser(id) {
 export function dispatchCurrentUser() {
   return function(dispatch){
     UserApi.fetchCurrentUser().then(json => {
-      console.log('in the action fetch current', json)
       dispatch({type: "SET_USER", payload: json})
       UserApi.fetchFriends(json).then(friendsJSON => {
         dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
@@ -93,13 +89,11 @@ export function changeUserLocation(currentUser, lat, lng){
   }
 }
 
-// THESE ARE ALL FETCHES AND NEED THUNK
-
 export function fetchProfile(currentUser, id){
   return function(dispatch){
     dispatch({type: "FETCHING_PROFILE"})
-    UserApi.fetchProfile(currentUser, id).then(profileJSON => {
-      dispatch({type: "FETCHED_PROFILE", payload: profileJSON})
+    UserApi.fetchProfile(currentUser, id).then(userInfoJSON => {
+      dispatch({type: "FETCHED_PROFILE", payload: userInfoJSON})
     })
   }
 }
@@ -107,7 +101,6 @@ export function fetchProfile(currentUser, id){
 export function fetchFriends(currentUser) {
   return function(dispatch){
     dispatch({type: "FETCHING_FRIENDS"})
-    console.log('in fetch friends', currentUser)
     UserApi.fetchFriends(currentUser).then(friendsJSON => {
       dispatch({type: "FETCHED_FRIENDS", payload: friendsJSON.friends})
       dispatch({type: "FETCHED_PAST_TRIPS", payload: friendsJSON.past_trips})
@@ -126,17 +119,19 @@ export function positiveResponseFriendRequest(user, friend){
 
 export function createUser(username, password, passwordConfirmation, location) {
   return function(dispatch){
+    console.log('in creating user');
      dispatch({type: "CREATING_USER"})
      UserApi.createUser(username, password, passwordConfirmation, location)
      .then(userJSON => {
+       console.log('json', userJSON)
        if (userJSON.errors) {
-         dispatch({type: "ERRORS", payload: userJSON.errors})
+         console.log(userJSON)
+         dispatch({type: "SIGN_UP_ERROR", errors: userJSON})
        } else {
          localStorage.setItem("token", userJSON.auth_token)
-         dispatch({type: "CREATED_USER", payload: userJSON.user})
+         dispatch({type: "CREATED_USER_SUCCESS", payload: userJSON.user})
        }
      })
-       .then(dispatch(push('/addbio')))
      }
    }
 
@@ -144,7 +139,6 @@ export function editUser(currentUser, username, bio, photoUrl){
   return function(dispatch){
     dispatch({type: "EDITING_USER"})
     UserApi.editProfile(currentUser, username, bio, photoUrl).then(userJSON => {
-      console.log('edit user', currentUser, username, bio, photoUrl)
       if (userJSON.error){
         dispatch({type: "ERRORS", payload: userJSON.error})
       } else {
@@ -174,7 +168,7 @@ export function login(username, password) {
     dispatch({type: "LOGGING_IN_USER"})
     UserApi.login(username, password).then(userJSON => {
       if (userJSON.error) {
-        dispatch({type: "ADD_ERROR", error: userJSON.error})
+        dispatch({type: "ADD_ERROR", errors: userJSON.error})
       } else {
         localStorage.setItem("token", userJSON.auth_token);
         dispatch({type: "LOGGING_IN_USER_SUCCESS", payload: userJSON.user})
@@ -184,21 +178,10 @@ export function login(username, password) {
   }
 }
 
-// export function searchUsers(username) {
-//   console.log('in the search user', username)
-//   return function(dispatch){
-//     dispatch({type: "SEARCHING_USERS"})
-//     UserApi.searchUsers(username).then(usersJSON => {
-//       dispatch({type: "SEARCHED_USERS", payload: usersJSON})
-//     })
-//   }
-// }
-
 export function requestFriendship(currentUserId, addFriend) {
   return function(dispatch){
     dispatch({type: "REQUEST_FRIENDSHIP"})
     UserApi.requestFriendship(currentUserId, addFriend).then(responseJSON => {
-      console.log('dispatch', responseJSON)
       dispatch({type: "REQUESTED_FRIENDSHIP", payload: responseJSON.message})
     })
   }

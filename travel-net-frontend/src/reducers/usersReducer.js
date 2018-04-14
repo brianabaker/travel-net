@@ -1,16 +1,20 @@
 //ROOT REDUCER
 
-import { CREATING_USER, CREATED_USER, LOGGING_IN_USER, LOGGING_IN_USER_SUCCESS, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE, FETCHED_PAST_TRIPS, CHANGE_USER_LOCATION, SET_USER } from '../actions/users'
+import { CREATING_USER, CREATED_USER_SUCCESS, LOGGING_IN_USER, LOGGING_IN_USER_SUCCESS, SELECTED_USER, REQUEST_FRIENDSHIP, REQUESTED_FRIENDSHIP, VIEW_FRIEND_REQUESTS, RECEIVED_FRIEND_REQUESTS, POSTIVE_RESPONSE_FRIEND_REQUEST, COMPLETED_POSTIVE_RESPONSE_FRIEND_REQUEST, RETURN_TO_FRIENDS_MENU, FETCHING_FRIENDS, FETCHED_FRIENDS, FETCHING_PROFILE, FETCHED_PROFILE, SIGN_OUT, EDITING_USER, EDITED_USER, SHOW_FRIEND_ON_MAP, RENDER_SIGN_UP_PAGE, FETCHED_PAST_TRIPS, CHANGE_USER_LOCATION, SET_USER } from '../actions/users'
 
 
 export const usersState = {
   currentUser: '',
   friendRequests: '',
+  redirect: false,
   isLoading: false,
   alert: '',
   friends: '',
   showFriendOnMap: '',
-  pastTrips: ''
+  pastTrips: '',
+  selectedUser: '',
+  currentUserPendingFriendsArray: '',
+  selectedFriendsWithCurrentUser: ''
 }
 
 // loader on 45:00
@@ -19,8 +23,8 @@ function usersReducer(state = usersState, action) {
   switch(action.type){
     case CREATING_USER:
       return {...state, isLoading: true, alert: ''}
-    case CREATED_USER:
-      return {...state, isLoading: false, currentUser: action.payload, alert: ''}
+    case CREATED_USER_SUCCESS:
+      return {...state, redirect: true, isLoading: false, currentUser: action.payload, alert: ''}
     case LOGGING_IN_USER:
       return {...state, isLoading: true, alert: ''}
     case LOGGING_IN_USER_SUCCESS:
@@ -51,7 +55,7 @@ function usersReducer(state = usersState, action) {
     case FETCHING_PROFILE:
       return {...state, isLoading: true, alert: ''}
     case FETCHED_PROFILE:
-      return {...state, isLoading: false, selectedUser: action.payload, alert: ''}
+      return {...state, isLoading: false, selectedUser: action.payload.user, currentUserPendingFriendsArray: action.payload.current_user_pending_friends_array, selectedFriendsWithCurrentUser: action.payload.are_friends, alert: ''}
     case EDITING_USER:
       return {...state, isLoading: true}
     case EDITED_USER:
@@ -74,7 +78,3 @@ function usersReducer(state = usersState, action) {
 }
 
 export default usersReducer;
-
-
-// minute 12:14 how to set this up but i want to see the combined
-// connect on 17:30

@@ -14,7 +14,6 @@ import TripsContainer from './containers/Trips'
 import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 import About from './containers/About'
-// import AddMoreUserInfo from './users/AddMoreUserInfo'
 import AskUserWhereTheyLiveAfterTrip from './users/AskUserWhereTheyLiveAfterTrip'
 class LoggedInRoutes extends React.Component {
 
@@ -23,12 +22,10 @@ class LoggedInRoutes extends React.Component {
      this.props.history.push('/')
     }else{
       this.props.dispatchCurrentUser()
-      // this.props.fetchFriends(this.props.currentUser)
     }
   }
 
   render() {
-    console.log(this.props.currentUser)
     return (
       <React.Fragment>
         <div id="main-container" className="fourteen wide column">

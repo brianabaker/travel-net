@@ -1,8 +1,6 @@
 
-// packages
+// react, redux
 import React from "react";
-// import Geocode from "react-geocode";
-// import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { connect } from "react-redux"
 
 // actions
@@ -35,9 +33,40 @@ class SignUp extends React.Component {
     })
   };
 
+
+  componentWillReceiveProps(nextProps){
+    console.log('in receive props');
+    console.log('SIGNUP', this.props.errors)
+    console.log('next', nextProps.errors)
+  }
+
+  ifErrors = () => {
+    let errorHTML = '';
+    if (this.props.errors){
+          console.log('if errors');
+      Object.keys(this.props.errors).map(errors => {
+        console.log('error', this.props.errors[errors]);
+        Object.keys( this.props.errors[errors] ).map(errorKey => {
+          console.log('erroryKey', errorKey, this.props.errors[errors][errorKey] )
+           errorHTML += `${errorKey} - ${this.props.errors[errors][errorKey]}`
+        })
+
+      })
+      return(
+        <div className="ui warning message">
+          <ul>{errorHTML}</ul>
+        </div>
+      )
+    }
+    // console.log( errorHTML)
+    // return errorHTML;
+  }
+
   render() {
+    // console.log('SIGNUP', this.props.errors)
     return (
       <div id="opaque">
+        {this.ifErrors()}
         <form className="ui form" onSubmit={this.addUser}>
           <div>
             <label>Username
@@ -81,14 +110,14 @@ class SignUp extends React.Component {
           </div>
           <input type="submit"/>
           </form>
-          {this.props.errors ? this.props.errors : null}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {errors: state.users.alert}
+  return {errors: state.errors.errors,
+          redirect: state.users.redirect}
 }
 
 export default connect(mapStateToProps, { createUser })(SignUp)

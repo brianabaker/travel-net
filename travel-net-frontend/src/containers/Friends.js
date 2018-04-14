@@ -4,8 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // components
-// import AllFriendsMap from '../allFriendsMap'
-import FindFriends from '../friends/FindFriends'// this is the search component
+import FindFriends from '../friends/FindFriends'
 import ListFriends from '../friends/ListFriends'
 
 import FriendRequests from '../friends/FriendRequests'
@@ -15,13 +14,10 @@ import FriendsMap from '../friends/FriendsMap'
 import UserApi from '../services/userApi'
 
 import {findAddress} from '../helpers'
-// import FriendsMenu from './FriendsMenu'
-// needed an empty map to show up as a quick fix if they had no friends. TODO
 import EmptyMap from '../friends/EmptyMap'
 
 class Friends extends React.Component {
   state = {
-    // allFriends: [],
     filterFriends: [],
     cityName: '',
     erros: '',
@@ -77,9 +73,10 @@ class Friends extends React.Component {
   }
 
   searchUsers = (query) => {
-    // console.log('search', query)
+    console.log('search', query)
     UserApi.searchUsers(this.props.currentUser.id, query)
     .then(searchResults => {
+      console.log('results', searchResults)
       if (searchResults.length <= 0) {
         this.setState({
           errors: "No results found!"
@@ -117,9 +114,6 @@ class Friends extends React.Component {
     )
   }
 }
-
-// <div className="ui centered column"><FindFriends errors={this.state.errors} search={this.searchUsers} undo={this.undoFriendsByLocation}/></div>
-// <div className="ui centered column"><button onClick={this.seeFriendRequests} className="ui green button">See Friend Requests</button></div>
 
 const mapStateToProps = (state) => {
   return {currentUser: state.users.currentUser,
