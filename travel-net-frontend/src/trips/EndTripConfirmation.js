@@ -2,9 +2,6 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import React from 'react'
 
-// import Popup from "reactjs-popup";
-// import AskUserWhereTheyLiveAfterTrip from '../users/AskUserWhereTheyLiveAfterTrip'
-
 const EndTripConfirmation = (props) => {
   const submit = () => {
     confirmAlert({
@@ -17,7 +14,6 @@ const EndTripConfirmation = (props) => {
         },
         {
           label: 'No'
-          // onClick: () => alert('Click No')
         }
       ]
     })

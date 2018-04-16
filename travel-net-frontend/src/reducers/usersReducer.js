@@ -24,6 +24,7 @@ function usersReducer(state = usersState, action) {
     case CREATING_USER:
       return {...state, isLoading: true, alert: ''}
     case CREATED_USER_SUCCESS:
+      console.log('redirect set to true')
       return {...state, redirect: true, isLoading: false, currentUser: action.payload, alert: ''}
     case LOGGING_IN_USER:
       return {...state, isLoading: true, alert: ''}
@@ -36,7 +37,6 @@ function usersReducer(state = usersState, action) {
     case REQUEST_FRIENDSHIP:
       return {...state, alert: ''}
     case REQUESTED_FRIENDSHIP:
-          console.log('hit completed friend request')
       return {...state, selectedUser: '', alert: action.payload}
     case VIEW_FRIEND_REQUESTS:
       return {...state, alert: ''}

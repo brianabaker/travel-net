@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux"
 
 // actions
-import { createUser } from "../actions/users"
+import { createUser, renderAddBioPage } from "../actions/users"
 
 //helpers
 import {getLatLng} from '../helpers'
@@ -33,17 +33,9 @@ class SignUp extends React.Component {
     })
   };
 
-
-  componentWillReceiveProps(nextProps){
-    console.log('in receive props');
-    console.log('SIGNUP', this.props.errors)
-    console.log('next', nextProps.errors)
-  }
-
   ifErrors = () => {
     let errorHTML = '';
     if (this.props.errors){
-          console.log('if errors');
       Object.keys(this.props.errors).map(errors => {
         console.log('error', this.props.errors[errors]);
         Object.keys( this.props.errors[errors] ).map(errorKey => {
@@ -58,14 +50,12 @@ class SignUp extends React.Component {
         </div>
       )
     }
-    // console.log( errorHTML)
-    // return errorHTML;
   }
 
   render() {
-    // console.log('SIGNUP', this.props.errors)
     return (
       <div id="opaque">
+        {this.props.redirect ? this.props.renderAddBioPage() : null}
         {this.ifErrors()}
         <form className="ui form" onSubmit={this.addUser}>
           <div>
@@ -120,4 +110,4 @@ const mapStateToProps = (state) => {
           redirect: state.users.redirect}
 }
 
-export default connect(mapStateToProps, { createUser })(SignUp)
+export default connect(mapStateToProps, { createUser, renderAddBioPage })(SignUp)

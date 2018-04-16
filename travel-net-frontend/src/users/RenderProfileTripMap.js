@@ -7,7 +7,6 @@ import {fetchTripMap} from '../actions/trips'
 class RenderProfileTripMap extends React.Component {
 
   componentDidMount(){
-    console.log(this.props.selectedUser.on_trip)
     if (this.props.friends && this.props.selectedUser.on_trip){
       this.props.fetchTripMap(this.props.selectedUser.current_trip_id)
     }

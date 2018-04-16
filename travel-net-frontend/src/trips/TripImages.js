@@ -1,7 +1,6 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 import React from 'react'
 import {connect} from 'react-redux'
-// import ImageGallery from 'react-image-gallery';
 
 class TripImages extends React.Component {
 
@@ -40,18 +39,6 @@ class TripImages extends React.Component {
   }
 }
 
-// {{overflow: "auto", overflowY: "hidden"}}
-
-// const images = [
-//    props.tripPhotos.map(photo => ({
-//     original: photo.trip_photo_url
-//   }),
-// )]
-// return(
-//   <div>
-//     <ImageGallery items={images} />
-//   </div>
-// )
 const mapStateToProps = (state) => {
   return {tripPhotos: state.trips.tripPhotos}
 }

@@ -16,7 +16,6 @@ class AddMoreUserInfo extends React.Component {
 
   submitInfo = (e) => {
     e.preventDefault()
-    console.log(this.props)
     this.props.addBio(this.props.currentUser, this.state.bio,  this.state.url)
   }
 

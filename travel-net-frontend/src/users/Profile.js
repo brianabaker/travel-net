@@ -18,14 +18,17 @@ class Profile extends React.Component {
 
   componentDidMount(){
     this.props.fetchProfile(this.props.currentUser, this.props.match.params.userId)
+    this.requestFriendshipFunction()
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
       this.props.fetchProfile(this.props.currentUser, nextProps.match.params.userId)
+      this.requestFriendshipFunction()
     }
     if (this.props.currentUser !== nextProps.currentUser){
       this.props.fetchProfile(nextProps.currentUser, nextProps.match.params.userId)
+      this.requestFriendshipFunction()
     }
   }
 

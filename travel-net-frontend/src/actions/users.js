@@ -9,7 +9,7 @@ export const LOGGING_IN_USER = "LOGGING_IN_USER"
 export const LOGGING_IN_USER_SUCCESS = "LOGGING_IN_USER_SUCCESS"
 export const SET_USER = "SET_USER"
 export const CREATING_USER = "CREATING_USER"
-export const CREATED_USER_SUCCESS = "CREATED_USER_SUCESS"
+export const CREATED_USER_SUCCESS = "CREATED_USER_SUCCESS"
 export const SELECTED_USER = "SELECTED_USER"
 export const REQUEST_FRIENDSHIP = "REQUEST_FRIENDSHIP"
 export const REQUESTED_FRIENDSHIP = "REQUESTED_FRIENDSHIP"
@@ -29,6 +29,7 @@ export const SHOW_FRIEND_ON_MAP = "SHOW_FRIEND_ON_MAP"
 export const RENDER_SIGN_UP_PAGE = "RENDER_SIGN_UP_PAGE"
 export const FETCHED_PAST_TRIPS = "FETCHED_PAST_TRIPS"
 export const CHANGE_USER_LOCATION = "CHANGE_USER_LOCATION"
+export const RENDER_ADD_BIO_PAGE = "RENDER_ADD_BIO_PAGE"
 
 // ASK ABOUT THIS ONE
 export const RETURN_TO_FRIENDS_MENU = "RETURN_TO_FRIENDS_MENU"
@@ -45,6 +46,13 @@ export function renderSignUpPage() {
   return function(dispatch){
     dispatch({type: "RENDER_SIGN_UP_PAGE"})
     dispatch(push('/signup'))
+  }
+}
+
+export function renderAddBioPage() {
+  return function(dispatch){
+    dispatch({type: "RENDER_ADD_BIO_PAGE"})
+    dispatch(push('/addbio'))
   }
 }
 
@@ -128,6 +136,7 @@ export function createUser(username, password, passwordConfirmation, location) {
          console.log(userJSON)
          dispatch({type: "SIGN_UP_ERROR", errors: userJSON})
        } else {
+         console.log('success')
          localStorage.setItem("token", userJSON.auth_token)
          dispatch({type: "CREATED_USER_SUCCESS", payload: userJSON.user})
        }
