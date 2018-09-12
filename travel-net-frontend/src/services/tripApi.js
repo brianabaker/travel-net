@@ -2,7 +2,7 @@
 class TripApi {
 
   static endTrip(currentUser, trip){
-    return fetch(`http://localhost:3000/trips/${trip.id}/endtrip/`, {
+    return fetch(`/trips/${trip.id}/endtrip/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -15,7 +15,7 @@ class TripApi {
   }
 
   static addToTrip(tripId, res){
-    return fetch(`http://localhost:3000/trips/${tripId}/add`, {
+    return fetch(`/trips/${tripId}/add`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -28,7 +28,7 @@ class TripApi {
   }
 
   static createTrip(currentUser, tripName, res) {
-    return fetch('http://localhost:3000/trips', {
+    return fetch('/trips', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -44,22 +44,22 @@ class TripApi {
 
 
   static fetchTrip(tripId){
-    return fetch(`http://localhost:3000/trips/${tripId}`)
+    return fetch(`/trips/${tripId}`)
     .then(res => res.json())
   }
 
   static fetchLocations(tripId) {
-    return fetch(`http://localhost:3000/trips/${tripId}/locations`)
+    return fetch(`/trips/${tripId}/locations`)
     .then(res => res.json())
   }
 
   static fetchPhotos(tripId) {
-    return fetch(`http://localhost:3000/trips/${tripId}/photos`)
+    return fetch(`/trips/${tripId}/photos`)
     .then(res => res.json())
   }
 
   static addPhotos(tripId, photos) {
-      return fetch(`http://localhost:3000/trips/${tripId}/photos`, {
+      return fetch(`/trips/${tripId}/photos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -73,7 +73,7 @@ class TripApi {
 
 
   static editTripLocation(tripLocationId, lat, lng) {
-    return fetch(`http://localhost:3000/triplocations/${tripLocationId}`, {
+    return fetch(`/triplocations/${tripLocationId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"

@@ -3,7 +3,7 @@
 class UserApi {
 
   static fetchCurrentUser() {
-    return fetch('http://localhost:3000/active_user', {
+    return fetch('/active_user', {
       method: 'POST',
       headers: {
         'authorization': localStorage.getItem('token')
@@ -12,7 +12,7 @@ class UserApi {
   }
 
   static createUser(username, password, passwordConfirmation, location) {
-    return fetch("http://localhost:3000/users/", {
+    return fetch("/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -28,7 +28,7 @@ class UserApi {
   }
 
   static login(username, password) {
-    return fetch("http://localhost:3000/auth_user", {
+    return fetch("/auth_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -41,7 +41,7 @@ class UserApi {
   }
 
   static searchUsers(id, username) {
-    return fetch("http://localhost:3000/users/search", {
+    return fetch("/users/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -55,7 +55,7 @@ class UserApi {
   }
 
   static requestFriendship(currentUser, user) {
-    return fetch("http://localhost:3000/users/request", {
+    return fetch("/users/request", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -69,7 +69,7 @@ class UserApi {
   }
 
   static viewFriendRequests(currentUser) {
-    return fetch("http://localhost:3000/users/viewrequests", {
+    return fetch("/users/viewrequests", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -82,7 +82,7 @@ class UserApi {
   }
 
   static positiveResponseFriendRequest(currentUser, friend) {
-    return fetch("http://localhost:3000/users/addfriend", {
+    return fetch("/users/addfriend", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -95,13 +95,13 @@ class UserApi {
   }
 
   static fetchFriends(currentUser) {
-    return fetch(`http://localhost:3000/users/${currentUser.id}/friends`)
+    return fetch(`/users/${currentUser.id}/friends`)
     .then(res => res.json())
   }
 
   static fetchProfile(currentUser, id) {
     console.log('in fetch profile', currentUser, id)
-    return fetch(`http://localhost:3000/users/${id}`, {
+    return fetch(`/users/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -114,7 +114,7 @@ class UserApi {
   }
 
   static editProfile(currentUser, username, bio, photoUrl){
-    return fetch('http://localhost:3000/users/', {
+    return fetch('/users/', {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -130,7 +130,7 @@ class UserApi {
   }
 
   static editUserLocation(currentUser, lat, lng){
-    return fetch(`http://localhost:3000/users/wherelive`, {
+    return fetch(`/users/wherelive`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json"
@@ -145,7 +145,7 @@ class UserApi {
   }
 
   static addBio(currentUser, bio, photoUrl){
-    return fetch('http://localhost:3000/users/addbio', {
+    return fetch('/users/addbio', {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"

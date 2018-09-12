@@ -1,6 +1,6 @@
 class ChatApi {
   static fetchChat(currentUser, friend) {
-    return fetch("http://localhost:3000/chatrooms/find", {
+    return fetch("/chatrooms/find", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ class ChatApi {
 
   static sendMessage(chatroomId, currentUser, content) {
     console.log(content)
-    return fetch(`http://localhost:3000/chatrooms/${chatroomId}/add_message`, {
+    return fetch(`/chatrooms/${chatroomId}/add_message`, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
