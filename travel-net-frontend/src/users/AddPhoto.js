@@ -1,7 +1,6 @@
 
 import React from 'react'
 import ReactFilestack from 'filestack-react'
-import keys from '../keys.js'
 
 class AddPhoto extends React.Component {
 
@@ -17,7 +16,7 @@ class AddPhoto extends React.Component {
     return(
       <div>
           <ReactFilestack
-          apikey={keys.filestackKey}
+          apikey={"AgECQ74WESFue6arOCoOhz"}
           buttonText={this.props.text}
           buttonClass="ui medium button gray"
           options={basicOptions}

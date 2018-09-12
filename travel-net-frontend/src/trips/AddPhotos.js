@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactFilestack from 'filestack-react'
-import keys from '../keys.js'
 
 const AddPhotos = (props) => {
   const basicOptions = {
@@ -13,7 +12,7 @@ const AddPhotos = (props) => {
   return(
     <div style={{padding: "0"}}>
         <ReactFilestack
-        apikey={keys.filestackKey}
+        apikey={"AgECQ74WESFue6arOCoOhz"}
         buttonText={"Add Photos"}
         buttonClass="ui mini button gray"
         options={basicOptions}
