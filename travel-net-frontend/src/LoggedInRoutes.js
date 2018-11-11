@@ -15,14 +15,18 @@ import Trip from './trips/Trip'
 import EditProfile from './users/EditProfile'
 import About from './containers/About'
 import AskUserWhereTheyLiveAfterTrip from './users/AskUserWhereTheyLiveAfterTrip'
+
+
 class LoggedInRoutes extends React.Component {
 
   componentDidMount(){
-    if (localStorage.length===0){
-     this.props.history.push('/')
-    }else{
+    console.log('THIS GETS CALLED')
+    // if (localStorage.length===0){
+    //  this.props.history.push('/')
+    // }else{
       this.props.dispatchCurrentUser()
-    }
+    // }
+    console.log('user', this.props.currentUser)
   }
 
   render() {

@@ -11,17 +11,18 @@ class RenderLocation extends React.Component {
     this.showLocation(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.lat !== nextProps.lat) {
-      this.showLocation(nextProps)
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.lat !== nextProps.lat) {
+  //     this.showLocation(nextProps)
+  //   }
+  // }
 
   showLocation = (nextProps) => {
       let lat = parseFloat(nextProps.lat)
       let lng = parseFloat(nextProps.lng)
       return findAddress(lat, lng)
       .then(data =>  {
+        console.log('location', data)
         this.setState({
           location: data
         })

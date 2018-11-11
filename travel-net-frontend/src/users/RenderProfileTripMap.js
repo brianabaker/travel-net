@@ -13,7 +13,6 @@ class RenderProfileTripMap extends React.Component {
   }
 
   render(){
-    console.log('rendertripmap', this.props.tripLocations)
     return(
       <React.Fragment>
         {this.props.tripLocations ? <TripMap locations={this.props.tripLocations}/> : null}

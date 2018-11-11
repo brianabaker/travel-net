@@ -13,7 +13,7 @@ class Profile extends React.Component {
     sameUser: false,
     location: '',
     tripLocations: '',
-    requestedFriendshipBoolean: ''
+    requestedFriendshipBoolean: false
   }
 
   componentDidMount(){
@@ -21,16 +21,19 @@ class Profile extends React.Component {
     this.requestFriendshipFunction()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.userId !== nextProps.match.params.userId) {
-      this.props.fetchProfile(this.props.currentUser, nextProps.match.params.userId)
-      this.requestFriendshipFunction()
-    }
-    if (this.props.currentUser !== nextProps.currentUser){
-      this.props.fetchProfile(nextProps.currentUser, nextProps.match.params.userId)
-      this.requestFriendshipFunction()
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.match.params.userId !== nextProps.match.params.userId) {
+  //     this.props.fetchProfile(this.props.currentUser, nextProps.match.params.userId)
+  //     this.requestFriendshipFunction()
+  //      this.forceUpdate();
+  //   }
+  //   if (this.props.currentUser !== nextProps.currentUser){
+  //     this.props.fetchProfile(nextProps.currentUser, nextProps.match.params.userId)
+  //     this.requestFriendshipFunction()
+  //   }
+  // }
+
+  //it wasn't loading the next user on page refresh... i used to have it all saved in localStorage and then Meryl told me not too...
 
   requestFriendshipFunction = () => {
     if (this.props.currentUserPendingFriendsArray) {
@@ -71,17 +74,17 @@ class Profile extends React.Component {
   }
 
   checkButton = () => {
-    if ((this.props.currentUser.id !== this.props.selectedUser.id) && this.state.requestedFriendshipBoolean === false) {
+    if (this.props.selectedFriendsWithCurrentUser === true) {
+      return(
+        <RenderButton text={"remove friend"}/>
+      )
+    } else if ((this.props.currentUser.id !== this.props.selectedUser.id) && (this.state.requestedFriendshipBoolean === false)) {
       return(
         <RenderButton text={"add friend"} function={this.requestFriendship}/>
       )
     } else if (this.props.currentUser.id === this.props.selectedUser.id) {
       return(
         <RenderButton text={"edit profile"} function={() => this.props.history.push('/edit')}/>
-      )
-    } else if (this.props.selectedFriendsWithCurrentUser === true) {
-      return(
-        <RenderButton text={"remove friend"}/>
       )
     } else if (this.state.requestedFriendshipBoolean === true) {
       return (
