@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 // import Friends from './Friends'
 // import VerticalMenu from './VerticalMenu'
-import {selectUser, showFriendOnMap} from '../actions/users'
+import {fetchProfile, selectUser, showFriendOnMap} from '../actions/users'
 class FriendItem extends React.Component {
 
   state = {
@@ -20,13 +20,14 @@ class FriendItem extends React.Component {
 
   render() {
       let itemClass = this.props.currentChatId === this.props.id ? "active item" : "item"
+      console.log('herehehr', this.props)
     return(
       <React.Fragment>
         <div className="ui left pointing dropdown link item" onClick={() => this.toggleMenu(this.props.id)}>{this.props.name}</div>
           {this.state.menuId === this.props.id ?
           <div className="menu">
             <a className="item" onClick={() => this.props.showFriendOnMap(this.props.lat, this.props.lng)}>View on Map</a>
-            <a className="item" onClick={() => this.props.selectUser(this.props.id)}>Profile</a>
+            <a className="item" onClick={() => this.props.fetchProfile(this.props.currentUser, this.props.id)}>Profile</a>
             <a className="item" onClick={() => this.props.toggleVisibility(this.props.id)}>Chat</a>
           </div>
           : null }
@@ -34,5 +35,8 @@ class FriendItem extends React.Component {
     )
   }
 }
-
-export default connect(null, {selectUser, showFriendOnMap})(FriendItem)
+const mapStateToProps = (state) => {
+  return {currentUser: state.users.currentUser,
+          }
+}
+export default connect(mapStateToProps, {fetchProfile, showFriendOnMap})(FriendItem)

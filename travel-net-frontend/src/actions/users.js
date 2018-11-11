@@ -58,7 +58,15 @@ export function renderAddBioPage() {
 
 export function selectUser(id) {
   return function(dispatch){
-    // dispatch({type: "SELECTED_USER", payload: user})
+    dispatch({type: "SELECTED_USER", payload: id})
+  }
+}
+export function fetchProfile(currentUser, id){
+  return function(dispatch){
+    dispatch({type: "FETCHING_PROFILE"})
+    UserApi.fetchProfile(currentUser, id).then(userInfoJSON => {
+      dispatch({type: "FETCHED_PROFILE", payload: userInfoJSON})
+    })
     dispatch(push(`/users/${id}`))
   }
 }
@@ -97,14 +105,6 @@ export function changeUserLocation(currentUser, lat, lng){
   }
 }
 
-export function fetchProfile(currentUser, id){
-  return function(dispatch){
-    dispatch({type: "FETCHING_PROFILE"})
-    UserApi.fetchProfile(currentUser, id).then(userInfoJSON => {
-      dispatch({type: "FETCHED_PROFILE", payload: userInfoJSON})
-    })
-  }
-}
 
 export function fetchFriends(currentUser) {
   return function(dispatch){

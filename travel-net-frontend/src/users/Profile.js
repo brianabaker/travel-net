@@ -7,6 +7,7 @@ import TripMap from '../trips/TripMap'
 import RenderButton from './RenderButton'
 import RenderProfileTripMap from './RenderProfileTripMap'
 import RenderProfileInfo from './RenderProfileInfo'
+import {withRouter} from 'react-router-dom'
 
 class Profile extends React.Component {
   state = {
@@ -22,15 +23,16 @@ class Profile extends React.Component {
   }
 
   // componentWillReceiveProps(nextProps) {
-  //   if (this.props.match.params.userId !== nextProps.match.params.userId) {
-  //     this.props.fetchProfile(this.props.currentUser, nextProps.match.params.userId)
-  //     this.requestFriendshipFunction()
-  //      this.forceUpdate();
-  //   }
-  //   if (this.props.currentUser !== nextProps.currentUser){
-  //     this.props.fetchProfile(nextProps.currentUser, nextProps.match.params.userId)
-  //     this.requestFriendshipFunction()
-  //   }
+  //   console.log('INSIDE THE RECEIVE PROPS', this.props)
+  //   // if (this.props.match.params.userId !== nextProps.match.params.userId) {
+  //   //   this.props.fetchProfile(this.props.currentUser, nextProps.match.params.userId)
+  //   //   this.requestFriendshipFunction()
+  //   //    this.forceUpdate();
+  //   // }
+  //   // if (this.props.currentUser !== nextProps.currentUser){
+  //   //   this.props.fetchProfile(nextProps.currentUser, nextProps.match.params.userId)
+  //   //   this.requestFriendshipFunction()
+  //   // }
   // }
 
   //it wasn't loading the next user on page refresh... i used to have it all saved in localStorage and then Meryl told me not too...
@@ -159,4 +161,5 @@ const mapStateToProps = (state) => {
           }
 }
 
-export default connect(mapStateToProps, {fetchProfile, requestFriendship, fetchTripMap})(Profile)
+const ConnectedProfile = withRouter(connect(mapStateToProps, {fetchProfile, requestFriendship, fetchTripMap})(Profile));
+export default ConnectedProfile;
